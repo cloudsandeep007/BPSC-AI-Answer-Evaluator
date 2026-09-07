@@ -1,6 +1,15 @@
--- BPSC AI Answer Evaluator - initial schema
--- Run this once in Supabase: Dashboard -> SQL Editor -> paste -> Run.
--- Safe to re-run: every statement is idempotent (IF NOT EXISTS / ON CONFLICT).
+-- 0001_baseline.sql
+--
+-- Baseline: the schema exactly as it already existed in the live database
+-- before migrations were introduced. It was originally applied by hand
+-- through the Supabase SQL Editor; this file captures that state so
+-- replaying db/migrations/ in order reproduces the live database from
+-- nothing.
+--
+-- Every statement is idempotent, so applying this to the already-populated
+-- live database is a no-op.
+--
+-- Apply with: npm run migrate
 
 create extension if not exists pgcrypto;
 
