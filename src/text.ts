@@ -1,0 +1,62 @@
+export type Lang = "hi" | "hinglish" | "en";
+
+export const strings: Record<Lang, Record<string, string>> = {
+  hi: {
+    reading: "फोटो पढ़ रहे हैं, कृपया प्रतीक्षा करें...",
+    confirmPrompt: "यह रहा आपका उत्तर। क्या यह सही है?",
+    btnConfirm: "✅ सही है",
+    btnEdit: "✏️ सुधारें",
+    editAsk: "नीचे आपका सेव किया हुआ उत्तर है। इसे कॉपी करके, जो गलत है उसे ठीक करके, पूरा उत्तर वापस भेजें:",
+    editSaved: "धन्यवाद, सुधार सेव हो गया।",
+    lowConfidence: "फोटो साफ़ नहीं है, कृपया अच्छी रोशनी में दोबारा फोटो खींचकर भेजें।",
+    confirmed: "👍 ठीक है, नोट कर लिया।",
+    needLanguage: "कृपया पहले /start भेजकर अपनी भाषा चुनें।",
+    somethingWrong: "कुछ गड़बड़ हो गई, कृपया दोबारा कोशिश करें।",
+    sendPhoto: "बढ़िया! अपने हाथ से लिखे उत्तर की साफ़ फोटो भेजें।",
+    editShrinkWarning: "आपका नया जवाब पहले से काफी छोटा है। क्या आप पूरा उत्तर इससे बदलना चाहते हैं, या यह सिर्फ एक छोटा सा नोट था?",
+    btnEditConfirm: "हाँ, पूरा बदल दें",
+    btnEditCancel: "नहीं, रद्द करें",
+    editCancelled: "ठीक है, रद्द कर दिया। ऊपर दिया पूरा उत्तर कॉपी करके सही किया हुआ पूरा जवाब भेजें।",
+    unrecognized: "समझ नहीं आया। शुरू करने के लिए अपने उत्तर की फोटो भेजें।",
+  },
+  hinglish: {
+    reading: "Photo padh rahe hain, thoda wait kariye...",
+    confirmPrompt: "Yeh raha aapka answer. Kya yeh sahi hai?",
+    btnConfirm: "✅ Sahi hai",
+    btnEdit: "✏️ Edit karna hai",
+    editAsk: "Neeche aapka saved answer hai. Ise copy karke, jo galat hai use theek karke, poora answer wapas bhejiye:",
+    editSaved: "Dhanyavaad, edit save ho gaya.",
+    lowConfidence: "Photo clear nahi hai, please achi roshni mein dobara photo lekar bhejiye.",
+    confirmed: "👍 Theek hai, note kar liya.",
+    needLanguage: "Pehle /start bhejkar apni language choose kariye.",
+    somethingWrong: "Kuch gadbad ho gayi, please dobara try kariye.",
+    sendPhoto: "Badhiya! Apne haath se likhe answer ki saaf photo bhejiye.",
+    editShrinkWarning: "Aapka naya jawab pehle se kaafi chhota hai. Kya aap poora answer isse replace karna chahte hain, ya yeh sirf ek chhota note tha?",
+    btnEditConfirm: "Haan, poora badal do",
+    btnEditCancel: "Nahi, cancel karo",
+    editCancelled: "Theek hai, cancel kar diya. Upar diya poora answer copy karke sahi kiya hua poora jawab bhejiye.",
+    unrecognized: "Samajh nahi aaya. Shuru karne ke liye apne answer ki photo bhejiye.",
+  },
+  en: {
+    reading: "Reading your photo, one moment...",
+    confirmPrompt: "Here's what I read. Is this correct?",
+    btnConfirm: "✅ Correct",
+    btnEdit: "✏️ Edit",
+    editAsk: "Here's your saved answer below. Copy it, fix what's wrong, and send back the full corrected answer:",
+    editSaved: "Thanks, your correction has been saved.",
+    lowConfidence: "The photo wasn't clear enough. Please retake it in good light and resend.",
+    confirmed: "👍 Got it, noted.",
+    needLanguage: "Please choose your language first by sending /start.",
+    somethingWrong: "Something went wrong reading that photo. Please try again.",
+    sendPhoto: "Great! Send a clear photo of your handwritten answer to get started.",
+    editShrinkWarning: "This is a lot shorter than your original answer. Do you want to replace the whole answer with this, or was it just a short note?",
+    btnEditConfirm: "Yes, replace it",
+    btnEditCancel: "No, cancel",
+    editCancelled: "Okay, cancelled. Copy the full answer above, fix it, and send the whole corrected answer back.",
+    unrecognized: "I didn't understand that. Send a photo of your answer to get started.",
+  },
+};
+
+export function t(lang: Lang | null | undefined, key: string): string {
+  return strings[lang ?? "en"][key] ?? strings.en[key];
+}
