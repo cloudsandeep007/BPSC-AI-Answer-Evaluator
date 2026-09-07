@@ -19,6 +19,10 @@ const server = http.createServer(async (req, res) => {
   res.end();
 });
 
-server.listen(config.port, () => {
-  console.log(`BPSC bot webhook server listening on port ${config.port}`);
+// Bind to 0.0.0.0, not Node's default. Inside a container, the default
+// wildcard leaves the process reachable on the container's own loopback but
+// not from Railway's edge proxy - which presents as the app logging
+// "listening" happily while every request 502s.
+server.listen(config.port, "0.0.0.0", () => {
+  console.log(`BPSC bot webhook server listening on 0.0.0.0:${config.port}`);
 });
