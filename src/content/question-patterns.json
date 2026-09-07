@@ -1,0 +1,2259 @@
+{
+  "_source": "BPSC-Question-Bank.csv",
+  "_generated_by": "scripts/ingest-content.ts",
+  "_warning": "Historical questions are pattern/style data only. They must never be served to a student verbatim - Stage 0 generates new questions and rejects any that are too similar to these.",
+  "total": 237,
+  "distribution": {
+    "by_paper": {
+      "GS Paper 2": 121,
+      "GS Paper 1": 84,
+      "Essay Paper": 32
+    },
+    "by_topic": {
+      "Polity": 46,
+      "History & Culture": 45,
+      "Geography & Economics": 45,
+      "Current Affairs": 39,
+      "Essay": 32,
+      "Science & Technology": 30
+    },
+    "by_directive": {
+      "Discuss": 57,
+      "Other": 54,
+      "Explain": 34,
+      "Examine": 15,
+      "What is / Define": 13,
+      "Critically Examine": 12,
+      "Describe": 10,
+      "Analyse": 9,
+      "Comment": 8,
+      "Evaluate": 7,
+      "Critically Analyse": 5,
+      "Substantiate": 4,
+      "Do you agree": 2,
+      "Critically Evaluate": 2,
+      "Highlight": 1,
+      "Trace": 1,
+      "Critically Discuss": 1,
+      "Compare": 1,
+      "Enumerate": 1
+    },
+    "topic_by_paper": {
+      "GS Paper 1": {
+        "History & Culture": 45,
+        "Current Affairs": 39
+      },
+      "GS Paper 2": {
+        "Polity": 46,
+        "Geography & Economics": 45,
+        "Science & Technology": 30
+      },
+      "Essay Paper": {
+        "Essay": 32
+      }
+    },
+    "directive_by_topic": {
+      "History & Culture": {
+        "Describe": 5,
+        "Discuss": 8,
+        "Analyse": 2,
+        "Explain": 6,
+        "Evaluate": 2,
+        "Examine": 5,
+        "Critically Examine": 2,
+        "Other": 11,
+        "Highlight": 1,
+        "Trace": 1,
+        "Critically Analyse": 2
+      },
+      "Polity": {
+        "Comment": 4,
+        "Examine": 4,
+        "Discuss": 6,
+        "Critically Examine": 6,
+        "What is / Define": 3,
+        "Critically Discuss": 1,
+        "Explain": 9,
+        "Do you agree": 2,
+        "Evaluate": 2,
+        "Critically Analyse": 2,
+        "Other": 1,
+        "Describe": 2,
+        "Analyse": 4
+      },
+      "Geography & Economics": {
+        "Discuss": 14,
+        "Explain": 11,
+        "Critically Examine": 2,
+        "Evaluate": 3,
+        "Examine": 4,
+        "Critically Evaluate": 2,
+        "What is / Define": 2,
+        "Other": 2,
+        "Compare": 1,
+        "Enumerate": 1,
+        "Analyse": 1,
+        "Comment": 1,
+        "Describe": 1
+      },
+      "Essay": {
+        "Other": 32
+      },
+      "Science & Technology": {
+        "Other": 4,
+        "Discuss": 12,
+        "What is / Define": 3,
+        "Explain": 3,
+        "Comment": 2,
+        "Describe": 2,
+        "Substantiate": 4
+      },
+      "Current Affairs": {
+        "What is / Define": 5,
+        "Discuss": 17,
+        "Explain": 5,
+        "Critically Examine": 2,
+        "Other": 4,
+        "Analyse": 2,
+        "Examine": 2,
+        "Comment": 1,
+        "Critically Analyse": 1
+      }
+    }
+  },
+  "questions": [
+    {
+      "id": "Q0001",
+      "paper": "GS Paper 1",
+      "exam_ref": "60th-62nd",
+      "topic": "History & Culture",
+      "directive": "Describe",
+      "marks": null,
+      "text": "Describe the people's participation in Bihar during the Quit India Movement of 1942."
+    },
+    {
+      "id": "Q0002",
+      "paper": "GS Paper 1",
+      "exam_ref": "60th-62nd",
+      "topic": "History & Culture",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Discuss the development of Western education in Bihar from 1813 to 1947."
+    },
+    {
+      "id": "Q0003",
+      "paper": "GS Paper 1",
+      "exam_ref": "60th-62nd",
+      "topic": "History & Culture",
+      "directive": "Analyse",
+      "marks": null,
+      "text": "Throw light on Mauryan Art and analyse its impact on Bihar."
+    },
+    {
+      "id": "Q0004",
+      "paper": "GS Paper 1",
+      "exam_ref": "60th-62nd",
+      "topic": "History & Culture",
+      "directive": "Explain",
+      "marks": null,
+      "text": "\"Gandhi's mystique consisted of a union of original ideas with a remarkable flair for tactics and uncanny insight into the mass mind.\" Elucidate."
+    },
+    {
+      "id": "Q0005",
+      "paper": "GS Paper 1",
+      "exam_ref": "60th-62nd",
+      "topic": "History & Culture",
+      "directive": "Evaluate",
+      "marks": null,
+      "text": "Evaluate the contribution of Rabindranath Tagore to Bengali literature and music."
+    },
+    {
+      "id": "Q0006",
+      "paper": "GS Paper 1",
+      "exam_ref": "60th-62nd",
+      "topic": "History & Culture",
+      "directive": "Examine",
+      "marks": null,
+      "text": "Examine the main features of Jawaharlal Nehru's foreign policy."
+    },
+    {
+      "id": "Q0007",
+      "paper": "GS Paper 1",
+      "exam_ref": "63rd",
+      "topic": "History & Culture",
+      "directive": "Describe",
+      "marks": null,
+      "text": "Describe the significance of Mahatma Gandhi's social and cultural ideas."
+    },
+    {
+      "id": "Q0008",
+      "paper": "GS Paper 1",
+      "exam_ref": "63rd",
+      "topic": "History & Culture",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Discuss the development of Western education in Bihar from 1857 to 1947."
+    },
+    {
+      "id": "Q0009",
+      "paper": "GS Paper 1",
+      "exam_ref": "63rd",
+      "topic": "History & Culture",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Discuss the contribution of Bihar to the Revolt of 1857."
+    },
+    {
+      "id": "Q0010",
+      "paper": "GS Paper 1",
+      "exam_ref": "63rd",
+      "topic": "History & Culture",
+      "directive": "Evaluate",
+      "marks": null,
+      "text": "Evaluate the causes and consequences of the Santhal Rebellion (1855-56)."
+    },
+    {
+      "id": "Q0011",
+      "paper": "GS Paper 1",
+      "exam_ref": "63rd",
+      "topic": "History & Culture",
+      "directive": "Describe",
+      "marks": null,
+      "text": "Describe the causes and results of the Champaran Satyagraha (1917)."
+    },
+    {
+      "id": "Q0012",
+      "paper": "GS Paper 1",
+      "exam_ref": "63rd",
+      "topic": "History & Culture",
+      "directive": "Examine",
+      "marks": null,
+      "text": "Examine the salient features of the Patna Kalam painting style."
+    },
+    {
+      "id": "Q0013",
+      "paper": "GS Paper 1",
+      "exam_ref": "64th",
+      "topic": "History & Culture",
+      "directive": "Critically Examine",
+      "marks": null,
+      "text": "Critically examine the evolution of Indian nationalism since the late nineteenth century."
+    },
+    {
+      "id": "Q0014",
+      "paper": "GS Paper 1",
+      "exam_ref": "64th",
+      "topic": "History & Culture",
+      "directive": "Explain",
+      "marks": null,
+      "text": "\"Champaran Satyagraha was a watershed in the freedom struggle.\" Elucidate."
+    },
+    {
+      "id": "Q0015",
+      "paper": "GS Paper 1",
+      "exam_ref": "64th",
+      "topic": "History & Culture",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Discuss overseas migration during the nineteenth century with special reference to indentured labour from Bihar."
+    },
+    {
+      "id": "Q0016",
+      "paper": "GS Paper 1",
+      "exam_ref": "64th",
+      "topic": "History & Culture",
+      "directive": "Examine",
+      "marks": null,
+      "text": "Examine the characteristics of tribal movements in nineteenth-century India and analyse the causes of their failure."
+    },
+    {
+      "id": "Q0017",
+      "paper": "GS Paper 1",
+      "exam_ref": "64th",
+      "topic": "History & Culture",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Discuss the features of Mauryan art and architecture and its relationship with Buddhism."
+    },
+    {
+      "id": "Q0018",
+      "paper": "GS Paper 1",
+      "exam_ref": "64th",
+      "topic": "History & Culture",
+      "directive": "Other",
+      "marks": null,
+      "text": "Write short notes on any two: (a) Working class and national movement (b) Impact of Census of 1881 on caste identity (c) Nehru and secularism."
+    },
+    {
+      "id": "Q0019",
+      "paper": "GS Paper 1",
+      "exam_ref": "65th",
+      "topic": "History & Culture",
+      "directive": "Other",
+      "marks": null,
+      "text": "What were the causes of the Revolt of 1857? What impact did it have on Bihar?"
+    },
+    {
+      "id": "Q0020",
+      "paper": "GS Paper 1",
+      "exam_ref": "65th",
+      "topic": "History & Culture",
+      "directive": "Describe",
+      "marks": null,
+      "text": "Describe the spread of Western education in Bihar between 1858 and 1914."
+    },
+    {
+      "id": "Q0021",
+      "paper": "GS Paper 1",
+      "exam_ref": "65th",
+      "topic": "History & Culture",
+      "directive": "Other",
+      "marks": null,
+      "text": "Write a note on Swami Sahajanand Saraswati and the Kisan Sabha Movement."
+    },
+    {
+      "id": "Q0022",
+      "paper": "GS Paper 1",
+      "exam_ref": "65th",
+      "topic": "History & Culture",
+      "directive": "Explain",
+      "marks": null,
+      "text": "Explain the social and economic ideas of Ram Manohar Lohia and Jayaprakash Narayan."
+    },
+    {
+      "id": "Q0023",
+      "paper": "GS Paper 1",
+      "exam_ref": "65th",
+      "topic": "History & Culture",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Discuss the features of Pala art and architecture and its relationship with Buddhism."
+    },
+    {
+      "id": "Q0024",
+      "paper": "GS Paper 1",
+      "exam_ref": "65th",
+      "topic": "History & Culture",
+      "directive": "Other",
+      "marks": null,
+      "text": "Write short notes on any two: (a) Dr. Rajendra Prasad and the national movement (b) Gandhiji's views on caste and religion (c) Dalit movement in Bihar."
+    },
+    {
+      "id": "Q0025",
+      "paper": "GS Paper 1",
+      "exam_ref": "66th",
+      "topic": "History & Culture",
+      "directive": "Other",
+      "marks": null,
+      "text": "What were the causes, course and results of the Santhal Revolt?"
+    },
+    {
+      "id": "Q0026",
+      "paper": "GS Paper 1",
+      "exam_ref": "66th",
+      "topic": "History & Culture",
+      "directive": "Examine",
+      "marks": null,
+      "text": "Examine the characteristics of the Birsa Munda Movement."
+    },
+    {
+      "id": "Q0027",
+      "paper": "GS Paper 1",
+      "exam_ref": "66th",
+      "topic": "History & Culture",
+      "directive": "Explain",
+      "marks": null,
+      "text": "\"Champaran Satyagraha was a turning point in India's freedom struggle.\" Explain."
+    },
+    {
+      "id": "Q0028",
+      "paper": "GS Paper 1",
+      "exam_ref": "66th",
+      "topic": "History & Culture",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Discuss Jawaharlal Nehru's views on communalism and secularism."
+    },
+    {
+      "id": "Q0029",
+      "paper": "GS Paper 1",
+      "exam_ref": "66th",
+      "topic": "History & Culture",
+      "directive": "Highlight",
+      "marks": null,
+      "text": "Bring out the main features of Patna Kalam painting."
+    },
+    {
+      "id": "Q0030",
+      "paper": "GS Paper 1",
+      "exam_ref": "66th",
+      "topic": "History & Culture",
+      "directive": "Other",
+      "marks": null,
+      "text": "Write short notes on any two: (a) Gandhiji's concept of Satyagraha (b) Jayaprakash Narayan and Quit India Movement (c) Subhas Chandra Bose and INA."
+    },
+    {
+      "id": "Q0031",
+      "paper": "GS Paper 1",
+      "exam_ref": "67th",
+      "topic": "History & Culture",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Discuss the factors responsible for the formation of the Indian National Congress."
+    },
+    {
+      "id": "Q0032",
+      "paper": "GS Paper 1",
+      "exam_ref": "67th",
+      "topic": "History & Culture",
+      "directive": "Trace",
+      "marks": null,
+      "text": "Trace the development of Western and technical education in Bihar between 1857 and 1947."
+    },
+    {
+      "id": "Q0033",
+      "paper": "GS Paper 1",
+      "exam_ref": "67th",
+      "topic": "History & Culture",
+      "directive": "Critically Analyse",
+      "marks": null,
+      "text": "Critically analyse the emergence of Mahatma Gandhi as a national leader."
+    },
+    {
+      "id": "Q0034",
+      "paper": "GS Paper 1",
+      "exam_ref": "67th",
+      "topic": "History & Culture",
+      "directive": "Other",
+      "marks": null,
+      "text": "Write an essay on the Quit India Movement of 1942."
+    },
+    {
+      "id": "Q0035",
+      "paper": "GS Paper 1",
+      "exam_ref": "67th",
+      "topic": "History & Culture",
+      "directive": "Describe",
+      "marks": null,
+      "text": "Describe the chief characteristics of Mauryan art."
+    },
+    {
+      "id": "Q0036",
+      "paper": "GS Paper 1",
+      "exam_ref": "67th",
+      "topic": "History & Culture",
+      "directive": "Other",
+      "marks": null,
+      "text": "Write short notes on any two: (a) Santhal Uprising (b) Champaran Satyagraha (c) Rabindranath Tagore and freedom movement."
+    },
+    {
+      "id": "Q0037",
+      "paper": "GS Paper 1",
+      "exam_ref": "68th",
+      "topic": "History & Culture",
+      "directive": "Other",
+      "marks": null,
+      "text": "Write short notes on: (a) Government of India Act, 1858 (b) Birsa Munda Movement (c) Indigo Revolt (d) Patna Kalam Painting (e) Development of caves in Eastern India in ancient time."
+    },
+    {
+      "id": "Q0038",
+      "paper": "GS Paper 1",
+      "exam_ref": "68th",
+      "topic": "History & Culture",
+      "directive": "Critically Analyse",
+      "marks": null,
+      "text": "Discuss the factors for the emergence of the Indian National Movement. How did it give direction to the freedom struggle? OR Discuss the growth of colonial technical education in Bihar under various schemes of British rule. Critically analyse its impact."
+    },
+    {
+      "id": "Q0039",
+      "paper": "GS Paper 1",
+      "exam_ref": "68th",
+      "topic": "History & Culture",
+      "directive": "Analyse",
+      "marks": null,
+      "text": "Analyse the development of temples in North India in ancient time. OR Describe Rabindranath Tagore's ideas of society and culture."
+    },
+    {
+      "id": "Q0040",
+      "paper": "GS Paper 1",
+      "exam_ref": "69th",
+      "topic": "History & Culture",
+      "directive": "Other",
+      "marks": null,
+      "text": "Write short notes on: (a) Indian Councils Act, 1892 (b) Santhal Uprising (c) Champaran Satyagraha (d) Art and Architecture of the Mauryan Period (e) Cave Paintings of Eastern India in Ancient Period."
+    },
+    {
+      "id": "Q0041",
+      "paper": "GS Paper 1",
+      "exam_ref": "69th",
+      "topic": "History & Culture",
+      "directive": "Explain",
+      "marks": null,
+      "text": "\"Bihar has been the centre of learning and spiritualism since ancient time.\" Explain in detail. OR Evaluate the Champaran Indigo Movement and explain its impacts on the Indian Freedom Struggle."
+    },
+    {
+      "id": "Q0042",
+      "paper": "GS Paper 1",
+      "exam_ref": "69th",
+      "topic": "History & Culture",
+      "directive": "Critically Examine",
+      "marks": null,
+      "text": "Critically examine the contribution of the moderate phase of the Indian National Congress Movement. OR Trace the development of modern education in Bihar and its impact."
+    },
+    {
+      "id": "Q0043",
+      "paper": "GS Paper 1",
+      "exam_ref": "70th",
+      "topic": "History & Culture",
+      "directive": "Other",
+      "marks": null,
+      "text": "Write short notes on: (a) The Indian Councils Act, 1861 (b) Role of Bihar in the Quit India Movement (c) Santhal Uprising (d) Patna Kalam Painting (e) Art and Architecture of the Mauryan Age."
+    },
+    {
+      "id": "Q0044",
+      "paper": "GS Paper 1",
+      "exam_ref": "70th",
+      "topic": "History & Culture",
+      "directive": "Explain",
+      "marks": null,
+      "text": "Describe the Champaran Indigo Movement and explain its impacts on the Indian freedom struggle. OR How were the British policies responsible for the emergence of Indian National Movement? Explain."
+    },
+    {
+      "id": "Q0045",
+      "paper": "GS Paper 1",
+      "exam_ref": "70th",
+      "topic": "History & Culture",
+      "directive": "Examine",
+      "marks": null,
+      "text": "Examine the expansion of Western Education in Bihar from the mid-nineteenth century onward. OR Assess the constructive works of Mahatma Gandhi."
+    },
+    {
+      "id": "Q0046",
+      "paper": "GS Paper 2",
+      "exam_ref": "60th-62nd",
+      "topic": "Polity",
+      "directive": "Comment",
+      "marks": null,
+      "text": "\"The Directive Principles of State Policy are not mere pious declaration but clear directions for the guidance of State Policy.\" Comment and show how far they have been applied in practice."
+    },
+    {
+      "id": "Q0047",
+      "paper": "GS Paper 2",
+      "exam_ref": "60th-62nd",
+      "topic": "Polity",
+      "directive": "Examine",
+      "marks": null,
+      "text": "Examine the concept of Hindutva. Is it against secularism?"
+    },
+    {
+      "id": "Q0048",
+      "paper": "GS Paper 2",
+      "exam_ref": "60th-62nd",
+      "topic": "Polity",
+      "directive": "Examine",
+      "marks": null,
+      "text": "Identify the major pressure groups in Indian politics and examine their role in it."
+    },
+    {
+      "id": "Q0049",
+      "paper": "GS Paper 2",
+      "exam_ref": "60th-62nd",
+      "topic": "Polity",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Discuss the powers and actual position of the Governor in Bihar politics."
+    },
+    {
+      "id": "Q0050",
+      "paper": "GS Paper 2",
+      "exam_ref": "63rd",
+      "topic": "Polity",
+      "directive": "Critically Examine",
+      "marks": null,
+      "text": "Critically examine the role of the Election Commission of India in the conduct of free and fair elections. What purpose does the Electoral Identity Card serve in this regard?"
+    },
+    {
+      "id": "Q0051",
+      "paper": "GS Paper 2",
+      "exam_ref": "63rd",
+      "topic": "Polity",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Do you agree that Indian politics today primarily revolves around development politics rather than ascriptive politics? Discuss with reference to Bihar."
+    },
+    {
+      "id": "Q0052",
+      "paper": "GS Paper 2",
+      "exam_ref": "63rd",
+      "topic": "Polity",
+      "directive": "What is / Define",
+      "marks": null,
+      "text": "What are the implications of growing regional political parties on the Indian party system in recent times?"
+    },
+    {
+      "id": "Q0053",
+      "paper": "GS Paper 2",
+      "exam_ref": "63rd",
+      "topic": "Polity",
+      "directive": "Critically Discuss",
+      "marks": null,
+      "text": "What is the difference between Constitution and Constitutionalism? Critically discuss the doctrine of \"Basic Structure\" as enunciated by the Supreme Court of India."
+    },
+    {
+      "id": "Q0054",
+      "paper": "GS Paper 2",
+      "exam_ref": "63rd",
+      "topic": "Polity",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Centrally Sponsored Schemes have always been a point of contention between the Centre and the States. Discuss by citing relevant examples."
+    },
+    {
+      "id": "Q0055",
+      "paper": "GS Paper 2",
+      "exam_ref": "64th",
+      "topic": "Polity",
+      "directive": "What is / Define",
+      "marks": null,
+      "text": "\"The Indian Constitution postulates in its Preamble that India shall be a socialist, secular, democratic republic.\" What are the constitutional provisions to enforce this declaration?"
+    },
+    {
+      "id": "Q0056",
+      "paper": "GS Paper 2",
+      "exam_ref": "64th",
+      "topic": "Polity",
+      "directive": "Critically Examine",
+      "marks": null,
+      "text": "Critically examine the role of the Governor in the State politics in India, particularly in Bihar. Is he a mere puppet?"
+    },
+    {
+      "id": "Q0057",
+      "paper": "GS Paper 2",
+      "exam_ref": "64th",
+      "topic": "Polity",
+      "directive": "Comment",
+      "marks": null,
+      "text": "\"Judicial activism is a recent phenomenon in Indian governance.\" Comment and bring out the arguments in favour and against judicial activism."
+    },
+    {
+      "id": "Q0058",
+      "paper": "GS Paper 2",
+      "exam_ref": "64th",
+      "topic": "Polity",
+      "directive": "Explain",
+      "marks": null,
+      "text": "\"Too many political parties are the bane of Indian politics.\" Explain this fact in the context of Bihar."
+    },
+    {
+      "id": "Q0059",
+      "paper": "GS Paper 2",
+      "exam_ref": "65th",
+      "topic": "Polity",
+      "directive": "Do you agree",
+      "marks": null,
+      "text": "Do you agree with the view that our Constitution has given Fundamental Rights by one hand and taken them back by another hand?"
+    },
+    {
+      "id": "Q0060",
+      "paper": "GS Paper 2",
+      "exam_ref": "65th",
+      "topic": "Polity",
+      "directive": "Evaluate",
+      "marks": null,
+      "text": "\"Indian Parliament is a non-sovereign law-making institution.\" Evaluate this statement."
+    },
+    {
+      "id": "Q0061",
+      "paper": "GS Paper 2",
+      "exam_ref": "65th",
+      "topic": "Polity",
+      "directive": "Explain",
+      "marks": null,
+      "text": "\"The system of Indian political parties is not nationalistic but it is individualistic.\" Explain this fact in the context of Bihar State."
+    },
+    {
+      "id": "Q0062",
+      "paper": "GS Paper 2",
+      "exam_ref": "65th",
+      "topic": "Polity",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "What do you understand by E-governance? Discuss the position of E-governance implementation in Bihar."
+    },
+    {
+      "id": "Q0063",
+      "paper": "GS Paper 2",
+      "exam_ref": "66th",
+      "topic": "Polity",
+      "directive": "Evaluate",
+      "marks": null,
+      "text": "\"The role of the President of India is like an old man in a family who has all the authorities, however, he cannot do anything effective if the naughty young members of the family do not listen to him.\" Evaluate this statement."
+    },
+    {
+      "id": "Q0064",
+      "paper": "GS Paper 2",
+      "exam_ref": "66th",
+      "topic": "Polity",
+      "directive": "Explain",
+      "marks": null,
+      "text": "\"Indian federal structure is constitutionally oriented towards the Central Government.\" Explain."
+    },
+    {
+      "id": "Q0065",
+      "paper": "GS Paper 2",
+      "exam_ref": "66th",
+      "topic": "Polity",
+      "directive": "Critically Analyse",
+      "marks": null,
+      "text": "\"The uneven development of Indian States has created many socio-economic and political problems.\" Critically analyse this statement with special reference to Bihar."
+    },
+    {
+      "id": "Q0066",
+      "paper": "GS Paper 2",
+      "exam_ref": "66th",
+      "topic": "Polity",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "The Parliament of India is an effective forum of national integration. Discuss."
+    },
+    {
+      "id": "Q0067",
+      "paper": "GS Paper 2",
+      "exam_ref": "67th",
+      "topic": "Polity",
+      "directive": "Comment",
+      "marks": null,
+      "text": "\"The Indian Parliament is not a sovereign legislature. It has vast but not unlimited powers.\" Comment on this statement and highlight why the Indian Parliament cannot be equated with its British counterpart."
+    },
+    {
+      "id": "Q0068",
+      "paper": "GS Paper 2",
+      "exam_ref": "67th",
+      "topic": "Polity",
+      "directive": "Examine",
+      "marks": null,
+      "text": "Discuss the problem of Centre-State relations in India and its prospects in future with special reference to Bihar. Examine how this problem can be constructively handled in tune with cooperative federalism."
+    },
+    {
+      "id": "Q0069",
+      "paper": "GS Paper 2",
+      "exam_ref": "67th",
+      "topic": "Polity",
+      "directive": "Do you agree",
+      "marks": null,
+      "text": "Account for the emergence of regional political parties in India. Do you think the existence of regional political parties is good for satisfying regional aspirations and national unity? Give reasons in support of your answer."
+    },
+    {
+      "id": "Q0070",
+      "paper": "GS Paper 2",
+      "exam_ref": "67th",
+      "topic": "Polity",
+      "directive": "Explain",
+      "marks": null,
+      "text": "An independent judiciary, having the power of judicial review, is an essential feature of the Constitution of India. Do you think judicial activism has further added to the powers of the Supreme Court? Explain with examples."
+    },
+    {
+      "id": "Q0071",
+      "paper": "GS Paper 2",
+      "exam_ref": "68th",
+      "topic": "Polity",
+      "directive": "Critically Analyse",
+      "marks": null,
+      "text": "Critically analyse the concept of dynamic secularism in India."
+    },
+    {
+      "id": "Q0072",
+      "paper": "GS Paper 2",
+      "exam_ref": "68th",
+      "topic": "Polity",
+      "directive": "Explain",
+      "marks": null,
+      "text": "Regional politics plays an important role in India. Explain."
+    },
+    {
+      "id": "Q0073",
+      "paper": "GS Paper 2",
+      "exam_ref": "68th",
+      "topic": "Polity",
+      "directive": "Explain",
+      "marks": null,
+      "text": "The positive directions in the Constitution of India act as a charter of social and economic democracy. Explain with examples."
+    },
+    {
+      "id": "Q0074",
+      "paper": "GS Paper 2",
+      "exam_ref": "68th",
+      "topic": "Polity",
+      "directive": "Explain",
+      "marks": null,
+      "text": "Explain the judicial review jurisdiction of the Supreme Court of India."
+    },
+    {
+      "id": "Q0075",
+      "paper": "GS Paper 2",
+      "exam_ref": "68th",
+      "topic": "Polity",
+      "directive": "Other",
+      "marks": null,
+      "text": "Bihar has witnessed improvement in its political culture in the last decades. Give examples."
+    },
+    {
+      "id": "Q0076",
+      "paper": "GS Paper 2",
+      "exam_ref": "68th",
+      "topic": "Polity",
+      "directive": "Critically Examine",
+      "marks": null,
+      "text": "\"Paramountcy of national interest is enshrined in the Zonal Councils in the country.\" Examine critically the nature and working of the Zonal Councils in India. OR Caste plays a role in Indian politics, but there has been a change in its functioning over the decades. How do you look at its changing role? Does the logic of development subside the character of caste?"
+    },
+    {
+      "id": "Q0077",
+      "paper": "GS Paper 2",
+      "exam_ref": "68th",
+      "topic": "Polity",
+      "directive": "Critically Examine",
+      "marks": null,
+      "text": "Election Commission of India has played an important role in conducting elections. Critically examine its role in making elections free and fair, with reference to pre-Seshan and post-Seshan era in Bihar. OR Discuss the composition and powers of the Rajya Sabha and identify its role as the Second Chamber of Parliament."
+    },
+    {
+      "id": "Q0078",
+      "paper": "GS Paper 2",
+      "exam_ref": "69th",
+      "topic": "Polity",
+      "directive": "Critically Examine",
+      "marks": null,
+      "text": "Critically examine the Basic Structure Theory regarding the Indian Constitution."
+    },
+    {
+      "id": "Q0079",
+      "paper": "GS Paper 2",
+      "exam_ref": "69th",
+      "topic": "Polity",
+      "directive": "Comment",
+      "marks": null,
+      "text": "Is reservation for Economically Weaker Sections (EWS) justified? Comment."
+    },
+    {
+      "id": "Q0080",
+      "paper": "GS Paper 2",
+      "exam_ref": "69th",
+      "topic": "Polity",
+      "directive": "Describe",
+      "marks": null,
+      "text": "Critically describe the amendment process of the Indian Constitution."
+    },
+    {
+      "id": "Q0081",
+      "paper": "GS Paper 2",
+      "exam_ref": "69th",
+      "topic": "Polity",
+      "directive": "Explain",
+      "marks": null,
+      "text": "Explain how the Preamble of the Indian Constitution provides a blueprint about the goals of the Constitution."
+    },
+    {
+      "id": "Q0082",
+      "paper": "GS Paper 2",
+      "exam_ref": "69th",
+      "topic": "Polity",
+      "directive": "Describe",
+      "marks": null,
+      "text": "Describe how caste census is going to influence the politics of Bihar."
+    },
+    {
+      "id": "Q0083",
+      "paper": "GS Paper 2",
+      "exam_ref": "69th",
+      "topic": "Polity",
+      "directive": "Critically Examine",
+      "marks": null,
+      "text": "Discuss the institutional relationship between the President and the Prime Minister as per the Indian Constitution. Discuss their changing role in the present context. OR \"Indian federalism is fundamentally rooted in two simultaneous pursuits of nationhood.\" Examine critically the nature of Indian federalism."
+    },
+    {
+      "id": "Q0084",
+      "paper": "GS Paper 2",
+      "exam_ref": "69th",
+      "topic": "Polity",
+      "directive": "Analyse",
+      "marks": null,
+      "text": "Discuss and analyse the fundamental principles of coalition politics in Bihar from the point of view of fulfilment of national interests. OR Elucidate and evaluate local government and its working from the point of view of empowerment of Panchayati Raj and urban local institutions in Bihar."
+    },
+    {
+      "id": "Q0085",
+      "paper": "GS Paper 2",
+      "exam_ref": "70th",
+      "topic": "Polity",
+      "directive": "Explain",
+      "marks": null,
+      "text": "Article 32 is the \"Heart and Soul of the Constitution of India.\" Explain."
+    },
+    {
+      "id": "Q0086",
+      "paper": "GS Paper 2",
+      "exam_ref": "70th",
+      "topic": "Polity",
+      "directive": "Analyse",
+      "marks": null,
+      "text": "\"Criminalisation of politics and politicisation of criminals.\" Analyse this statement in the context of Bihar State."
+    },
+    {
+      "id": "Q0087",
+      "paper": "GS Paper 2",
+      "exam_ref": "70th",
+      "topic": "Polity",
+      "directive": "Analyse",
+      "marks": null,
+      "text": "\"In India, at present caste is no more a social phenomenon, rather it is a political phenomenon.\" Do you agree with this statement? Analyse and give reasons in support of your answer."
+    },
+    {
+      "id": "Q0088",
+      "paper": "GS Paper 2",
+      "exam_ref": "70th",
+      "topic": "Polity",
+      "directive": "What is / Define",
+      "marks": null,
+      "text": "What is collegium? Why is it at the centre of criticism? Express your views."
+    },
+    {
+      "id": "Q0089",
+      "paper": "GS Paper 2",
+      "exam_ref": "70th",
+      "topic": "Polity",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "In the light of 73rd and 74th Constitutional Amendments, discuss the role of Local Self Government in empowering women at the grass-root level in Bihar."
+    },
+    {
+      "id": "Q0090",
+      "paper": "GS Paper 2",
+      "exam_ref": "70th",
+      "topic": "Polity",
+      "directive": "Examine",
+      "marks": null,
+      "text": "Trace the evolution of political parties in India from one-party dominance to the era of coalition governments. Has coalition politics undermined the authority of the Prime Minister in India? OR \"When there is a change of Government at the Centre, the Governors also change.\" Examine the role of Governor in India as a link between the Centre and the States."
+    },
+    {
+      "id": "Q0091",
+      "paper": "GS Paper 2",
+      "exam_ref": "70th",
+      "topic": "Polity",
+      "directive": "Analyse",
+      "marks": null,
+      "text": "\"Besides being a medium of communication, language has also been effective as a symbol of identity.\" Analyse the political impact of linguistic identity in India. OR Write an essay on the political and constitutional changes in Jammu and Kashmir after the abrogation of Article 370."
+    },
+    {
+      "id": "Q0092",
+      "paper": "GS Paper 2",
+      "exam_ref": "60th-62nd",
+      "topic": "Geography & Economics",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "\"Not just providing employment but increasing the employability of the labour force is the main issue of a long-term employment policy in India.\" Discuss with reference to knowledge and skill development through quality education and training."
+    },
+    {
+      "id": "Q0093",
+      "paper": "GS Paper 2",
+      "exam_ref": "60th-62nd",
+      "topic": "Geography & Economics",
+      "directive": "Explain",
+      "marks": null,
+      "text": "Explain agriculture growth and productivity trends in India. Suggest measures to improve productivity and increase farm income."
+    },
+    {
+      "id": "Q0094",
+      "paper": "GS Paper 2",
+      "exam_ref": "60th-62nd",
+      "topic": "Geography & Economics",
+      "directive": "Critically Examine",
+      "marks": null,
+      "text": "\"Decentralized planning through strengthening the Panchayat system is the focus of planning in India in recent times.\" Critically examine decentralized planning after the 73rd and 74th Amendments."
+    },
+    {
+      "id": "Q0095",
+      "paper": "GS Paper 2",
+      "exam_ref": "60th-62nd",
+      "topic": "Geography & Economics",
+      "directive": "Explain",
+      "marks": null,
+      "text": "Define public goods subsidy, merit goods subsidy and non-merit goods subsidy in India. Explain recent trends and problems of food, fertilizer and petroleum subsidy."
+    },
+    {
+      "id": "Q0096",
+      "paper": "GS Paper 2",
+      "exam_ref": "63rd",
+      "topic": "Geography & Economics",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Highlight major problems of Indian agriculture and suggest solutions. Discuss government development programmes."
+    },
+    {
+      "id": "Q0097",
+      "paper": "GS Paper 2",
+      "exam_ref": "63rd",
+      "topic": "Geography & Economics",
+      "directive": "Explain",
+      "marks": null,
+      "text": "While discussing poverty estimation in India, explain responsible factors and government poverty removal programmes."
+    },
+    {
+      "id": "Q0098",
+      "paper": "GS Paper 2",
+      "exam_ref": "63rd",
+      "topic": "Geography & Economics",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Explain why India's major large-scale industries are in specific geographical areas. Discuss key industries."
+    },
+    {
+      "id": "Q0099",
+      "paper": "GS Paper 2",
+      "exam_ref": "63rd",
+      "topic": "Geography & Economics",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Explain major minerals in India. Discuss their economic contribution and key features of India's new mineral policy."
+    },
+    {
+      "id": "Q0100",
+      "paper": "GS Paper 2",
+      "exam_ref": "64th",
+      "topic": "Geography & Economics",
+      "directive": "Critically Examine",
+      "marks": null,
+      "text": "Critically examine the need for food security in India."
+    },
+    {
+      "id": "Q0101",
+      "paper": "GS Paper 2",
+      "exam_ref": "64th",
+      "topic": "Geography & Economics",
+      "directive": "Explain",
+      "marks": null,
+      "text": "Explain the World Trade Organization's (WTO) role in the Indian economy context."
+    },
+    {
+      "id": "Q0102",
+      "paper": "GS Paper 2",
+      "exam_ref": "64th",
+      "topic": "Geography & Economics",
+      "directive": "Evaluate",
+      "marks": null,
+      "text": "Evaluate the principal achievements of Indian economic planning."
+    },
+    {
+      "id": "Q0103",
+      "paper": "GS Paper 2",
+      "exam_ref": "64th",
+      "topic": "Geography & Economics",
+      "directive": "Examine",
+      "marks": null,
+      "text": "\"Unless population growth is checked in India, economic development cannot be judged in true perspective.\" Examine this statement."
+    },
+    {
+      "id": "Q0104",
+      "paper": "GS Paper 2",
+      "exam_ref": "65th",
+      "topic": "Geography & Economics",
+      "directive": "Evaluate",
+      "marks": null,
+      "text": "Evaluate agricultural production and productivity trends since 1991. What practical measures should enhance production and productivity in Bihar?"
+    },
+    {
+      "id": "Q0105",
+      "paper": "GS Paper 2",
+      "exam_ref": "65th",
+      "topic": "Geography & Economics",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Discuss economic planning relevance in post-reform India. Explain how State and market can play synergetic roles in development."
+    },
+    {
+      "id": "Q0106",
+      "paper": "GS Paper 2",
+      "exam_ref": "65th",
+      "topic": "Geography & Economics",
+      "directive": "Critically Evaluate",
+      "marks": null,
+      "text": "What is the new MSME definition? Critically evaluate the role of MSMEs in industrial growth and Aatmanirbhar Bharat Abhiyan."
+    },
+    {
+      "id": "Q0107",
+      "paper": "GS Paper 2",
+      "exam_ref": "65th",
+      "topic": "Geography & Economics",
+      "directive": "What is / Define",
+      "marks": null,
+      "text": "What are Bihar's main economic development constraints? How can these be removed?"
+    },
+    {
+      "id": "Q0108",
+      "paper": "GS Paper 2",
+      "exam_ref": "66th",
+      "topic": "Geography & Economics",
+      "directive": "Other",
+      "marks": null,
+      "text": "Which economy sectors contributed to Bihar's higher growth rate than India's in the past three years (per 2019-20 Economic Survey)?"
+    },
+    {
+      "id": "Q0109",
+      "paper": "GS Paper 2",
+      "exam_ref": "66th",
+      "topic": "Geography & Economics",
+      "directive": "Critically Evaluate",
+      "marks": null,
+      "text": "What are the main causes of economic and social development disparity in Bihar? Critically evaluate government measures to reduce inequalities."
+    },
+    {
+      "id": "Q0110",
+      "paper": "GS Paper 2",
+      "exam_ref": "66th",
+      "topic": "Geography & Economics",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "What is demographic dividend? Until when will India and Bihar benefit (per UNFPA Report)? Discuss Bihar's steps."
+    },
+    {
+      "id": "Q0111",
+      "paper": "GS Paper 2",
+      "exam_ref": "66th",
+      "topic": "Geography & Economics",
+      "directive": "Explain",
+      "marks": null,
+      "text": "How is human development measured? What are the Bihar Government's seven human development commitments? Explain related schemes."
+    },
+    {
+      "id": "Q0112",
+      "paper": "GS Paper 2",
+      "exam_ref": "67th",
+      "topic": "Geography & Economics",
+      "directive": "Compare",
+      "marks": null,
+      "text": "Present Bihar's industrial development picture and compare with India's. Indicate causes of Bihar's industrial backwardness and recent remedial government steps."
+    },
+    {
+      "id": "Q0113",
+      "paper": "GS Paper 2",
+      "exam_ref": "67th",
+      "topic": "Geography & Economics",
+      "directive": "Evaluate",
+      "marks": null,
+      "text": "\"JEEViKA (BRLPS) is a women empowerment tool.\" Introduce this project, describe objectives, and evaluate its women empowerment role in Bihar."
+    },
+    {
+      "id": "Q0114",
+      "paper": "GS Paper 2",
+      "exam_ref": "67th",
+      "topic": "Geography & Economics",
+      "directive": "Enumerate",
+      "marks": null,
+      "text": "Per NITI Aayog Health Index 2021, Bihar ranks 18th of 19 larger States. List responsible factors. What steps improved health situations? Are they sufficient?"
+    },
+    {
+      "id": "Q0115",
+      "paper": "GS Paper 2",
+      "exam_ref": "67th",
+      "topic": "Geography & Economics",
+      "directive": "Other",
+      "marks": null,
+      "text": "Name major natural resources in Bihar State. Select two, show their pockets, and narrate their importance for economic development."
+    },
+    {
+      "id": "Q0116",
+      "paper": "GS Paper 2",
+      "exam_ref": "68th",
+      "topic": "Geography & Economics",
+      "directive": "Explain",
+      "marks": null,
+      "text": "National Logistics Policy 2022 with PM Gati Shakti Plan will revolutionize logistics efficiency. Elucidate."
+    },
+    {
+      "id": "Q0117",
+      "paper": "GS Paper 2",
+      "exam_ref": "68th",
+      "topic": "Geography & Economics",
+      "directive": "Explain",
+      "marks": null,
+      "text": "Explain how Atal Innovation Mission promotes innovation and entrepreneurship across India (Mentor India, Atal Incubation Centres, Atal New India Challenge)."
+    },
+    {
+      "id": "Q0118",
+      "paper": "GS Paper 2",
+      "exam_ref": "68th",
+      "topic": "Geography & Economics",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Discuss Bihar's urbanization levels. Explain two low-urbanization reasons. What recent initiatives push urbanization?"
+    },
+    {
+      "id": "Q0119",
+      "paper": "GS Paper 2",
+      "exam_ref": "68th",
+      "topic": "Geography & Economics",
+      "directive": "Explain",
+      "marks": null,
+      "text": "What is Indian Ocean Dipole Movement? Explain its relation to 2022 erratic monsoons and effects on food production and economy."
+    },
+    {
+      "id": "Q0120",
+      "paper": "GS Paper 2",
+      "exam_ref": "68th",
+      "topic": "Geography & Economics",
+      "directive": "Examine",
+      "marks": null,
+      "text": "Discuss rural-urban digital divide incidence and effects in India. Examine government steps to reduce it."
+    },
+    {
+      "id": "Q0121",
+      "paper": "GS Paper 2",
+      "exam_ref": "68th",
+      "topic": "Geography & Economics",
+      "directive": "Examine",
+      "marks": null,
+      "text": "Examine India's 2022 global trade engagements. What initiatives enhance trade? Suggest ways to increase future engagements. OR Per TRAI (Feb 2022), Bihar's tele-density is 53.71% versus 85.91% all-India average. Indicate reasons and impacts. Examine improvement steps."
+    },
+    {
+      "id": "Q0122",
+      "paper": "GS Paper 2",
+      "exam_ref": "68th",
+      "topic": "Geography & Economics",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Blue Economy is identified as a core national growth dimension. Discuss its significance for the Indian economy and list promotion steps. OR Based on raw materials, divide Bihar into forest-based, agro-based and mineral-based industries with location sketches."
+    },
+    {
+      "id": "Q0123",
+      "paper": "GS Paper 2",
+      "exam_ref": "69th",
+      "topic": "Geography & Economics",
+      "directive": "Analyse",
+      "marks": null,
+      "text": "Analyse the Indian monsoon system mechanism and characteristics."
+    },
+    {
+      "id": "Q0124",
+      "paper": "GS Paper 2",
+      "exam_ref": "69th",
+      "topic": "Geography & Economics",
+      "directive": "What is / Define",
+      "marks": null,
+      "text": "What are India's energy sources? Are they sufficient? What alternative energy sources exist? Present a critical review."
+    },
+    {
+      "id": "Q0125",
+      "paper": "GS Paper 2",
+      "exam_ref": "69th",
+      "topic": "Geography & Economics",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Discuss India's tourism industry present state and future prospects."
+    },
+    {
+      "id": "Q0126",
+      "paper": "GS Paper 2",
+      "exam_ref": "69th",
+      "topic": "Geography & Economics",
+      "directive": "Comment",
+      "marks": null,
+      "text": "Describe Scheduled Caste and Scheduled Tribe population distribution in Bihar and comment on socio-economic conditions."
+    },
+    {
+      "id": "Q0127",
+      "paper": "GS Paper 2",
+      "exam_ref": "69th",
+      "topic": "Geography & Economics",
+      "directive": "Describe",
+      "marks": null,
+      "text": "Divide India into major physiographic divisions and describe the region in which Bihar is included."
+    },
+    {
+      "id": "Q0128",
+      "paper": "GS Paper 2",
+      "exam_ref": "69th",
+      "topic": "Geography & Economics",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Explain factors affecting Bihar's climate. How many agro-climatic zones exist? Discuss seasonal agricultural effects. OR How does the Directorate of Population classify cities in India? Discuss population and growth rates per 2011 Census."
+    },
+    {
+      "id": "Q0129",
+      "paper": "GS Paper 2",
+      "exam_ref": "69th",
+      "topic": "Geography & Economics",
+      "directive": "Explain",
+      "marks": null,
+      "text": "Explain trickle-down economics theory - major elements, benefits, limitations and criticisms in the Indian planning context. OR Describe India's monsoon system - nature, types, climate change, distribution, jet streams and variability."
+    },
+    {
+      "id": "Q0130",
+      "paper": "GS Paper 2",
+      "exam_ref": "70th",
+      "topic": "Geography & Economics",
+      "directive": "Explain",
+      "marks": null,
+      "text": "Explain winter rainfall climatic conditions and mechanism in India with spatial spread."
+    },
+    {
+      "id": "Q0131",
+      "paper": "GS Paper 2",
+      "exam_ref": "70th",
+      "topic": "Geography & Economics",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Discuss environmental and economic benefits of mangrove forest cover along Indian coasts with examples."
+    },
+    {
+      "id": "Q0132",
+      "paper": "GS Paper 2",
+      "exam_ref": "70th",
+      "topic": "Geography & Economics",
+      "directive": "Explain",
+      "marks": null,
+      "text": "What geographical conditions suit major millet cultivation types in India? Explain with examples."
+    },
+    {
+      "id": "Q0133",
+      "paper": "GS Paper 2",
+      "exam_ref": "70th",
+      "topic": "Geography & Economics",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Explain ecological conditions suitable for Makhana (Fox-nut) cultivation. Discuss government measures increasing production and marketing."
+    },
+    {
+      "id": "Q0134",
+      "paper": "GS Paper 2",
+      "exam_ref": "70th",
+      "topic": "Geography & Economics",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Discuss automobile industry growth and development in the four largest metropolitan city regions of India."
+    },
+    {
+      "id": "Q0135",
+      "paper": "GS Paper 2",
+      "exam_ref": "70th",
+      "topic": "Geography & Economics",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "\"Peninsular India is richer in rock and mineral resources.\" Discuss this regarding geological formations and associated quarrying/mining activities. OR Distinguish between alluvial and diluvial soils - formation process, characteristics and distribution with examples."
+    },
+    {
+      "id": "Q0136",
+      "paper": "GS Paper 2",
+      "exam_ref": "70th",
+      "topic": "Geography & Economics",
+      "directive": "Examine",
+      "marks": null,
+      "text": "Discuss out-migration causes and consequences from Bihar and population stabilization measures. OR Examine solar energy generation ecological and economic benefits in India with suitable examples."
+    },
+    {
+      "id": "Q0137",
+      "paper": "Essay Paper",
+      "exam_ref": "71st",
+      "topic": "Essay",
+      "directive": "Other",
+      "marks": 100,
+      "text": "The Power of Mindset in Shaping Human Destiny"
+    },
+    {
+      "id": "Q0138",
+      "paper": "Essay Paper",
+      "exam_ref": "71st",
+      "topic": "Essay",
+      "directive": "Other",
+      "marks": 100,
+      "text": "Technology as a Double-Edged Sword: Balancing Innovation and Control"
+    },
+    {
+      "id": "Q0139",
+      "paper": "Essay Paper",
+      "exam_ref": "71st",
+      "topic": "Essay",
+      "directive": "Other",
+      "marks": 100,
+      "text": "Ethics in Action: Why Moral Courage Matters More than Opinion"
+    },
+    {
+      "id": "Q0140",
+      "paper": "Essay Paper",
+      "exam_ref": "71st",
+      "topic": "Essay",
+      "directive": "Other",
+      "marks": 100,
+      "text": "Implications of Rising Tensions in the Middle East Geopolitical Crisis"
+    },
+    {
+      "id": "Q0141",
+      "paper": "Essay Paper",
+      "exam_ref": "71st",
+      "topic": "Essay",
+      "directive": "Other",
+      "marks": 100,
+      "text": "Artificial Intelligence and Human Values: Can Machines Understand Morality?"
+    },
+    {
+      "id": "Q0142",
+      "paper": "Essay Paper",
+      "exam_ref": "71st",
+      "topic": "Essay",
+      "directive": "Other",
+      "marks": 100,
+      "text": "Environmental Responsibility in an Age of Industrial Expansion"
+    },
+    {
+      "id": "Q0143",
+      "paper": "Essay Paper",
+      "exam_ref": "71st",
+      "topic": "Essay",
+      "directive": "Other",
+      "marks": 100,
+      "text": "Love and Knowledge: The Twin Pillars of a Meaningful Life"
+    },
+    {
+      "id": "Q0144",
+      "paper": "Essay Paper",
+      "exam_ref": "71st",
+      "topic": "Essay",
+      "directive": "Other",
+      "marks": 100,
+      "text": "De-dollarization and the Changing Global Economic Order"
+    },
+    {
+      "id": "Q0145",
+      "paper": "Essay Paper",
+      "exam_ref": "70th",
+      "topic": "Essay",
+      "directive": "Other",
+      "marks": 100,
+      "text": "Importance of India in contemporary global perspective"
+    },
+    {
+      "id": "Q0146",
+      "paper": "Essay Paper",
+      "exam_ref": "70th",
+      "topic": "Essay",
+      "directive": "Other",
+      "marks": 100,
+      "text": "Country development and information technology"
+    },
+    {
+      "id": "Q0147",
+      "paper": "Essay Paper",
+      "exam_ref": "70th",
+      "topic": "Essay",
+      "directive": "Other",
+      "marks": 100,
+      "text": "Environmental imbalance is the destroyer of creation"
+    },
+    {
+      "id": "Q0148",
+      "paper": "Essay Paper",
+      "exam_ref": "70th",
+      "topic": "Essay",
+      "directive": "Other",
+      "marks": 100,
+      "text": "Soil conservation and organic farming"
+    },
+    {
+      "id": "Q0149",
+      "paper": "Essay Paper",
+      "exam_ref": "70th",
+      "topic": "Essay",
+      "directive": "Other",
+      "marks": 100,
+      "text": "Political will and national security"
+    },
+    {
+      "id": "Q0150",
+      "paper": "Essay Paper",
+      "exam_ref": "70th",
+      "topic": "Essay",
+      "directive": "Other",
+      "marks": 100,
+      "text": "End of corruption and upliftment of the country"
+    },
+    {
+      "id": "Q0151",
+      "paper": "Essay Paper",
+      "exam_ref": "70th",
+      "topic": "Essay",
+      "directive": "Other",
+      "marks": 100,
+      "text": "Lax law and order is a hindrance to women empowerment"
+    },
+    {
+      "id": "Q0152",
+      "paper": "Essay Paper",
+      "exam_ref": "70th",
+      "topic": "Essay",
+      "directive": "Other",
+      "marks": 100,
+      "text": "World welfare is impossible without spiritual consciousness"
+    },
+    {
+      "id": "Q0153",
+      "paper": "Essay Paper",
+      "exam_ref": "69th",
+      "topic": "Essay",
+      "directive": "Other",
+      "marks": 100,
+      "text": "Science and technology are helpful in understanding the mysteries of the universe"
+    },
+    {
+      "id": "Q0154",
+      "paper": "Essay Paper",
+      "exam_ref": "69th",
+      "topic": "Essay",
+      "directive": "Other",
+      "marks": 100,
+      "text": "Improving the agricultural system can support the rural economy of the nation"
+    },
+    {
+      "id": "Q0155",
+      "paper": "Essay Paper",
+      "exam_ref": "69th",
+      "topic": "Essay",
+      "directive": "Other",
+      "marks": 100,
+      "text": "Black money economy is the main cause of crime and corruption"
+    },
+    {
+      "id": "Q0156",
+      "paper": "Essay Paper",
+      "exam_ref": "69th",
+      "topic": "Essay",
+      "directive": "Other",
+      "marks": 100,
+      "text": "The modern communication revolution has revolutionized human awareness"
+    },
+    {
+      "id": "Q0157",
+      "paper": "Essay Paper",
+      "exam_ref": "69th",
+      "topic": "Essay",
+      "directive": "Other",
+      "marks": 100,
+      "text": "Current status of women empowerment: in perspective of political empowerment"
+    },
+    {
+      "id": "Q0158",
+      "paper": "Essay Paper",
+      "exam_ref": "69th",
+      "topic": "Essay",
+      "directive": "Other",
+      "marks": 100,
+      "text": "Need and importance of Yoga for spiritual progress and physical and mental development"
+    },
+    {
+      "id": "Q0159",
+      "paper": "Essay Paper",
+      "exam_ref": "69th",
+      "topic": "Essay",
+      "directive": "Other",
+      "marks": 100,
+      "text": "Advantages and disadvantages of the New Education Policy, 2023"
+    },
+    {
+      "id": "Q0160",
+      "paper": "Essay Paper",
+      "exam_ref": "69th",
+      "topic": "Essay",
+      "directive": "Other",
+      "marks": 100,
+      "text": "Impact of climate change on Indian agriculture and prevention measures"
+    },
+    {
+      "id": "Q0161",
+      "paper": "Essay Paper",
+      "exam_ref": "68th",
+      "topic": "Essay",
+      "directive": "Other",
+      "marks": 100,
+      "text": "Forest creates its own trees; it does not wait for people to throw seeds"
+    },
+    {
+      "id": "Q0162",
+      "paper": "Essay Paper",
+      "exam_ref": "68th",
+      "topic": "Essay",
+      "directive": "Other",
+      "marks": 100,
+      "text": "Literature is not only a source of knowledge but also a form of moral and social activity"
+    },
+    {
+      "id": "Q0163",
+      "paper": "Essay Paper",
+      "exam_ref": "68th",
+      "topic": "Essay",
+      "directive": "Other",
+      "marks": 100,
+      "text": "Perform your obligatory duty because action is indeed better than inaction"
+    },
+    {
+      "id": "Q0164",
+      "paper": "Essay Paper",
+      "exam_ref": "68th",
+      "topic": "Essay",
+      "directive": "Other",
+      "marks": 100,
+      "text": "Good art should illuminate our experience or reveal truths"
+    },
+    {
+      "id": "Q0165",
+      "paper": "Essay Paper",
+      "exam_ref": "68th",
+      "topic": "Essay",
+      "directive": "Other",
+      "marks": 100,
+      "text": "We are not makers of history, we are made by history"
+    },
+    {
+      "id": "Q0166",
+      "paper": "Essay Paper",
+      "exam_ref": "68th",
+      "topic": "Essay",
+      "directive": "Other",
+      "marks": 100,
+      "text": "Internet has turned our world into a global village"
+    },
+    {
+      "id": "Q0167",
+      "paper": "Essay Paper",
+      "exam_ref": "68th",
+      "topic": "Essay",
+      "directive": "Other",
+      "marks": 100,
+      "text": "Thought is the base of life"
+    },
+    {
+      "id": "Q0168",
+      "paper": "Essay Paper",
+      "exam_ref": "68th",
+      "topic": "Essay",
+      "directive": "Other",
+      "marks": 100,
+      "text": "Education seeking change after Covid"
+    },
+    {
+      "id": "Q0169",
+      "paper": "GS Paper 2",
+      "exam_ref": "60th-62nd",
+      "topic": "Science & Technology",
+      "directive": "Other",
+      "marks": null,
+      "text": "Pollution has become a serious threat for India. Identify the causes and indicate which mandatory steps should be taken by the Government and what should be voluntarily done by the public."
+    },
+    {
+      "id": "Q0170",
+      "paper": "GS Paper 2",
+      "exam_ref": "60th-62nd",
+      "topic": "Science & Technology",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "With growing energy needs, should India keep on expanding its nuclear energy programmes? Discuss the facts and fears associated with nuclear energy."
+    },
+    {
+      "id": "Q0171",
+      "paper": "GS Paper 2",
+      "exam_ref": "60th-62nd",
+      "topic": "Science & Technology",
+      "directive": "What is / Define",
+      "marks": null,
+      "text": "How do you see the achievements of the Indian Space Research Organisation (ISRO)? What are their next exciting targets?"
+    },
+    {
+      "id": "Q0172",
+      "paper": "GS Paper 2",
+      "exam_ref": "60th-62nd",
+      "topic": "Science & Technology",
+      "directive": "What is / Define",
+      "marks": null,
+      "text": "What is 'UDAY' (Ujwal Discom Assurance Yojana)? Which States are partners in this Yojana? How is Bihar going to be benefitted by UDAY?"
+    },
+    {
+      "id": "Q0173",
+      "paper": "GS Paper 2",
+      "exam_ref": "63rd",
+      "topic": "Science & Technology",
+      "directive": "Explain",
+      "marks": null,
+      "text": "Explain in detail how advances in the field of nuclear energy have helped in the development of India. Also comment on the use of nuclear energy in power production. Outline the positive and negative aspects of nuclear energy."
+    },
+    {
+      "id": "Q0174",
+      "paper": "GS Paper 2",
+      "exam_ref": "63rd",
+      "topic": "Science & Technology",
+      "directive": "What is / Define",
+      "marks": null,
+      "text": "What progress has India made in the field of space satellite launching? What are the advantages and disadvantages of launching multiple satellites in space? How does entry into this field help India in strengthening its economy?"
+    },
+    {
+      "id": "Q0175",
+      "paper": "GS Paper 2",
+      "exam_ref": "63rd",
+      "topic": "Science & Technology",
+      "directive": "Comment",
+      "marks": null,
+      "text": "What do you mean by software? How is the software industry the backbone of the country's economic development? Comment on the development of computer languages and India's contribution in this field."
+    },
+    {
+      "id": "Q0176",
+      "paper": "GS Paper 2",
+      "exam_ref": "63rd",
+      "topic": "Science & Technology",
+      "directive": "Comment",
+      "marks": null,
+      "text": "What do you mean by Global Warming? How is India contributing to minimising its effects? Comment on the statement: \"The world would submerge in water in the coming future due to the mistakes committed by human beings on this planet.\""
+    },
+    {
+      "id": "Q0177",
+      "paper": "GS Paper 2",
+      "exam_ref": "64th",
+      "topic": "Science & Technology",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Despite the fact that India has a very good network of rivers, there are several regions which suffer from water shortage, particularly potable water. Discuss the role of science and technology in water management to address this problem, citing examples."
+    },
+    {
+      "id": "Q0178",
+      "paper": "GS Paper 2",
+      "exam_ref": "64th",
+      "topic": "Science & Technology",
+      "directive": "Describe",
+      "marks": null,
+      "text": "With ever-rising electricity demand and depleting conventional energy resources, India is facing acute power shortage. Describe in detail the means provided by present-day science and technology to overcome the growing energy demand."
+    },
+    {
+      "id": "Q0179",
+      "paper": "GS Paper 2",
+      "exam_ref": "64th",
+      "topic": "Science & Technology",
+      "directive": "Explain",
+      "marks": null,
+      "text": "Present-day government is trying to develop smart cities in different States. What are your visions about smart cities? Elucidate the role of science and technology in the development of ideal smart cities."
+    },
+    {
+      "id": "Q0180",
+      "paper": "GS Paper 2",
+      "exam_ref": "64th",
+      "topic": "Science & Technology",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Manifold increase of population and non-planning has led to disproportionate garbage generation. Discuss the different types of wastes. How can the country eradicate this problem with the help of science and technology?"
+    },
+    {
+      "id": "Q0181",
+      "paper": "GS Paper 2",
+      "exam_ref": "65th",
+      "topic": "Science & Technology",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "In India, 'Make in India' is a type of Swadeshi Movement launched by the Modi Government. To promote this movement, discuss the role of science and technology, citing examples in detail."
+    },
+    {
+      "id": "Q0182",
+      "paper": "GS Paper 2",
+      "exam_ref": "65th",
+      "topic": "Science & Technology",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "In the present scenario, the key issues of the country are increasing population, higher health risks, degraded natural resources and dwindling farm lands. Discuss at least four scientific initiatives in each of these four areas."
+    },
+    {
+      "id": "Q0183",
+      "paper": "GS Paper 2",
+      "exam_ref": "65th",
+      "topic": "Science & Technology",
+      "directive": "Explain",
+      "marks": null,
+      "text": "Bihar continues to experience natural disasters like floods and drought on a regular basis. What role can science and technology play in disaster forecasting and management? Explain with practical examples."
+    },
+    {
+      "id": "Q0184",
+      "paper": "GS Paper 2",
+      "exam_ref": "65th",
+      "topic": "Science & Technology",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Discuss in detail what role science and technology can play to control the job-crisis situation and to sustain the development of the nation in the post-Covid-19 scenario."
+    },
+    {
+      "id": "Q0185",
+      "paper": "GS Paper 2",
+      "exam_ref": "66th",
+      "topic": "Science & Technology",
+      "directive": "Describe",
+      "marks": null,
+      "text": "India is the second worst affected Covid-19 nation in the world. Describe the role played by India in countering the Covid-19 situation, keeping in view the 'Make in India' concept."
+    },
+    {
+      "id": "Q0186",
+      "paper": "GS Paper 2",
+      "exam_ref": "66th",
+      "topic": "Science & Technology",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "At present, the search for life on another planet has been one of the objectives of scientists of several nations. Discuss India's developments in space research towards this objective, particularly in the 21st century."
+    },
+    {
+      "id": "Q0187",
+      "paper": "GS Paper 2",
+      "exam_ref": "66th",
+      "topic": "Science & Technology",
+      "directive": "Substantiate",
+      "marks": null,
+      "text": "\"India has augmented its defence system through inclusion of a variety of arsenals under the Make in India programme for its safety and security.\" Justify this statement on the basis of scientific developments in defence technology."
+    },
+    {
+      "id": "Q0188",
+      "paper": "GS Paper 2",
+      "exam_ref": "66th",
+      "topic": "Science & Technology",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Floods and drought in Bihar have been major hurdles over the years which have constantly affected its growth and prosperity. Discuss the role of science and technology in this kind of disaster management with suitable examples."
+    },
+    {
+      "id": "Q0189",
+      "paper": "GS Paper 2",
+      "exam_ref": "67th",
+      "topic": "Science & Technology",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Quality of life and health of any nation is directly linked to food and dietary security. Discuss the role of technology in agricultural development of Bihar."
+    },
+    {
+      "id": "Q0190",
+      "paper": "GS Paper 2",
+      "exam_ref": "67th",
+      "topic": "Science & Technology",
+      "directive": "Substantiate",
+      "marks": null,
+      "text": "\"Technology is proving to be more of a curse than a blessing.\" Justify this statement in the context of environmental pollution."
+    },
+    {
+      "id": "Q0191",
+      "paper": "GS Paper 2",
+      "exam_ref": "67th",
+      "topic": "Science & Technology",
+      "directive": "Other",
+      "marks": null,
+      "text": "Bihar is a flood-prone State. How can modern technology help to control floods and manage this type of disaster? Give suitable examples."
+    },
+    {
+      "id": "Q0192",
+      "paper": "GS Paper 2",
+      "exam_ref": "67th",
+      "topic": "Science & Technology",
+      "directive": "Substantiate",
+      "marks": null,
+      "text": "\"Nanotechnology has a huge potential to transform people's lives for the better.\" Justify this statement with appropriate examples."
+    },
+    {
+      "id": "Q0193",
+      "paper": "GS Paper 2",
+      "exam_ref": "68th",
+      "topic": "Science & Technology",
+      "directive": "Other",
+      "marks": null,
+      "text": "Write short notes on: (a) Indigenization of technology in the Indian context (b) Why India needs to expand its nuclear energy programme, and the precautions needed (c) Difference between Internet and Intranet and how they have changed human life (d) Technology-driven modernization of Bihar (e) Role of nanotechnology in the health sector, with examples."
+    },
+    {
+      "id": "Q0194",
+      "paper": "GS Paper 2",
+      "exam_ref": "68th",
+      "topic": "Science & Technology",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "With advancements in computer and communication technology, India faces severe data threats in public and government domains. Discuss various areas of cyber threat and measures taken by the Central Government to counter them. OR With the mission of providing potable water to every household, discuss the role played by the Indian Government in water conservation and the scientific and technological developments adopted by Bihar."
+    },
+    {
+      "id": "Q0195",
+      "paper": "GS Paper 2",
+      "exam_ref": "69th",
+      "topic": "Science & Technology",
+      "directive": "Other",
+      "marks": null,
+      "text": "Write short notes on: (a) Role of computers in modern society (b) Relationship between technology and social development, with examples (c) Role of science and technology in the industrial development of Bihar (d) How modern technology helped during the Covid-19 pandemic (e) Role of technology in sustainable development."
+    },
+    {
+      "id": "Q0196",
+      "paper": "GS Paper 2",
+      "exam_ref": "69th",
+      "topic": "Science & Technology",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Misuse of technology and its wrong application lead to environmental pollution and climate change. Discuss with suitable examples. OR Nanotechnologies have huge potential to revolutionise our lives. Discuss the emerging applications of nanotechnology in human health."
+    },
+    {
+      "id": "Q0197",
+      "paper": "GS Paper 2",
+      "exam_ref": "70th",
+      "topic": "Science & Technology",
+      "directive": "Substantiate",
+      "marks": null,
+      "text": "Write short notes on: (a) How science and technology is helping in agricultural productivity and food preservation (b) Cyber crime types and how technology is minimising them (c) \"We need science and technology in every sphere of life, from treatment of diseases to booking a train/air ticket\" - justify (d) How DNA fingerprinting technology helps forensic science (e) What is STEM education and how is it useful in Bihar (f) How drone technology is helping national security."
+    },
+    {
+      "id": "Q0198",
+      "paper": "GS Paper 2",
+      "exam_ref": "70th",
+      "topic": "Science & Technology",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Discuss how significant milestones like Chandrayaan and Mangalyaan have enhanced the significance of India's space programmes globally, and their helpfulness in agriculture, disaster management and urban planning. OR What do you understand by Wi-Fi? Explain how it has helped in the development of economy, infrastructure and higher education in India."
+    },
+    {
+      "id": "Q0199",
+      "paper": "GS Paper 1",
+      "exam_ref": "60th-62nd",
+      "topic": "Current Affairs",
+      "directive": "What is / Define",
+      "marks": null,
+      "text": "What is Doklam standoff? What were its underlying causes, and what diplomatic solutions were pursued? [topic summary - verify exact wording against official paper]"
+    },
+    {
+      "id": "Q0200",
+      "paper": "GS Paper 1",
+      "exam_ref": "60th-62nd",
+      "topic": "Current Affairs",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Discuss the Demonetisation Scheme - its success or failure, and its effects including on Bihar's liquor ban. [topic summary - verify exact wording]"
+    },
+    {
+      "id": "Q0201",
+      "paper": "GS Paper 1",
+      "exam_ref": "60th-62nd",
+      "topic": "Current Affairs",
+      "directive": "Explain",
+      "marks": null,
+      "text": "Explain the dispute between North Korea and America and the UN's role in its resolution. [topic summary - verify exact wording]"
+    },
+    {
+      "id": "Q0202",
+      "paper": "GS Paper 1",
+      "exam_ref": "60th-62nd",
+      "topic": "Current Affairs",
+      "directive": "What is / Define",
+      "marks": null,
+      "text": "What is GST? What were the major reasons behind its introduction, and what are its pros and cons for India's economy? [topic summary - verify exact wording]"
+    },
+    {
+      "id": "Q0203",
+      "paper": "GS Paper 1",
+      "exam_ref": "60th-62nd",
+      "topic": "Current Affairs",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "What do you understand by human rights? Discuss the UDHR (1948) and Bihar's efforts over the decades. [topic summary - verify exact wording]"
+    },
+    {
+      "id": "Q0204",
+      "paper": "GS Paper 1",
+      "exam_ref": "63rd",
+      "topic": "Current Affairs",
+      "directive": "Explain",
+      "marks": null,
+      "text": "Explain the BIMSTEC organization and the outcomes of the Kathmandu Summit. [topic summary - verify exact wording]"
+    },
+    {
+      "id": "Q0205",
+      "paper": "GS Paper 1",
+      "exam_ref": "63rd",
+      "topic": "Current Affairs",
+      "directive": "Critically Examine",
+      "marks": null,
+      "text": "Critically examine the Rohingya Refugee Crisis involving Myanmar, China, India and Bangladesh. [topic summary - verify exact wording]"
+    },
+    {
+      "id": "Q0206",
+      "paper": "GS Paper 1",
+      "exam_ref": "63rd",
+      "topic": "Current Affairs",
+      "directive": "What is / Define",
+      "marks": null,
+      "text": "What is the Two-plus-Two dialogue between India and the USA, in the context of Iran relations? [topic summary - verify exact wording]"
+    },
+    {
+      "id": "Q0207",
+      "paper": "GS Paper 1",
+      "exam_ref": "63rd",
+      "topic": "Current Affairs",
+      "directive": "Other",
+      "marks": null,
+      "text": "What do you know about the NRC dispute - its political intentions and international impacts? [topic summary - verify exact wording]"
+    },
+    {
+      "id": "Q0208",
+      "paper": "GS Paper 1",
+      "exam_ref": "63rd",
+      "topic": "Current Affairs",
+      "directive": "Explain",
+      "marks": null,
+      "text": "Elucidate international terrorism and the UN's counter-terrorism contributions. [topic summary - verify exact wording]"
+    },
+    {
+      "id": "Q0209",
+      "paper": "GS Paper 1",
+      "exam_ref": "64th",
+      "topic": "Current Affairs",
+      "directive": "Analyse",
+      "marks": null,
+      "text": "What is the major focus of the UNDP Human Development Report, 2019, beyond income analysis? [topic summary - verify exact wording]"
+    },
+    {
+      "id": "Q0210",
+      "paper": "GS Paper 1",
+      "exam_ref": "64th",
+      "topic": "Current Affairs",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Discuss the prospects of trade promotion between Afghanistan and India via the Chabahar Port. [topic summary - verify exact wording]"
+    },
+    {
+      "id": "Q0211",
+      "paper": "GS Paper 1",
+      "exam_ref": "64th",
+      "topic": "Current Affairs",
+      "directive": "Critically Examine",
+      "marks": null,
+      "text": "Critically examine the key variables that support well-being per the UN Sustainable Development Solutions Network. [topic summary - verify exact wording]"
+    },
+    {
+      "id": "Q0212",
+      "paper": "GS Paper 1",
+      "exam_ref": "64th",
+      "topic": "Current Affairs",
+      "directive": "Other",
+      "marks": null,
+      "text": "Why does India have an open-door policy with Nepal and Bhutan? [topic summary - verify exact wording]"
+    },
+    {
+      "id": "Q0213",
+      "paper": "GS Paper 1",
+      "exam_ref": "64th",
+      "topic": "Current Affairs",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Discuss the UAE's invitation to India as Guest of Honour at the OIC Foreign Ministers' Meet. [topic summary - verify exact wording]"
+    },
+    {
+      "id": "Q0214",
+      "paper": "GS Paper 1",
+      "exam_ref": "65th",
+      "topic": "Current Affairs",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Discuss the pattern of global spread of the Covid-19 pandemic in relation to migration and trade links. [topic summary - verify exact wording]"
+    },
+    {
+      "id": "Q0215",
+      "paper": "GS Paper 1",
+      "exam_ref": "65th",
+      "topic": "Current Affairs",
+      "directive": "What is / Define",
+      "marks": null,
+      "text": "What are the variables of the World Happiness Report-2020, and why do Nordic countries rank highest? [topic summary - verify exact wording]"
+    },
+    {
+      "id": "Q0216",
+      "paper": "GS Paper 1",
+      "exam_ref": "65th",
+      "topic": "Current Affairs",
+      "directive": "Examine",
+      "marks": null,
+      "text": "Examine recent disasters like the Australian bushfires and Amazon fires and their ecological implications. [topic summary - verify exact wording]"
+    },
+    {
+      "id": "Q0217",
+      "paper": "GS Paper 1",
+      "exam_ref": "65th",
+      "topic": "Current Affairs",
+      "directive": "Explain",
+      "marks": null,
+      "text": "Explain the socio-economic and ecological implications of the Covid-19 lockdown in India. [topic summary - verify exact wording]"
+    },
+    {
+      "id": "Q0218",
+      "paper": "GS Paper 1",
+      "exam_ref": "65th",
+      "topic": "Current Affairs",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "\"With Mission Shakti, India becomes the fourth largest space power.\" Discuss. [topic summary - verify exact wording]"
+    },
+    {
+      "id": "Q0219",
+      "paper": "GS Paper 1",
+      "exam_ref": "66th",
+      "topic": "Current Affairs",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Which organization launched the world's first commercial rocket powered by biofuel (Stardust 1.0)? Discuss its significance. [topic summary - verify exact wording]"
+    },
+    {
+      "id": "Q0220",
+      "paper": "GS Paper 1",
+      "exam_ref": "66th",
+      "topic": "Current Affairs",
+      "directive": "Explain",
+      "marks": null,
+      "text": "Explain the major emerging issues discussed at the 12th BRICS Summit. [topic summary - verify exact wording]"
+    },
+    {
+      "id": "Q0221",
+      "paper": "GS Paper 1",
+      "exam_ref": "66th",
+      "topic": "Current Affairs",
+      "directive": "Examine",
+      "marks": null,
+      "text": "Examine the recent basic features and provisions of Aatmanirbhar Bharat Rozgar Yojana as a post-Covid policy. [topic summary - verify exact wording]"
+    },
+    {
+      "id": "Q0222",
+      "paper": "GS Paper 1",
+      "exam_ref": "66th",
+      "topic": "Current Affairs",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Discuss the India-European Union (EU) Broad-based Trade and Investment Agreement. [topic summary - verify exact wording]"
+    },
+    {
+      "id": "Q0223",
+      "paper": "GS Paper 1",
+      "exam_ref": "66th",
+      "topic": "Current Affairs",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Discuss 'Harit Bharat Sankalp' and its role in environmental protection. [topic summary - verify exact wording]"
+    },
+    {
+      "id": "Q0224",
+      "paper": "GS Paper 1",
+      "exam_ref": "67th",
+      "topic": "Current Affairs",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Discuss the origin, membership, development and objectives of the QUAD, and India's significance in it. [topic summary - verify exact wording]"
+    },
+    {
+      "id": "Q0225",
+      "paper": "GS Paper 1",
+      "exam_ref": "67th",
+      "topic": "Current Affairs",
+      "directive": "Comment",
+      "marks": null,
+      "text": "\"Agnipath is a path towards development or destruction.\" Comment. [topic summary - verify exact wording]"
+    },
+    {
+      "id": "Q0226",
+      "paper": "GS Paper 1",
+      "exam_ref": "67th",
+      "topic": "Current Affairs",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Discuss the concept of One Nation One Election, with arguments for and against. [topic summary - verify exact wording]"
+    },
+    {
+      "id": "Q0227",
+      "paper": "GS Paper 1",
+      "exam_ref": "67th",
+      "topic": "Current Affairs",
+      "directive": "What is / Define",
+      "marks": null,
+      "text": "What is the root cause of the war between Russia and Ukraine, and what are its global impacts? [topic summary - verify exact wording]"
+    },
+    {
+      "id": "Q0228",
+      "paper": "GS Paper 1",
+      "exam_ref": "67th",
+      "topic": "Current Affairs",
+      "directive": "Critically Analyse",
+      "marks": null,
+      "text": "It is generally alleged that the ruling party misuses Constitutional institutions. Critically analyse. [topic summary - verify exact wording]"
+    },
+    {
+      "id": "Q0229",
+      "paper": "GS Paper 1",
+      "exam_ref": "68th",
+      "topic": "Current Affairs",
+      "directive": "Other",
+      "marks": null,
+      "text": "Write short notes on: 18th National Scouts Jamboree, UN Public Administration Network, Bihar e-services, solar power in Bihar, Bihar Saat Nischay-2. [topic summary - verify exact wording]"
+    },
+    {
+      "id": "Q0230",
+      "paper": "GS Paper 1",
+      "exam_ref": "68th",
+      "topic": "Current Affairs",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Discuss the UGC's draft regulations allowing foreign universities to set up campuses in India. [topic summary - verify exact wording]"
+    },
+    {
+      "id": "Q0231",
+      "paper": "GS Paper 1",
+      "exam_ref": "68th",
+      "topic": "Current Affairs",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Discuss India's G-20 leadership role amid developmental challenges. OR Discuss the UN's role in Syria-Turkey earthquake disaster management. [topic summary - verify exact wording]"
+    },
+    {
+      "id": "Q0232",
+      "paper": "GS Paper 1",
+      "exam_ref": "69th",
+      "topic": "Current Affairs",
+      "directive": "Other",
+      "marks": null,
+      "text": "Write short notes on: Supreme Court's concerns on gender stereotypes, Bharatiya Nagarik Suraksha Sanhita 2023, AI in legislative decisions, Global Wage Report parameters, Foreign Trade Policy 2023. [topic summary - verify exact wording]"
+    },
+    {
+      "id": "Q0233",
+      "paper": "GS Paper 1",
+      "exam_ref": "69th",
+      "topic": "Current Affairs",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Discuss the Manipur crisis and its national political repercussions. OR Discuss India's G-20 leadership reflecting the \"Vasudhaiva Kutumbakam\" philosophy. [topic summary - verify exact wording]"
+    },
+    {
+      "id": "Q0234",
+      "paper": "GS Paper 1",
+      "exam_ref": "69th",
+      "topic": "Current Affairs",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Discuss the societal consequences of a Uniform Civil Code. OR Discuss the significance of the Chandrayaan-3 mission. [topic summary - verify exact wording]"
+    },
+    {
+      "id": "Q0235",
+      "paper": "GS Paper 1",
+      "exam_ref": "70th",
+      "topic": "Current Affairs",
+      "directive": "Analyse",
+      "marks": null,
+      "text": "Write short notes on: opposition coalition politics post-Delhi elections, Russia-Ukraine war three-year analysis, Maha Kumbh cultural significance, need for a caste-based census, Trump's impact on America's future. [topic summary - verify exact wording]"
+    },
+    {
+      "id": "Q0236",
+      "paper": "GS Paper 1",
+      "exam_ref": "70th",
+      "topic": "Current Affairs",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Discuss Uttarakhand's implementation of the Uniform Civil Code and its societal changes. OR Discuss the constitutional provisions of President's Rule. [topic summary - verify exact wording]"
+    },
+    {
+      "id": "Q0237",
+      "paper": "GS Paper 1",
+      "exam_ref": "70th",
+      "topic": "Current Affairs",
+      "directive": "Discuss",
+      "marks": null,
+      "text": "Discuss \"One Nation, One Election\" and its implications for India's federal structure. OR Discuss the societal changes from the Women's Reservation Act 2023. [topic summary - verify exact wording]"
+    }
+  ]
+}

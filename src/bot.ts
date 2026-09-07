@@ -1,9 +1,17 @@
 import { Bot, InlineKeyboard } from "grammy";
-import { config, PLACEHOLDER_QUESTION_ID } from "./config";
+import { config } from "./config";
 import { getOrCreateUser, setUserLanguage, saveSubmission, updateSubmissionTranscript } from "./supabase";
 import { transcribeImage } from "./stageA";
+import { generateQuestion, getActiveQuestion } from "./stage0";
+import { evaluateSubmission } from "./stageB";
 import { sha256 } from "./hash";
 import { t, type Lang } from "./text";
+
+const LANGUAGE_LABEL: Record<Lang, string> = {
+  hi: "Hindi",
+  hinglish: "Hinglish (Hindi written in Roman script)",
+  en: "English",
+};
 
 export const bot = new Bot(config.telegramBotToken);
 
@@ -40,6 +48,19 @@ const pendingReplacement = new Map<number, PendingReplacement>();
 const SHRINK_GUARD_MIN_ORIGINAL_WORDS = 15;
 const SHRINK_GUARD_RATIO = 0.5;
 
+// Which question each student is currently answering. In memory, like the
+// edit state above: there is no column on `users` for it, and adding one
+// needs a migration. On restart this falls back to the newest active
+// question, which is correct while only one question is live at a time.
+const currentQuestion = new Map<number, string>();
+
+async function questionForUser(telegramId: number): Promise<string | null> {
+  const remembered = currentQuestion.get(telegramId);
+  if (remembered) return remembered;
+  const active = await getActiveQuestion();
+  return active?.id ?? null;
+}
+
 function languageKeyboard(): InlineKeyboard {
   return new InlineKeyboard().text("हिन्दी", "lang:hi").text("Hinglish", "lang:hinglish").text("English", "lang:en");
 }
@@ -60,6 +81,44 @@ bot.callbackQuery(/^lang:(hi|hinglish|en)$/, async (ctx) => {
   await ctx.answerCallbackQuery();
   await ctx.editMessageText(t(lang, "confirmed"));
   await ctx.reply(t(lang, "sendPhoto"));
+});
+
+// Serves the student a question to answer, generating one via Stage 0 if
+// none is live yet. Without this the bot has nothing to grade against.
+bot.command("question", async (ctx) => {
+  const telegramId = ctx.from!.id;
+  const user = await getOrCreateUser(telegramId, ctx.from?.first_name);
+  if (!user.language) {
+    await ctx.reply(t("en", "needLanguage"), { reply_markup: languageKeyboard() });
+    return;
+  }
+  const lang = user.language;
+
+  let question = await getActiveQuestion();
+  if (!question) {
+    await ctx.reply(t(lang, "generatingQuestion"));
+    try {
+      const generated = await generateQuestion();
+      question = {
+        id: generated.questionId,
+        question_hi: generated.questionText,
+        marks: generated.marks,
+        word_limit: generated.wordLimit,
+      };
+    } catch (err) {
+      console.error("Stage 0 failed:", err);
+      await ctx.reply(t(lang, "somethingWrong"));
+      return;
+    }
+  }
+
+  currentQuestion.set(telegramId, question.id);
+  await ctx.reply(
+    `<b>${t(lang, "questionHeader")}</b> (${question.marks} marks, ~${question.word_limit} words)\n\n` +
+      `${escapeHtml(question.question_hi ?? "")}\n\n` +
+      `<i>${escapeHtml(t(lang, "questionFooter"))}</i>`,
+    { parse_mode: "HTML" },
+  );
 });
 
 bot.on("message:photo", async (ctx) => {
@@ -95,9 +154,14 @@ bot.on("message:photo", async (ctx) => {
     return;
   }
 
+  // Link the answer to the question it was actually written for. Falls back
+  // to the bookkeeping placeholder only if the student never asked for a
+  // question - in that case there is nothing to grade against.
+  const questionId = (await questionForUser(telegramId)) ?? config.placeholderQuestionId;
+
   const submissionId = await saveSubmission({
     user_id: user.id,
-    question_id: PLACEHOLDER_QUESTION_ID,
+    question_id: questionId,
     image_sha256: imageSha256,
     transcript: result.transcript,
     transcript_confidence: result.confidence,
@@ -120,13 +184,57 @@ bot.on("message:photo", async (ctx) => {
 });
 
 bot.callbackQuery(/^confirm:(.+)$/, async (ctx) => {
+  const submissionId = ctx.match![1];
   const telegramId = ctx.from.id;
   const user = await getOrCreateUser(telegramId, ctx.from.first_name);
   const lang = user.language ?? "en";
   await ctx.answerCallbackQuery();
   await ctx.editMessageReplyMarkup(); // remove the buttons so a second tap can't double-confirm
   await ctx.reply(t(lang, "confirmed"));
+
+  // Confirming the transcript is what triggers grading.
+  await gradeAndReply(ctx, submissionId, lang);
 });
+
+/** Runs Stage B on a confirmed transcript and sends the student their mark. */
+async function gradeAndReply(ctx: any, submissionId: string, lang: Lang): Promise<void> {
+  const questionId = await questionForUser(ctx.from.id);
+  if (!questionId || questionId === config.placeholderQuestionId) {
+    await ctx.reply(t(lang, "noQuestion"));
+    return;
+  }
+
+  await ctx.reply(t(lang, "grading"));
+  try {
+    const result = await evaluateSubmission(submissionId, LANGUAGE_LABEL[lang]);
+
+    const lines: string[] = [
+      `<b>${escapeHtml(t(lang, "scoreLabel"))}: ${result.totalMarks} / ${result.maxMarks}</b>`,
+      "",
+      escapeHtml(result.feedback),
+    ];
+
+    if (result.pointsFound.length) {
+      lines.push("", `<b>${escapeHtml(t(lang, "foundLabel"))}</b>`);
+      for (const p of result.pointsFound) lines.push(`✅ ${escapeHtml(p.point)}`);
+    }
+    if (result.pointsMissed.length) {
+      lines.push("", `<b>${escapeHtml(t(lang, "missedLabel"))}</b>`);
+      for (const p of result.pointsMissed) {
+        lines.push(`❌ ${escapeHtml(p.point)} — ${escapeHtml(p.why_it_matters)}`);
+      }
+    }
+    if (result.todo.length) {
+      lines.push("", `<b>${escapeHtml(t(lang, "todoLabel"))}</b>`);
+      for (const item of result.todo) lines.push(`• ${escapeHtml(item)}`);
+    }
+
+    await ctx.reply(lines.join("\n"), { parse_mode: "HTML" });
+  } catch (err) {
+    console.error("Stage B failed:", err);
+    await ctx.reply(t(lang, "gradeFailed"));
+  }
+}
 
 function wordCount(s: string): number {
   return s.trim().split(/\s+/).filter(Boolean).length;
@@ -180,6 +288,9 @@ bot.callbackQuery("edit-confirm", async (ctx) => {
   pendingReplacement.delete(telegramId);
   await ctx.editMessageReplyMarkup();
   await ctx.reply(t(lang, "editSaved"));
+
+  // A saved edit is a confirmed transcript - grade it.
+  await gradeAndReply(ctx, pending.submissionId, lang);
 });
 
 bot.callbackQuery("edit-cancel", async (ctx) => {
@@ -238,6 +349,9 @@ bot.on("message:text", async (ctx) => {
   await updateSubmissionTranscript(state.submissionId, correctedText, newWordCount);
   awaitingEdit.delete(telegramId);
   await ctx.reply(t(lang, "editSaved"));
+
+  // A saved edit is a confirmed transcript - grade it.
+  await gradeAndReply(ctx, state.submissionId, lang);
 });
 
 bot.catch((err) => {

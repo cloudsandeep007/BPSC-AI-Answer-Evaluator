@@ -49,8 +49,9 @@ consistent between students answering the same question.
 | **Backend** | Node.js + TypeScript | `src/` |
 | **Database** | Supabase (hosted Postgres), project `cdwthqbbhsywpyxyjmiw` | schema in `db/migrations/` |
 | **Handwriting reader (Stage A)** | Google Gemini vision model | `src/stageA.ts` |
-| **Question generator (Stage 0)** | Not built yet | — |
-| **Grader (Stage B)** | Not built yet | — |
+| **Question generator (Stage 0)** | Google Gemini | `src/stage0.ts` |
+| **Grader (Stage B)** | Google Gemini + scoring arithmetic in code | `src/stageB.ts`, `src/content/calibration.ts` |
+| **BPSC content** | Ingested from the source documents | `src/content/` |
 | **Hosting** | **Not deployed.** Runs locally on demand | see §5 |
 
 ### Every file in `src/`
@@ -59,6 +60,12 @@ consistent between students answering the same question.
 |---|---|
 | `bot.ts` | All Telegram conversation logic: `/start`, language choice, photo handling, confirm/edit buttons |
 | `stageA.ts` | Sends a photo to Gemini and returns the transcript + a confidence score |
+| `stage0.ts` | Generates a fresh question and its answer key, then activates it |
+| `stageB.ts` | Grades a confirmed transcript against that answer key |
+| `gemini.ts` | Shared Gemini client - retries, JSON extraction, usage accounting |
+| `content/` | The ingested BPSC exam content (see §3a) |
+| `seed.ts` | Writes reference rows (the rubric) into existing tables |
+| `migrate.ts` | Applies pending database migrations |
 | `supabase.ts` | Database access — the only file that talks to Postgres |
 | `config.ts` | Reads and validates environment variables (API keys, thresholds) |
 | `text.ts` | Every user-facing message, in all three languages (Hindi / Hinglish / English) |
@@ -76,7 +83,16 @@ consistent between students answering the same question.
   every proper noun, date and Act name right. Flash-tier costs a fraction of
   pro-tier and this call runs on *every single submission*, so cost per call
   compounds fast — flash was both good enough and the economical choice.
-- **Stage 0 and Stage B**: not built yet, model not yet chosen.
+- **Stage 0 (generating questions and answer keys)** and **Stage B (judging)**:
+  the same Gemini model by default, overridable per stage with
+  `GEMINI_GENERATION_MODEL` and `GEMINI_JUDGE_MODEL`. Split them if judging
+  ever needs a stronger model than generation.
+
+**Stage B never reports a mark.** It returns band labels per dimension; the
+final number is computed by our own code in `src/content/calibration.ts`. A
+model asked for a score anchors on plausible-looking numbers, whereas the
+arithmetic is auditable and testable — and it is tested, against the source
+document's own worked examples (`npm run verify:calibration`).
 
 ---
 
@@ -92,11 +108,11 @@ Verified — querying with the public `anon` key returns zero rows.
 | Table | What it's for | Populated? |
 |---|---|---|
 | `users` | One row per student, keyed on their Telegram ID | ✅ real rows |
-| `questions` | The practice questions students answer | ⚠️ one placeholder row only |
-| `model_answers` | The answer key for a question — `expected_points`, versioned | ❌ empty |
-| `rubrics` | Scoring dimensions and their band descriptors, versioned | ❌ empty |
+| `questions` | The practice questions students answer | ✅ real generated rows |
+| `model_answers` | The answer key for a question — `expected_points`, versioned | ✅ one per generated question |
+| `rubrics` | Scoring dimensions and their band descriptors, versioned | ✅ v1 seeded |
 | `submissions` | One row per photographed answer: the transcript and its confidence | ✅ real rows |
-| `evaluations` | One row per graded answer: scores, feedback, and which rubric/model/prompt produced them | ❌ empty |
+| `evaluations` | One row per graded answer: scores, feedback, and which rubric/model/prompt produced them | ✅ written by Stage B |
 | `payments` | Placeholder — real design deferred | ❌ empty, 3 columns only |
 | `usage_ledger` | Placeholder — credit movements | ❌ empty, 4 columns only |
 
@@ -133,6 +149,42 @@ disk.
 
 ---
 
+## 3a. The ingested BPSC content
+
+The exam content originated as Word and CSV documents in
+`D:\Claude\Govt exam prep\BPSC\`. It is **not** read from there at runtime —
+`npm run ingest:content` converts those documents into the files below, which
+are committed. The script is the record of exactly how each file was derived,
+so none of this is hand-typed guesswork.
+
+| File | From | What it holds |
+|---|---|---|
+| `src/content/question-patterns.json` | `BPSC-Question-Bank.csv` | All 237 past questions plus the distributions Stage 0 samples from: topic-by-paper, directive-by-topic |
+| `src/content/ncert-knowledge.json` | `NCERT Knowledge Base - BPSC Priority Subjects.docx` | 13 NCERT-sourced fact entries, tagged by topic, plus the document's own note on what it doesn't cover |
+| `src/content/answerTemplates.ts` | `BPSC - Standard Answer Structure and Judging Rules.docx` | The four answer templates: marks, word ranges, expected structure |
+| `src/content/calibration.ts` | `BPSC - Answer Evaluation and Model-Answer Standard.docx` | Dimension weights, band values, and the realism ceilings |
+| `src/content/rubric.ts` | Both rules documents | The band descriptors the judging model reads. Seeded into the `rubrics` table by `npm run seed` |
+
+**Why some of it is JSON and some is TypeScript:** the question bank and NCERT
+facts are *data* Stage 0 looks things up in, so they are data files. The
+templates, weights and ceilings are *arithmetic the backend performs* — the
+numbers and the code applying them have to change together, so they live in
+code where a change is a reviewed commit rather than an editable row.
+
+**The 237 historical questions are style data, never served to students.**
+Stage 0 shows a handful to the model as examples of house style, then checks
+its generated question against every historical question on that topic and
+rejects anything scoring above 0.6 word-overlap similarity — a deterministic
+backstop rather than trusting the instruction not to copy.
+
+**NCERT coverage is partial and honestly labelled.** It reaches Polity (8
+entries), Geography & Economics (3) and History & Culture (2). Current
+Affairs, Science & Technology and most of Geography are not covered, so every
+`expected_points` entry records whether it came from `ncert` or
+`general_knowledge`.
+
+---
+
 ## 4. What's built vs. stubbed vs. missing
 
 ### ✅ Built and working
@@ -153,13 +205,33 @@ disk.
 - Gemini calls retry with backoff on transient failures (503 overload, 429 rate
   limits), which happen routinely in practice.
 - RLS enabled on all 8 tables and verified.
+- **`/question`** serves a question, generating one via Stage 0 if none is live.
+- **Stage 0** picks a paper/topic/directive weighted by the real exam's
+  distribution, generates an original question (rejecting anything too close to
+  a historical one), builds its `expected_points` answer key NCERT-first, and
+  only then marks the question active — a live question with no key would be
+  ungradeable.
+- **Stage B** runs when a student confirms (or edits) their transcript: fetches
+  the active rubric and the question's answer key, asks the model to *compare
+  only*, computes the mark in our own code, writes an `evaluations` row
+  carrying all four provenance fields, and sends the student their score with
+  points found, points missed and what to do next.
+- Scoring calibration is verified against the source document's own worked
+  examples — `npm run verify:calibration` reproduces every documented mark.
 
 ### ⚠️ Stubbed / placeholder
 
-- **`questions.id = 00000000-0000-0000-0000-000000000001`** — a single fake
-  question row exists purely so `submissions.question_id` has a valid target.
-  Every submission so far points at it. Remove once Stage 0 generates real
-  questions.
+- **`questions.id = 00000000-0000-0000-0000-000000000001`** — the bookkeeping
+  placeholder. Submissions only land on it when a student photographs an answer
+  without ever asking for a question; those cannot be graded and the bot says
+  so. Real submissions now point at real generated questions.
+- **Which question a student is answering is tracked in memory**, not in the
+  database — `users` has no column for it and adding one needs a migration
+  (blocked on `SUPABASE_DB_URL`). On restart it falls back to the newest active
+  question, which is correct while only one question is live at a time.
+- **Cost per evaluation is not recorded** — `evaluations.cost_paise` is written
+  as null. Token counts are available from the Gemini response but are not yet
+  converted to money.
 - **`payments` and `usage_ledger`** exist with minimal columns as placeholders.
   No credits are checked or charged anywhere; every student has unlimited free
   use right now.
@@ -168,13 +240,13 @@ disk.
 
 ### ❌ Not built at all
 
-- **Stage 0** — question generation and answer-key generation.
-- **Stage B** — grading. Nothing has ever been scored.
-- **Rubrics** — no scoring dimensions defined yet.
-- **BPSC content ingestion** — the NCERT knowledge base, the 237-question
-  pattern bank, the answer-structure templates and the marks-calibration data
-  all still live as Word/CSV documents in `D:\Claude\Govt exam prep\BPSC\` and
-  are not in the app.
+- **Statistics / data-interpretation questions** — Template 4 exists in
+  `answerTemplates.ts` but is marked unsupported and excluded from Stage 0's
+  sampling. It needs chart generation, which neither stage handles.
+- **Migrations have never actually been run** — the runner is written and
+  fails helpfully, but `SUPABASE_DB_URL` is not set, so `npm run migrate` has
+  not been executed against the live database. Everything so far has needed
+  only row inserts, which go through the API.
 - **Payments** (Razorpay), credit enforcement, referrals.
 - **Deployment** — not on Railway or anywhere else.
 - **Statistics / data-interpretation question type** — deliberately deferred,
@@ -197,8 +269,16 @@ npm run dev:polling  # start the bot locally
 as that terminal is open. `npm run dev` / `npm start` run the webhook server
 instead, which is what a real deployment would use — untested so far.
 
-Other commands: `npm run typecheck`, `npm run build`, `npm run migrate` (see
-`db/migrations/README.md`).
+Other commands:
+
+| Command | What it does | When to run it |
+|---|---|---|
+| `npm run migrate` | Applies pending database migrations | After any session that added a migration file |
+| `npm run seed` | Writes the rubric into the `rubrics` table | After changing `src/content/rubric.ts` |
+| `npm run ingest:content` | Rebuilds `src/content/*.json` from the source Word/CSV documents | When those documents change |
+| `npm run verify:calibration` | Checks the scoring maths against the source document's worked examples | After touching `calibration.ts` |
+| `npm run smoke:stages` | Runs Stage 0 then Stage B end to end against the live database | To check the pipeline works; costs a few Gemini calls |
+| `npm run typecheck` / `npm run build` | TypeScript checks | Anytime |
 
 ---
 
@@ -223,6 +303,38 @@ Other commands: `npm run typecheck`, `npm run build`, `npm run migrate` (see
 ## Changelog
 
 Newest first. One entry per work session.
+
+### 2026-09-07 — BPSC content ingested, Stage 0 and Stage B built (Step 3, Parts 3–4)
+
+- Ingested the four BPSC source documents into `src/content/` via a repeatable
+  script (`npm run ingest:content`) rather than hand-typing: 237 past questions
+  with their topic/directive distributions, 13 NCERT fact entries, the four
+  answer templates, and the marks-calibration data. See §3a for the split
+  between JSON data and TypeScript config, and why.
+- Seeded rubric v1 into the `rubrics` table. It went in as a row rather than a
+  migration because the table already existed — data, not schema.
+- **Stage 0** generates a question and its answer key. It samples paper, topic
+  and directive from the real exam's distribution, and rejects any generated
+  question scoring above 0.6 similarity against a historical one — the question
+  bank is style data and must never be served back verbatim, so that is
+  enforced in code rather than left to a prompt instruction.
+- **Stage B** grades a confirmed transcript. The model is given the fixed answer
+  key and told to compare only; it returns band labels, never a number. The mark
+  is computed by our own code so it is auditable.
+- **Calibrated against real BPSC examiner behaviour**, which is the point of the
+  whole exercise: topper copies show ~45–55% on discursive answers, not 85%+.
+  `npm run verify:calibration` checks the arithmetic against the six worked
+  examples in the source document and all six now reproduce. A flawless
+  discursive answer lands at 68% — the top of the documented band — rather than
+  the 90%+ a naive rubric would award.
+- Added `/question` to serve a question. Without it Stage B had nothing
+  meaningful to grade against, since students were photographing answers to
+  questions the app had never asked.
+- Verified end to end with `npm run smoke:stages`: Stage 0 produced a
+  Bihar-focused agro-industry question keyed to the ingested NCERT chapters;
+  Stage B scored a vague answer 0.5/8 and a content-complete but badly
+  structured one 6/8, docking it on structure alone. All four provenance fields
+  recorded on both evaluations.
 
 ### 2026-09-07 — Project documentation and real migrations (Step 3, Parts 1–2)
 

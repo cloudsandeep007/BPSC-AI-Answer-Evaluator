@@ -1,18 +1,14 @@
-// Stage A: vision transcription of a photographed handwritten answer.
+// Stage A - reads a photographed handwritten answer into text.
 //
-// Ported from the Week 0 OCR diagnostic
-// (../week0-ocr-test/src/providers.js + prompt.js) - same request shape,
-// same prompt contract, trimmed to only what the bot needs (word count is
-// computed here rather than trusted from the model's own count).
-//
-// Week 0 found gemini-3.5/3.7/3.8-flash all scored ~0.97-0.98 content
-// agreement transcribing real Devanagari handwriting, and flash is what
-// this Gemini key actually has quota for today (pro came back
-// quota-blocked). Swap GEMINI_MODEL once the account is billed for pro.
+// The prompt and request shape come from the Week 0 OCR diagnostic
+// (../week0-ocr-test/), where three independent Gemini flash models agreed on
+// 97-98% of content words transcribing real handwritten Devanagari. The
+// production reader behaves like the one that was actually evaluated.
 
 import { config } from "./config";
+import { callGemini, extractJson } from "./gemini";
 
-const GEMINI_MODEL = process.env.GEMINI_MODEL ?? "gemini-3.6-flash";
+export const STAGE_A_PROMPT_VERSION = "stageA-v1";
 
 const SYSTEM_PROMPT =
   "You are a precise transcription engine for handwritten answer sheets from Indian competitive exams " +
@@ -40,85 +36,20 @@ export interface TranscriptionResult {
   wordCount: number;
 }
 
-// Gemini returns 503 "model currently experiencing high demand" routinely
-// under load, not as a rare edge case - Week 0 hit this repeatedly. Retry
-// with backoff on the known-transient codes before giving up.
-const RETRYABLE_STATUS = new Set([408, 409, 425, 429, 500, 502, 503, 504, 529]);
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-const backoffMs = (attempt: number) => Math.min(15000, 1500 * 3 ** (attempt - 1)) + Math.random() * 500;
-
-// Models sometimes wrap JSON in a fence or add a sentence around it.
-function extractJson(text: string): any {
-  if (!text) return null;
-  let t = text.trim();
-  const fence = t.match(/^```(?:json)?\s*([\s\S]*?)\s*```$/i);
-  if (fence) t = fence[1].trim();
-  try {
-    return JSON.parse(t);
-  } catch {
-    /* fall through */
-  }
-  const start = t.indexOf("{");
-  const end = t.lastIndexOf("}");
-  if (start !== -1 && end > start) {
-    try {
-      return JSON.parse(t.slice(start, end + 1));
-    } catch {
-      /* fall through */
-    }
-  }
-  return null;
-}
-
-// Devanagari must count as words the same way Latin script does.
-function wordCount(s: string): number {
+/** Devanagari must count as words the same way Latin script does. */
+export function wordCount(s: string): number {
   return s.trim().split(/\s+/).filter(Boolean).length;
 }
 
 export async function transcribeImage(base64: string, mimeType: string): Promise<TranscriptionResult> {
-  const body = {
-    systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
-    contents: [
-      {
-        role: "user",
-        parts: [{ inline_data: { mime_type: mimeType, data: base64 } }, { text: USER_PROMPT }],
-      },
-    ],
-    generationConfig: { temperature: 0, maxOutputTokens: 8192, responseMimeType: "application/json" },
-  };
+  const res = await callGemini({
+    model: config.geminiModel,
+    system: SYSTEM_PROMPT,
+    parts: [{ inline_data: { mime_type: mimeType, data: base64 } }, { text: USER_PROMPT }],
+  });
 
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
-  const maxAttempts = 3;
-  let res: Response | null = null;
-  let lastErrText = "";
-
-  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
-    res = await fetch(url, {
-      method: "POST",
-      headers: { "x-goog-api-key": config.geminiApiKey, "content-type": "application/json" },
-      body: JSON.stringify(body),
-    });
-    if (res.ok) break;
-
-    lastErrText = await res.text();
-    if (RETRYABLE_STATUS.has(res.status) && attempt < maxAttempts) {
-      await sleep(backoffMs(attempt));
-      continue;
-    }
-    throw new Error(`Gemini transcription failed: HTTP ${res.status}: ${lastErrText.slice(0, 500)}`);
-  }
-
-  const json: any = await res!.json();
-  const candidate = json.candidates?.[0];
-  if (!candidate) throw new Error("Gemini returned no candidate for this image");
-
-  const text = (candidate.content?.parts ?? [])
-    .filter((p: any) => !p.thought && typeof p.text === "string")
-    .map((p: any) => p.text)
-    .join("");
-
-  const parsed = extractJson(text);
-  const transcript: string = parsed && typeof parsed.transcript === "string" ? parsed.transcript : text;
+  const parsed = extractJson<{ transcript: string; confidence: number }>(res.text);
+  const transcript = parsed && typeof parsed.transcript === "string" ? parsed.transcript : res.text;
 
   let confidence: number | null = parsed ? Number(parsed.confidence) : null;
   if (confidence === null || Number.isNaN(confidence)) confidence = null;
