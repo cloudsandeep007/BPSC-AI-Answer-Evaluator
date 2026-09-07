@@ -170,17 +170,36 @@ function buildNcertKnowledge() {
     "HISTORY & CULTURE": "History & Culture",
   };
 
-  const entries: Array<{ id: string; topic: string; heading: string; text: string }> = [];
+  // The book title and class per topic, per the source document's own
+  // compiled note ("...from the current NCERT Class 11 Political Science
+  // ('Indian Constitution at Work') and Class 11 Economics ('Indian Economic
+  // Development') textbooks"). History headings already embed their own
+  // class + book title, so they don't need a prefix here.
+  const NCERT_BOOK_BY_TOPIC: Record<string, string> = {
+    Polity: "NCERT Class 11 Political Science, Indian Constitution at Work",
+    "Geography & Economics": "NCERT Class 11 Economics, Indian Economic Development",
+  };
+
+  /** A real, specific citation - book, class, chapter - not just "NCERT". */
+  function citationFor(topic: string, heading: string): string {
+    if (/Class\s+\d+/i.test(heading)) return `NCERT ${heading}`;
+    const book = NCERT_BOOK_BY_TOPIC[topic];
+    return book ? `${book}, ${heading}` : `NCERT, ${heading}`;
+  }
+
+  const entries: Array<{ id: string; topic: string; heading: string; citation: string; text: string }> = [];
   let currentTopic = "";
   let currentHeading = "";
   let buffer: string[] = [];
 
   const flush = () => {
     if (currentTopic && currentHeading && buffer.length) {
+      const topic = TOPIC_KEY[currentTopic] ?? currentTopic;
       entries.push({
         id: `ncert-${String(entries.length + 1).padStart(3, "0")}`,
-        topic: TOPIC_KEY[currentTopic] ?? currentTopic,
+        topic,
         heading: currentHeading,
+        citation: citationFor(topic, currentHeading),
         text: buffer.join("\n").trim(),
       });
     }

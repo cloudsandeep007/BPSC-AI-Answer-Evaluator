@@ -22,6 +22,18 @@ export interface GeminiCall {
   maxOutputTokens?: number;
   /** Ask for JSON back. Defaults to true - every caller here wants structured output. */
   json?: boolean;
+  /**
+   * Ground the response in live Google Search results rather than only the
+   * model's frozen training data. Supported combined with JSON output mode
+   * on Gemini 3+ models (verified against Google's current docs, not assumed).
+   */
+  search?: boolean;
+}
+
+/** A real source Gemini's search grounding actually cited - not model-invented. */
+export interface GroundingSource {
+  title: string;
+  url: string;
 }
 
 export interface GeminiResult {
@@ -29,6 +41,8 @@ export interface GeminiResult {
   latencyMs: number;
   usage: { input: number | null; output: number | null };
   finishReason: string | null;
+  /** Populated only when `search: true` was requested and grounding actually fired. */
+  groundingSources: GroundingSource[];
 }
 
 export async function callGemini(call: GeminiCall): Promise<GeminiResult> {
@@ -41,6 +55,7 @@ export async function callGemini(call: GeminiCall): Promise<GeminiResult> {
       maxOutputTokens: call.maxOutputTokens ?? 8192,
       ...(call.json === false ? {} : { responseMimeType: "application/json" }),
     },
+    ...(call.search ? { tools: [{ google_search: {} }] } : {}),
   };
 
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${call.model}:generateContent`;
@@ -73,6 +88,12 @@ export async function callGemini(call: GeminiCall): Promise<GeminiResult> {
     .map((p: any) => p.text)
     .join("");
 
+  // groundingChunks carries the real sources Gemini actually consulted -
+  // titles and URLs it found via search, not anything we or it invents.
+  const groundingSources: GroundingSource[] = (candidate.groundingMetadata?.groundingChunks ?? [])
+    .map((c: any) => (c.web ? { title: c.web.title ?? c.web.uri, url: c.web.uri } : null))
+    .filter((s: GroundingSource | null): s is GroundingSource => s !== null);
+
   return {
     text,
     latencyMs: Date.now() - started,
@@ -81,6 +102,7 @@ export async function callGemini(call: GeminiCall): Promise<GeminiResult> {
       output: json.usageMetadata?.candidatesTokenCount ?? null,
     },
     finishReason: candidate.finishReason ?? null,
+    groundingSources,
   };
 }
 

@@ -1,8 +1,10 @@
-import { Bot, InlineKeyboard } from "grammy";
+import { Bot, InlineKeyboard, InputFile } from "grammy";
+import { buildReportCard } from "./reportCard";
 import { config } from "./config";
 import { getOrCreateUser, setUserLanguage, saveSubmission, updateSubmissionTranscript } from "./supabase";
 import { transcribeImage } from "./stageA";
-import { generateQuestion, getActiveQuestion } from "./stage0";
+import { generateQuestion, AVAILABLE_TOPICS } from "./stage0";
+import { SlotType } from "./content/answerTemplates";
 import { evaluateSubmission } from "./stageB";
 import { sha256 } from "./hash";
 import { t, type Lang } from "./text";
@@ -55,10 +57,54 @@ const SHRINK_GUARD_RATIO = 0.5;
 const currentQuestion = new Map<number, string>();
 
 async function questionForUser(telegramId: number): Promise<string | null> {
-  const remembered = currentQuestion.get(telegramId);
-  if (remembered) return remembered;
-  const active = await getActiveQuestion();
-  return active?.id ?? null;
+  // No fallback to "the newest active question" here on purpose: once
+  // different students can each have their own freshly-generated question
+  // (see /question below), guessing "the newest one" would sometimes hand a
+  // student someone else's question after a restart. Returning null makes
+  // gradeAndReply correctly ask them to run /question again instead.
+  return currentQuestion.get(telegramId) ?? null;
+}
+
+// Short codes for callback_data - keeps payloads well under Telegram's 64-byte
+// limit regardless of how the topic strings themselves are spelled.
+const TOPIC_CODES: Record<string, string> = Object.fromEntries(AVAILABLE_TOPICS.map((t, i) => [String(i), t]));
+const TOPIC_CODE_BY_NAME = Object.fromEntries(Object.entries(TOPIC_CODES).map(([code, name]) => [name, code]));
+
+function topicKeyboard(): InlineKeyboard {
+  const kb = new InlineKeyboard();
+  AVAILABLE_TOPICS.forEach((topic, i) => {
+    kb.text(topic, `topic:${TOPIC_CODE_BY_NAME[topic]}`);
+    if (i % 2 === 1) kb.row();
+  });
+  return kb;
+}
+
+function slotTypeKeyboard(topicCode: string, lang: Lang): InlineKeyboard {
+  const shortLabel =
+    lang === "hi" ? "छोटा उत्तर (6-8 अंक)" : lang === "hinglish" ? "Chhota answer (6-8 marks)" : "Short answer (6-8 marks)";
+  const longLabel =
+    lang === "hi" ? "लंबा/निबंधात्मक उत्तर (36-38 अंक)" : lang === "hinglish" ? "Lamba/nibandh-type answer (36-38 marks)" : "Long/essay-type answer (36-38 marks)";
+  return new InlineKeyboard()
+    .text(shortLabel, `slot:${topicCode}:compulsory_subpart`)
+    .row()
+    .text(longLabel, `slot:${topicCode}:choice_essay`);
+}
+
+async function sendGeneratedQuestion(ctx: any, telegramId: number, lang: Lang, topic: string, slotType: SlotType): Promise<void> {
+  await ctx.reply(t(lang, "generatingQuestion"));
+  try {
+    const generated = await generateQuestion({ topic, slotType });
+    currentQuestion.set(telegramId, generated.questionId);
+    await ctx.reply(
+      `<b>${escapeHtml(t(lang, "questionHeader"))}</b> (${generated.marks} marks, ~${generated.wordLimit} words)\n\n` +
+        `${escapeHtml(generated.questionText)}\n\n` +
+        `<i>${escapeHtml(t(lang, "questionFooter"))}</i>`,
+      { parse_mode: "HTML" },
+    );
+  } catch (err) {
+    console.error("Stage 0 failed:", err);
+    await ctx.reply(t(lang, "somethingWrong"));
+  }
 }
 
 function languageKeyboard(): InlineKeyboard {
@@ -83,8 +129,11 @@ bot.callbackQuery(/^lang:(hi|hinglish|en)$/, async (ctx) => {
   await ctx.reply(t(lang, "sendPhoto"));
 });
 
-// Serves the student a question to answer, generating one via Stage 0 if
-// none is live yet. Without this the bot has nothing to grade against.
+// Serves the student a question to answer. Always generates a NEW question
+// via Stage 0, for a topic and marks-type the student picks - it never
+// reuses a previously-generated one. (Reusing "whatever's already active"
+// was the earlier bug: every student got the exact same question forever
+// after the first one was ever generated.)
 bot.command("question", async (ctx) => {
   const telegramId = ctx.from!.id;
   const user = await getOrCreateUser(telegramId, ctx.from?.first_name);
@@ -92,33 +141,40 @@ bot.command("question", async (ctx) => {
     await ctx.reply(t("en", "needLanguage"), { reply_markup: languageKeyboard() });
     return;
   }
-  const lang = user.language;
+  await ctx.reply(t(user.language, "pickTopic"), { reply_markup: topicKeyboard() });
+});
 
-  let question = await getActiveQuestion();
-  if (!question) {
-    await ctx.reply(t(lang, "generatingQuestion"));
-    try {
-      const generated = await generateQuestion();
-      question = {
-        id: generated.questionId,
-        question_hi: generated.questionText,
-        marks: generated.marks,
-        word_limit: generated.wordLimit,
-      };
-    } catch (err) {
-      console.error("Stage 0 failed:", err);
-      await ctx.reply(t(lang, "somethingWrong"));
-      return;
-    }
+bot.callbackQuery(/^topic:(\d+)$/, async (ctx) => {
+  const topicCode = ctx.match![1];
+  const topic = TOPIC_CODES[topicCode];
+  const telegramId = ctx.from.id;
+  const user = await getOrCreateUser(telegramId, ctx.from.first_name);
+  const lang = user.language ?? "en";
+  await ctx.answerCallbackQuery();
+  await ctx.editMessageReplyMarkup();
+
+  if (!topic) return;
+
+  // The Essay Paper has only one slot type - no marks-type question needed.
+  if (topic === "Essay") {
+    await sendGeneratedQuestion(ctx, telegramId, lang, topic, "essay_paper");
+    return;
   }
 
-  currentQuestion.set(telegramId, question.id);
-  await ctx.reply(
-    `<b>${t(lang, "questionHeader")}</b> (${question.marks} marks, ~${question.word_limit} words)\n\n` +
-      `${escapeHtml(question.question_hi ?? "")}\n\n` +
-      `<i>${escapeHtml(t(lang, "questionFooter"))}</i>`,
-    { parse_mode: "HTML" },
-  );
+  await ctx.reply(t(lang, "pickSlotType"), { reply_markup: slotTypeKeyboard(topicCode, lang) });
+});
+
+bot.callbackQuery(/^slot:(\d+):(compulsory_subpart|choice_essay)$/, async (ctx) => {
+  const [, topicCode, slotType] = ctx.match!;
+  const topic = TOPIC_CODES[topicCode];
+  const telegramId = ctx.from.id;
+  const user = await getOrCreateUser(telegramId, ctx.from.first_name);
+  const lang = user.language ?? "en";
+  await ctx.answerCallbackQuery();
+  await ctx.editMessageReplyMarkup();
+
+  if (!topic) return;
+  await sendGeneratedQuestion(ctx, telegramId, lang, topic, slotType as SlotType);
 });
 
 bot.on("message:photo", async (ctx) => {
@@ -230,6 +286,39 @@ async function gradeAndReply(ctx: any, submissionId: string, lang: Lang): Promis
     }
 
     await ctx.reply(lines.join("\n"), { parse_mode: "HTML" });
+
+    // The text summary above lets the student see their score immediately;
+    // the PDF is the fuller, citation-backed record. Generated synchronously
+    // - PDFKit builds this from data in tens of milliseconds, noise next to
+    // the Gemini call that already ran, so there's no real latency tradeoff
+    // to make here.
+    try {
+      const pdf = await buildReportCard({
+        lang,
+        question: result.question,
+        result: {
+          totalMarks: result.totalMarks,
+          maxMarks: result.maxMarks,
+          band: result.band,
+          feedback: result.feedback,
+          dimensionNotes: result.dimensionNotes,
+          pointsFound: result.pointsFound,
+          pointsMissed: result.pointsMissed,
+          todo: result.todo,
+        },
+        dimensionBands: result.dimensions,
+        rubricVersion: result.rubricVersion,
+        modelName: result.modelName,
+        promptVersion: result.promptVersion,
+        generatedAt: new Date(),
+        trend: result.trend.map((p) => ({ ...p, maxMarks: p.maxMarks || result.maxMarks })),
+      });
+      await ctx.replyWithDocument(new InputFile(pdf, "report-card.pdf"));
+    } catch (err) {
+      console.error("PDF report card failed:", err);
+      // The student already has their score from the text summary above -
+      // a missing PDF is a degraded experience, not a failed evaluation.
+    }
   } catch (err) {
     console.error("Stage B failed:", err);
     await ctx.reply(t(lang, "gradeFailed"));

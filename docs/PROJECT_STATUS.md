@@ -4,7 +4,7 @@
 Read this first, before starting any work. If you change what the app does, you
 update this file in the same session — see `CLAUDE.md` in the project root.
 
-Last updated: 2026-09-07
+Last updated: 2026-09-08
 
 ---
 
@@ -52,6 +52,7 @@ consistent between students answering the same question.
 | **Question generator (Stage 0)** | Google Gemini | `src/stage0.ts` |
 | **Grader (Stage B)** | Google Gemini + scoring arithmetic in code | `src/stageB.ts`, `src/content/calibration.ts` |
 | **BPSC content** | Ingested from the source documents | `src/content/` |
+| **PDF report cards** | PDFKit, rendered in a bundled Devanagari font | `src/reportCard.ts`, `assets/fonts/` |
 | **Hosting** | **Not deployed.** Runs locally on demand | see §5 |
 
 ### Every file in `src/`
@@ -64,6 +65,8 @@ consistent between students answering the same question.
 | `stageB.ts` | Grades a confirmed transcript against that answer key |
 | `gemini.ts` | Shared Gemini client - retries, JSON extraction, usage accounting |
 | `content/` | The ingested BPSC exam content (see §3a) |
+| `citation.ts` | Shared `Citation` type - every point (Stage 0's answer keys, Stage B's judged points) carries a real, checkable source, never a bare "NCERT" or "general knowledge" label |
+| `reportCard.ts` | Builds the PDF report card sent after grading |
 | `seed.ts` | Writes reference rows (the rubric) into existing tables |
 | `migrate.ts` | Applies pending database migrations |
 | `supabase.ts` | Database access — the only file that talks to Postgres |
@@ -93,6 +96,22 @@ final number is computed by our own code in `src/content/calibration.ts`. A
 model asked for a score anchors on plausible-looking numbers, whereas the
 arithmetic is auditable and testable — and it is tested, against the source
 document's own worked examples (`npm run verify:calibration`).
+
+**Both stages reason like a subject professor, not a template-filler.**
+Stage 0's prompt explicitly orders the reasoning: NCERT first, the model's
+own subject knowledge second, live web search third for topics where
+current developments actually matter. Stage B's stored `expected_points`
+list is a consistency guide, not a ceiling — a correct, current, or validly
+argued point beyond the list is still credited, with its own citation.
+
+**Live search grounding** (`tools: [{ google_search: {} }]`) is wired into
+both stages, but only for `Current Affairs` and `Science & Technology`
+topics (`src/stage0.ts`, `needsCurrentInfo()`) — a fixed list rather than a
+per-question classifier call, which would add a second Gemini round-trip to
+every question. This uses the same Gemini API key already in `.env`; no new
+service was needed. Verified against Google's current docs that grounding
+combines with the JSON structured-output mode this app depends on (a
+Gemini-3+-only capability).
 
 ---
 
@@ -218,6 +237,19 @@ Affairs, Science & Technology and most of Geography are not covered, so every
   points found, points missed and what to do next.
 - Scoring calibration is verified against the source document's own worked
   examples — `npm run verify:calibration` reproduces every documented mark.
+- **Every point in an answer key and every judged point carries a real
+  citation** — NCERT points cite the actual book/class/chapter, general-
+  knowledge points name the specific report/ministry/scheme relied on, and
+  web-grounded points carry a real URL from Gemini's own search grounding.
+  Verified live: `npm run smoke:stages` checks no point's citation is a bare
+  "NCERT" or "general knowledge" label.
+- **A PDF report card** is generated per evaluation and sent via Telegram
+  right after the text summary: question context, score and per-dimension
+  breakdown, points found/missed with citations, a professor's note, and a
+  score-trend sparkline when the student has prior evaluations on the same
+  subject. Renders in a bundled Devanagari font since most content is Hindi
+  and PDFKit's built-in fonts are Latin-only - verified against real Hindi
+  content, not just isolated glyph tests.
 
 ### ⚠️ Stubbed / placeholder
 
@@ -277,7 +309,8 @@ Other commands:
 | `npm run seed` | Writes the rubric into the `rubrics` table | After changing `src/content/rubric.ts` |
 | `npm run ingest:content` | Rebuilds `src/content/*.json` from the source Word/CSV documents | When those documents change |
 | `npm run verify:calibration` | Checks the scoring maths against the source document's worked examples | After touching `calibration.ts` |
-| `npm run smoke:stages` | Runs Stage 0 then Stage B end to end against the live database | To check the pipeline works; costs a few Gemini calls |
+| `npm run smoke:stages` | Runs Stage 0 then Stage B end to end against the live database, and writes a real PDF from the result | To check the pipeline works; costs a few Gemini calls |
+| `npm run preview:report-card` | Renders the PDF from fixed sample data, no DB or Gemini calls | To check layout changes quickly |
 | `npm run typecheck` / `npm run build` | TypeScript checks | Anytime |
 
 ---
@@ -335,6 +368,62 @@ Newest first. One entry per work session.
   Stage B scored a vague answer 0.5/8 and a content-complete but badly
   structured one 6/8, docking it on structure alone. All four provenance fields
   recorded on both evaluations.
+
+### 2026-09-08 — Professor-grade judging with citations, and a PDF report card (Step 4)
+
+- **Confirmed the "Model Answers - Starter Batch" document is not, and never
+  was, read by any code** - it exists on disk purely as illustrative
+  reference. Nothing to remove; recorded here so it's not re-checked next
+  session.
+- **Rewrote Stage 0's and Stage B's prompts** so the model reasons like a
+  subject professor deciding what an ideal answer requires, in an explicit
+  order - NCERT first, own subject knowledge second, live web search third
+  for topics where being current actually matters - rather than filling a
+  template or matching against one stored example.
+- **Wired live search grounding** (`tools: [{ google_search: {} }]`) into
+  both stages for `Current Affairs` and `Science & Technology` topics, using
+  the Gemini key already configured - no new service needed. A fixed topic
+  list rather than a per-question classifier, to avoid a second Gemini call
+  on every question; revisit if finer judgement turns out to be worth that
+  cost.
+- **Every point now carries a real citation** (`src/citation.ts`), not a bare
+  "ncert"/"general_knowledge" tag: NCERT points cite book, class and chapter
+  (backfilled into `ncert-knowledge.json` by re-running
+  `npm run ingest:content`); general-knowledge points name a specific report,
+  ministry or scheme; web-grounded points carry a real URL from Gemini's own
+  search results.
+- **Stage B's stored checklist is now a consistency guide, not a ceiling** -
+  a correct, current, or validly argued point beyond it is still credited.
+  Points the model claims a student made or missed reference the stored key
+  by index rather than restating a citation from memory, so what's shown to
+  the student is always exactly what Stage 0 assigned, never a paraphrase
+  that could drift.
+- **Built the PDF report card** (`src/reportCard.ts`, PDFKit) sent via
+  Telegram right after the text summary. Chose PDFKit over a headless-Chrome
+  approach specifically because this app already runs on a small Railway
+  container that's had real friction (Node version, a socket-binding bug) -
+  a ~300MB Chromium binary for a data-driven document isn't worth the cost.
+  Bundled a Devanagari font (`assets/fonts/`, static-instanced from Google's
+  variable Noto Sans Devanagari via `fonttools`) since most content is Hindi
+  and PDFKit's built-in fonts can't render it at all - verified with real
+  mixed Hindi/English content, not just isolated glyphs.
+- **Generation is synchronous** - PDFKit builds the document from data in
+  tens of milliseconds, noise next to the Gemini call that already ran, so
+  the sync-vs-background tradeoff doesn't bite at this scale.
+- Caught and fixed two real layout bugs by actually looking at the rendered
+  output rather than trusting a clean typecheck: a footer placed inside the
+  bottom margin was triggering PDFKit's automatic page-insertion, ballooning
+  a 2-page report to 6; and section headings could be stranded alone at the
+  bottom of a page with their content pushed to the next. Fixed the second
+  one generally - headings and their first content block are now reserved as
+  one atomic unit, not checked for page-space separately.
+- Verified end to end with `npm run smoke:stages` against live Gemini and
+  Supabase, unscripted: generated a 100-mark Bihar rural-economy essay
+  question with 8 real-citation answer-key points, graded a vague answer at
+  3/100 and a content-complete one at 52.5/100 (docked specifically for an
+  undifferentiated wall of text, since essays weight structure at 30%), and
+  produced a genuine 2-page PDF from that live result - not a hand-crafted
+  fixture.
 
 ### 2026-09-07 — Project documentation and real migrations (Step 3, Parts 1–2)
 

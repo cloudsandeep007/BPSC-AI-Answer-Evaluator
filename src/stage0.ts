@@ -9,10 +9,16 @@ import { config } from "./config";
 import { callGemini, extractJson } from "./gemini";
 import { supabase } from "./supabase";
 import { ANSWER_TEMPLATES, SlotType, SUPPORTED_SLOT_TYPES, maxMarksFor } from "./content/answerTemplates";
+import { Citation, asCitation } from "./citation";
 import patterns from "./content/question-patterns.json";
 import ncert from "./content/ncert-knowledge.json";
 
-export const STAGE0_PROMPT_VERSION = "stage0-v1";
+// v2: the model now reasons as a subject professor deciding what an ideal
+// answer requires (NCERT first, own knowledge second, live search third for
+// topics where current developments matter) rather than filling a template,
+// and every point carries a real citation instead of a bare "ncert" /
+// "general_knowledge" tag.
+export const STAGE0_PROMPT_VERSION = "stage0-v2";
 
 const GENERATION_MODEL = process.env.GEMINI_GENERATION_MODEL ?? config.geminiModel;
 
@@ -21,11 +27,23 @@ const GENERATION_MODEL = process.env.GEMINI_GENERATION_MODEL ?? config.geminiMod
 // explicitly not allowed.
 const MAX_SIMILARITY_TO_HISTORICAL = 0.6;
 
+// Topics where a frozen training-data answer would go stale fast enough to
+// matter. Deliberately a fixed list rather than a per-question classifier
+// call - the brief names these two explicitly ("almost always true for
+// Current Affairs... sometimes true elsewhere - e.g. Science & Tech"), and a
+// classifier would add a second Gemini round-trip to every generated
+// question. Revisit if finer-grained judgement turns out to be worth that
+// cost.
+const GROUNDED_TOPICS = new Set(["Current Affairs", "Science & Technology"]);
+export function needsCurrentInfo(topic: string): boolean {
+  return GROUNDED_TOPICS.has(topic);
+}
+
 interface ExpectedPoint {
   point: string;
   weight: number;
   cues: string[];
-  source: "ncert" | "general_knowledge";
+  source: Citation;
 }
 
 export interface GeneratedQuestion {
@@ -57,6 +75,24 @@ function weightedPick<T extends string>(counts: Record<T, number>): T {
  * Picks a paper, topic and slot type in the proportions the real exam uses,
  * taken from the 237-question bank rather than invented.
  */
+/** Every topic the ingested question bank covers, and which paper it belongs to. */
+export const TOPIC_TO_PAPER: Record<string, string> = Object.fromEntries(
+  Object.entries(patterns.distribution.topic_by_paper as Record<string, Record<string, number>>).flatMap(
+    ([paper, topics]) => Object.keys(topics).map((topic) => [topic, paper]),
+  ),
+);
+export const AVAILABLE_TOPICS = Object.keys(TOPIC_TO_PAPER);
+
+function pickDirective(topic: string): string {
+  const directives = (patterns.distribution.directive_by_topic as Record<string, Record<string, number>>)[topic] ?? {
+    Discuss: 1,
+  };
+  // "Other" is a catch-all in the source data, not a usable instruction.
+  const usable = Object.fromEntries(Object.entries(directives).filter(([d]) => d !== "Other"));
+  return weightedPick(Object.keys(usable).length ? usable : { Discuss: 1 });
+}
+
+/** Random topic/slot, weighted by how often that combination appears in the real exam. */
 function pickSlot(): { paper: string; topic: string; slotType: SlotType; directive: string } {
   const byPaper = patterns.distribution.topic_by_paper as Record<string, Record<string, number>>;
   const paperCounts = Object.fromEntries(
@@ -65,17 +101,16 @@ function pickSlot(): { paper: string; topic: string; slotType: SlotType; directi
 
   const paper = weightedPick(paperCounts);
   const topic = weightedPick(byPaper[paper]);
-
   const slotType: SlotType = paper === "Essay Paper" ? "essay_paper" : Math.random() < 0.5 ? "compulsory_subpart" : "choice_essay";
 
-  const directives = (patterns.distribution.directive_by_topic as Record<string, Record<string, number>>)[topic] ?? {
-    Discuss: 1,
-  };
-  // "Other" is a catch-all in the source data, not a usable instruction.
-  const usable = Object.fromEntries(Object.entries(directives).filter(([d]) => d !== "Other"));
-  const directive = weightedPick(Object.keys(usable).length ? usable : { Discuss: 1 });
+  return { paper, topic, slotType: SUPPORTED_SLOT_TYPES.includes(slotType) ? slotType : "choice_essay", directive: pickDirective(topic) };
+}
 
-  return { paper, topic, slotType: SUPPORTED_SLOT_TYPES.includes(slotType) ? slotType : "choice_essay", directive };
+/** A student-chosen topic/slot, rather than a random one. Essay topic forces essay_paper. */
+function fixedSlot(topic: string, slotType: SlotType): { paper: string; topic: string; slotType: SlotType; directive: string } {
+  const paper = TOPIC_TO_PAPER[topic];
+  if (!paper) throw new Error(`Unknown topic: ${topic}`);
+  return { paper, topic, slotType, directive: pickDirective(topic) };
 }
 
 // --------------------------------------------------- historical similarity
@@ -110,15 +145,19 @@ function closestHistorical(candidate: string, topic: string): { score: number; t
 // ------------------------------------------------------- NCERT retrieval
 
 /** The first-priority fact source. Empty for topics NCERT doesn't reach. */
-function ncertFor(topic: string): Array<{ heading: string; text: string }> {
-  return (ncert.entries as Array<{ topic: string; heading: string; text: string }>)
+function ncertFor(topic: string): Array<{ heading: string; citation: string; text: string }> {
+  return (ncert.entries as Array<{ topic: string; heading: string; citation: string; text: string }>)
     .filter((e) => e.topic === topic)
-    .map(({ heading, text }) => ({ heading, text }));
+    .map(({ heading, citation, text }) => ({ heading, citation, text }));
 }
 
 // -------------------------------------------------------------- prompts
 
-function questionPrompt(slot: ReturnType<typeof pickSlot>, template: (typeof ANSWER_TEMPLATES)[SlotType]): string {
+function questionPrompt(
+  slot: ReturnType<typeof pickSlot>,
+  template: (typeof ANSWER_TEMPLATES)[SlotType],
+  grounded: boolean,
+): string {
   const examples = (patterns.questions as Array<{ topic: string; directive: string; text: string }>)
     .filter((q) => q.topic === slot.topic)
     .slice(0, 6)
@@ -143,6 +182,7 @@ RULES:
 3. Match BPSC's register: plain, examiner-like, no rhetorical flourish.
 4. Where the topic naturally allows it, give the question a Bihar focus - several BPSC syllabus lines carry one explicitly.
 5. The question must be answerable in ${template.words.min}-${template.words.max} words by a candidate writing by hand.
+${grounded ? `6. This is a ${slot.topic} question - use live search to ground it in a genuinely current, real development (a recent scheme, event, report or policy). A generic evergreen framing that ignores anything current defeats the point of this being a Current Affairs / Science & Tech question.` : ""}
 
 Return ONLY JSON:
 {
@@ -156,32 +196,52 @@ function expectedPointsPrompt(
   questionText: string,
   slot: ReturnType<typeof pickSlot>,
   template: (typeof ANSWER_TEMPLATES)[SlotType],
-  ncertEntries: Array<{ heading: string; text: string }>,
+  ncertEntries: Array<{ heading: string; citation: string; text: string }>,
+  grounded: boolean,
 ): string {
   const ncertBlock = ncertEntries.length
-    ? ncertEntries.map((e) => `### ${e.heading}\n${e.text}`).join("\n\n")
-    : "(No NCERT content available for this topic - use your general knowledge, and mark every point as general_knowledge.)";
+    ? ncertEntries
+        .map((e) => `### ${e.heading}\nCitation to use verbatim if you draw on this: ${e.citation}\n${e.text}`)
+        .join("\n\n")
+    : "(No NCERT content available for this topic.)";
 
-  return `Build the marking key for this BPSC question.
+  return `You are an experienced BPSC subject professor deciding, from first principles, what a
+genuinely ideal answer to this question requires. You are not filling in a template and
+not retrieving a stored model answer written for a different question - reason about
+THIS question specifically.
 
 QUESTION: ${questionText}
 Directive: ${slot.directive}
 Answer type: ${template.label} - ${template.marks.max} marks, ${template.words.min}-${template.words.max} words
 Expected structure: ${template.structure.join(" | ")}
 
-NCERT SOURCE MATERIAL (highest-authority facts - prefer these over your own
-knowledge wherever they overlap, and mark any point drawn from them as "ncert"):
+Reason in this order:
+1. Check the NCERT material below first for anything it covers on this topic.
+2. For anything NCERT doesn't reach, use your own broader subject knowledge.
+3. ${
+    grounded
+      ? `Live web search is available for this call - this is a ${slot.topic} question, so use search to bring in genuinely current developments (a recent scheme, statistic, report, event or policy) rather than relying only on your training data, which goes stale.`
+      : "This question does not need live search - your training knowledge is sufficient for it."
+  }
+4. From that reasoning, produce points a genuinely ideal answer would contain - richer and
+   more specific than a generic template, grounded in this question, not copied from any
+   single stored example.
+
+NCERT SOURCE MATERIAL (highest-authority facts - prefer these over your own knowledge
+wherever they overlap):
 
 ${ncertBlock}
 
-Produce the specific points a full-marks answer would contain. For each point:
-- state the point as the specific fact itself, naming the Act, Article, scheme,
-  figure, place or date - not a vague topic label
+For each point:
+- state the point as the specific fact itself, naming the Act, Article, scheme, figure,
+  place, date or event - not a vague topic label
 - give it a weight (all weights must sum to 1.0)
-- list 2-4 "cues": words or phrases whose presence in a student's answer shows
-  they made that point, including likely Hindi equivalents
-- say whether it came from the NCERT material above ("ncert") or your own
-  knowledge ("general_knowledge")
+- list 2-4 "cues": words or phrases whose presence in a student's answer shows they made
+  that point, including likely Hindi equivalents
+- give it a REAL, SPECIFIC citation - never just "NCERT" or "general knowledge" alone:
+  - drawn from the NCERT material above -> use its "Citation to use verbatim" string exactly, kind "ncert"
+  - drawn from a live search result -> cite the actual source (publication, ministry, report name), kind "web", and include its real url
+  - drawn from your own general knowledge -> name what you are actually relying on (a named report, dataset, ministry, scheme or event), kind "general_knowledge" - the label itself must be specific, not the words "general knowledge"
 
 Aim for ${template.slotType === "compulsory_subpart" ? "4-6" : "7-10"} points.
 
@@ -189,21 +249,41 @@ Return ONLY JSON:
 {
   "model_answer": "a model answer of ${template.words.min}-${template.words.max} words, in Hindi",
   "expected_points": [
-    { "point": "...", "weight": 0.2, "cues": ["...", "..."], "source": "ncert" }
+    {
+      "point": "...",
+      "weight": 0.2,
+      "cues": ["...", "..."],
+      "source": { "kind": "ncert" | "web" | "general_knowledge", "label": "the specific citation string", "url": "https://... (web only)" }
+    }
   ]
 }`;
 }
 
 // ----------------------------------------------------------------- main
 
+export interface QuestionChoice {
+  topic: string;
+  slotType: SlotType;
+}
+
 /**
  * Generates a question and its answer key, saving both. The question is only
  * marked active once the answer key exists - a live question with no key
  * would be ungradeable.
+ *
+ * Always generates a NEW question - it does not check for or reuse any
+ * existing active one. Callers decide when a fresh question is wanted;
+ * reusing "whatever is already active" was the earlier bug that served every
+ * student the same question forever after the first generation.
+ *
+ * @param choice omit for a random topic/slot weighted by the real exam's
+ *   distribution; pass one to generate for a student-chosen topic and marks
+ *   type instead.
  */
-export async function generateQuestion(): Promise<GeneratedQuestion> {
-  const slot = pickSlot();
+export async function generateQuestion(choice?: QuestionChoice): Promise<GeneratedQuestion> {
+  const slot = choice ? fixedSlot(choice.topic, choice.slotType) : pickSlot();
   const template = ANSWER_TEMPLATES[slot.slotType];
+  const grounded = needsCurrentInfo(slot.topic);
 
   // 1. Generate the question, rejecting anything too close to a real one.
   let questionText = "";
@@ -215,8 +295,9 @@ export async function generateQuestion(): Promise<GeneratedQuestion> {
       model: GENERATION_MODEL,
       system:
         "You are a BPSC Mains paper-setter. You write original exam questions in the commission's house style. You never reuse a past question.",
-      parts: [{ text: questionPrompt(slot, template) }],
+      parts: [{ text: questionPrompt(slot, template, grounded) }],
       maxOutputTokens: 1024,
+      search: grounded,
     });
     const parsed = extractJson<{ question: string; question_hi: string; sub_topic: string }>(res.text);
     if (!parsed?.question) continue;
@@ -256,20 +337,33 @@ export async function generateQuestion(): Promise<GeneratedQuestion> {
   if (questionError) throw questionError;
   const questionId = questionRow.id as string;
 
-  // 3. Build the answer key, NCERT first.
+  // 3. Build the answer key, NCERT first, own knowledge second, live search
+  //    third when this topic's answers actually go stale without it.
   const ncertEntries = ncertFor(slot.topic);
   const keyRes = await callGemini({
     model: GENERATION_MODEL,
     system:
-      "You are a BPSC subject expert building a marking key. You prefer NCERT-sourced facts over your own knowledge whenever both cover the same ground, and you label which is which honestly.",
-    parts: [{ text: expectedPointsPrompt(questionText, slot, template, ncertEntries) }],
+      "You are a BPSC subject expert building a marking key. You prefer NCERT-sourced facts over your own knowledge whenever both cover the same ground, and every point you produce carries a real, checkable citation - never a bare label.",
+    parts: [{ text: expectedPointsPrompt(questionText, slot, template, ncertEntries, grounded) }],
     maxOutputTokens: 4096,
+    search: grounded,
   });
 
-  const key = extractJson<{ model_answer: string; expected_points: ExpectedPoint[] }>(keyRes.text);
+  const key = extractJson<{ model_answer: string; expected_points: Array<Omit<ExpectedPoint, "source"> & { source: unknown }> }>(
+    keyRes.text,
+  );
   if (!key?.expected_points?.length) {
     throw new Error(`Stage 0: no expected_points generated for question ${questionId}`);
   }
+
+  // Defend against a model returning a bare string instead of the citation
+  // object the prompt asked for - never let an unsourced point through.
+  const expectedPoints: ExpectedPoint[] = key.expected_points.map((p) => ({
+    point: p.point,
+    weight: p.weight,
+    cues: p.cues ?? [],
+    source: asCitation(p.source),
+  }));
 
   const { data: answerRow, error: answerError } = await supabase
     .from("model_answers")
@@ -282,8 +376,13 @@ export async function generateQuestion(): Promise<GeneratedQuestion> {
         directive: slot.directive,
         prompt_version: STAGE0_PROMPT_VERSION,
         model_name: GENERATION_MODEL,
-        ncert_entries_used: ncertEntries.map((e) => e.heading),
-        points: key.expected_points,
+        grounded,
+        ncert_entries_used: ncertEntries.map((e) => e.citation),
+        // Raw search sources Gemini actually consulted, kept for audit - not
+        // mapped 1:1 onto individual points, since that mapping is ambiguous;
+        // per-point citations above are what the model itself attributed.
+        grounding_sources: keyRes.groundingSources,
+        points: expectedPoints,
       },
     })
     .select("id")
@@ -303,25 +402,6 @@ export async function generateQuestion(): Promise<GeneratedQuestion> {
     slotType: slot.slotType,
     marks,
     wordLimit: template.words.max,
-    expectedPoints: key.expected_points,
+    expectedPoints,
   };
-}
-
-/** The question a student should be answering: the newest active real one. */
-export async function getActiveQuestion(): Promise<{
-  id: string;
-  question_hi: string;
-  marks: number;
-  word_limit: number;
-} | null> {
-  const { data, error } = await supabase
-    .from("questions")
-    .select("id, question_hi, marks, word_limit")
-    .eq("is_active", true)
-    .neq("id", config.placeholderQuestionId)
-    .order("created_at", { ascending: false })
-    .limit(1)
-    .maybeSingle();
-  if (error) throw error;
-  return data ?? null;
 }
