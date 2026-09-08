@@ -12,6 +12,7 @@ import { ANSWER_TEMPLATES, SlotType, SUPPORTED_SLOT_TYPES, maxMarksFor } from ".
 import { Citation, asCitation } from "./citation";
 import patterns from "./content/question-patterns.json";
 import ncert from "./content/ncert-knowledge.json";
+import { embedText } from "./gemini";
 import { EvaluationBlueprint, BlueprintDimension } from "./domain/blueprint";
 import { checkQuestionQuality } from "./ai/agents/qualityChecker";
 
@@ -148,7 +149,36 @@ function closestHistorical(candidate: string, topic: string): { score: number; t
 // ------------------------------------------------------- NCERT retrieval
 
 /** The first-priority fact source. Empty for topics NCERT doesn't reach. */
-function ncertFor(topic: string): Array<{ heading: string; citation: string; text: string }> {
+async function ncertFor(topic: string, questionText: string): Promise<Array<{ heading: string; citation: string; text: string }>> {
+  try {
+    const embedding = await embedText(`Topic: ${topic}. Question: ${questionText}`);
+    const { data: chunks, error } = await supabase.rpc("match_document_chunks", {
+      query_embedding: embedding,
+      match_threshold: 0.5,
+      match_count: 5,
+    });
+    
+    if (error) {
+      console.error("Stage 0: error retrieving vector context:", error.message);
+      return fallbackNcertFor(topic);
+    }
+    
+    if (!chunks || chunks.length === 0) {
+      return fallbackNcertFor(topic);
+    }
+    
+    return chunks.map((c: any) => ({
+      heading: c.source_name,
+      citation: `[${c.source_type}] ${c.source_name}`,
+      text: c.content,
+    }));
+  } catch (err: any) {
+    console.error("Stage 0: error retrieving vector context:", err.message);
+    return fallbackNcertFor(topic);
+  }
+}
+
+function fallbackNcertFor(topic: string): Array<{ heading: string; citation: string; text: string }> {
   return (ncert.entries as Array<{ topic: string; heading: string; citation: string; text: string }>)
     .filter((e) => e.topic === topic)
     .map(({ heading, citation, text }) => ({ heading, citation, text }));
@@ -311,7 +341,7 @@ export async function generateQuestion(choice?: QuestionChoice): Promise<Generat
     }
 
     const draftQuestion = parsed.question;
-    const ncertEntries = ncertFor(slot.topic);
+    const ncertEntries = await ncertFor(slot.topic, draftQuestion);
     ncertEntriesUsed = ncertEntries.map(e => e.citation);
 
     // Build the blueprint

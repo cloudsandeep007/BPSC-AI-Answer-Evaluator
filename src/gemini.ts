@@ -128,3 +128,31 @@ export function extractJson<T = any>(text: string): T | null {
   }
   return null;
 }
+
+export async function embedText(text: string): Promise<number[]> {
+  const model = "text-embedding-004";
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:embedContent`;
+  
+  const body = {
+    model: `models/${model}`,
+    content: { parts: [{ text }] }
+  };
+
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { "x-goog-api-key": config.geminiApiKey, "content-type": "application/json" },
+    body: JSON.stringify(body),
+  });
+
+  if (!res.ok) {
+    const errText = await res.text();
+    throw new Error(`Gemini embed failed: HTTP ${res.status}: ${errText.slice(0, 500)}`);
+  }
+
+  const json: any = await res.json();
+  const embedding = json.embedding?.values;
+  if (!Array.isArray(embedding)) {
+    throw new Error(`Gemini embed returned invalid response`);
+  }
+  return embedding;
+}
