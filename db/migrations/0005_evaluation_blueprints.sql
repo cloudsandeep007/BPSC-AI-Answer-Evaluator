@@ -1,6 +1,6 @@
 create table if not exists evaluation_blueprints (
-  id text primary key,
-  question_id text not null references questions(id),
+  id uuid primary key,
+  question_id uuid not null references questions(id),
   topic text not null,
   paper text not null,
   slot_type text not null,
@@ -16,4 +16,4 @@ create table if not exists evaluation_blueprints (
 );
 
 -- Note: In Supabase/PostgreSQL, adding a column is non-breaking.
-alter table evaluations add column if not exists blueprint_id text references evaluation_blueprints(id);
+alter table evaluations add column if not exists blueprint_id uuid references evaluation_blueprints(id);
