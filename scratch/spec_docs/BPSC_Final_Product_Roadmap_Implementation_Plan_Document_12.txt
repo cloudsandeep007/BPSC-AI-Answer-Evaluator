@@ -1,0 +1,1039 @@
+BPSC AI Platform
+
+Document 12 — Final Product Roadmap & Phased Implementation Plan
+
+Purpose: Convert Documents 01–11 into one practical execution roadmap for building, refactoring, launching, and scaling the BPSC AI personal mentor platform.
+
+Audience: Product owner, engineering team, AI/RAG engineers, DevOps, QA, content experts, business team, and Claude Code.
+
+Status: Final implementation blueprint
+
+1. Executive Summary
+
+The BPSC AI platform should be built as an AI personal mentor, not simply an answer-checking bot. The core learning loop is QUESTION → HANDWRITTEN ANSWER → OCR/VISION → RAG EVIDENCE → EXAMINER → FEEDBACK → LEARNING PROFILE → NEXT QUESTION.
+
+The recommended strategy is incremental. Keep the existing Node.js/Telegram product working while introducing modular boundaries around AI, RAG, evaluation, storage, jobs, analytics, and domain logic. Do not attempt a large rewrite before the critical student journey is covered by tests and observability.
+
+Phase 0: Baseline, audit, safety, and test foundation.
+
+Phase 1: Production-grade MVP core.
+
+Phase 2: AI evaluation and personalized mentor.
+
+Phase 3: Beta, analytics, monetization, and quality optimization.
+
+Phase 4: Web/Android expansion and scale.
+
+Phase 5: Advanced learning intelligence and defensible data moat.
+
+2. Final Product Vision
+
+Build the most useful AI-assisted BPSC answer-writing mentor for Hindi-medium aspirants by combining exam-pattern knowledge, NCERT-grounded evidence, Bihar-specific context, current affairs, handwritten-answer understanding, examiner-style evaluation, and longitudinal personalization.
+
+Student gets the right question, not a random question.
+
+Student can write naturally by hand.
+
+AI evaluates against an explicit blueprint and rubric.
+
+Feedback explains what to improve and how.
+
+Repeated attempts create a learning profile.
+
+Future questions adapt to demonstrated strengths and weaknesses.
+
+Every important AI result is traceable to prompt/model/source versions.
+
+3. Product North Star
+
+Dimension
+
+North-Star Outcome
+
+Learning
+
+Students improve answer-writing quality over repeated attempts
+
+Engagement
+
+Students return for meaningful practice, not notifications alone
+
+AI quality
+
+Evaluation approaches qualified human examiner judgment
+
+Trust
+
+Feedback is evidence-grounded and transparent
+
+Economics
+
+AI cost per successful learning attempt remains sustainable
+
+Reliability
+
+Critical learning journey completes consistently
+
+4. Architecture Target State
+
+Target architecture remains a modular monolith initially, with separate processes for API, workers, scheduler, and admin/web where useful. High-load components can later be extracted into services.
+
+Node.js + TypeScript application layer.
+
+PostgreSQL as system of record.
+
+pgvector for initial vector retrieval.
+
+Redis + BullMQ for asynchronous work.
+
+S3-compatible object storage for handwritten images.
+
+AI Gateway as the only external model-provider boundary.
+
+RAG service/module for evidence retrieval and provenance.
+
+Telegram as first client; Web and Android as later clients.
+
+Centralized logs, metrics, traces, AI usage, and quality telemetry.
+
+5. Phase 0 — Audit, Baseline & Foundation
+
+Workstream
+
+Deliverables
+
+Exit Criteria
+
+Code audit
+
+Current modules, dependencies, risks, technical debt map
+
+Repository documented
+
+Architecture
+
+Target module boundaries
+
+No critical ambiguity
+
+Database
+
+Schema review and migration plan
+
+Safe migration path
+
+AI
+
+Provider/model call inventory
+
+All AI calls identified
+
+Testing
+
+Test runner, fixtures, baseline suite
+
+CI can execute
+
+Security
+
+Secrets, uploads, auth review
+
+Critical findings addressed
+
+Observability
+
+Correlation IDs, logs, AI call logs
+
+Critical journey traceable
+
+Cost
+
+Token/call baseline
+
+Cost per attempt measurable
+
+Recommended duration: approximately 1–2 weeks depending on the current codebase condition.
+
+6. Phase 1 — Production-Grade MVP
+
+6.1 Student Journey
+
+Start Telegram session.
+
+Choose subject/topic or practice mode.
+
+Generate question from curated PYQ-informed knowledge.
+
+Run Question Quality Checker.
+
+Create and store Evaluation Blueprint.
+
+Deliver question.
+
+Accept one or multiple handwritten pages.
+
+Store original images.
+
+Run OCR/Vision asynchronously.
+
+Retrieve relevant NCERT/PYQ/authoritative evidence.
+
+Run Examiner AI.
+
+Persist criterion scores, evidence, feedback, and confidence.
+
+Notify student.
+
+Update learning profile.
+
+6.2 Phase 1 Scope
+
+Telegram-first UX.
+
+Long-answer and short-answer support.
+
+Core BPSC subjects.
+
+Curated PYQ dataset.
+
+NCERT knowledge base.
+
+Evaluation Blueprint.
+
+Handwritten OCR pipeline.
+
+Examiner scoring and feedback.
+
+Basic progress history.
+
+Admin quality-review capability.
+
+Basic subscription/entitlement foundation if monetization is launched.
+
+7. Phase 1 — Explicit Non-Goals
+
+Do not build a full social network.
+
+Do not build dozens of microservices.
+
+Do not build a complex Android app before the core loop is validated.
+
+Do not ingest the entire internet.
+
+Do not generate expensive full model answers for every attempt.
+
+Do not make AI scoring an official-exam claim.
+
+Do not optimize advanced personalization before collecting reliable learning signals.
+
+8. Phase 2 — AI Mentor & Personalization
+
+Once the core loop is reliable, the platform should evolve from answer checker to mentor.
+
+Student Skill Profile by subject/topic/criterion.
+
+Weakness signals from repeated evaluations.
+
+Difficulty-adjusted performance.
+
+Adaptive question selection.
+
+Spaced revision recommendations.
+
+Targeted feedback on recurring errors.
+
+Mentor conversations grounded in the student's history.
+
+Improved question diversity and novelty.
+
+On-demand model answers and improved-answer outlines.
+
+Personal study plans.
+
+9. Phase 2 Adaptive Learning Loop
+
+ATTEMPT → EVALUATION → CRITERION SCORES → ERROR TAGS → SKILL PROFILE → DIFFICULTY ESTIMATE → QUESTION SELECTION → NEXT ATTEMPT
+
+Signal
+
+Example Use
+
+Low structure score
+
+Recommend structure-focused questions
+
+Weak factual accuracy
+
+Recommend evidence-heavy practice
+
+Repeated topic weakness
+
+Increase topic exposure
+
+Strong topic performance
+
+Increase difficulty or reduce frequency
+
+Poor conclusion/way-forward
+
+Target questions requiring balanced conclusions
+
+Improving trend
+
+Progress difficulty gradually
+
+10. Phase 3 — Beta & Product-Market Validation
+
+The beta phase should focus on whether the platform produces measurable learning improvement and whether students will repeatedly use and pay for it.
+
+Invite a controlled group of BPSC aspirants.
+
+Capture baseline answer-writing performance.
+
+Measure repeated-attempt improvement.
+
+Collect human-review comparisons.
+
+Identify confusing Telegram UX steps.
+
+Test pricing and entitlements.
+
+Measure AI cost per active learner.
+
+Create support and incident workflows.
+
+Establish content review cadence.
+
+11. Beta Experiment Design
+
+Experiment
+
+Primary Question
+
+AI feedback vs generic feedback
+
+Does personalized feedback improve repeat attempts?
+
+Adaptive vs random questions
+
+Does adaptation improve learning?
+
+Blueprint vs no blueprint
+
+Does rubric grounding improve scoring agreement?
+
+NCERT-first RAG vs broad web
+
+Does authority improve trust and accuracy?
+
+Targeted outline vs full model answer
+
+Which gives better learning per rupee?
+
+Reminder timing
+
+Which schedule improves productive practice?
+
+12. Phase 3 Monetization
+
+Monetization should follow demonstrated value rather than simply charging for AI tokens.
+
+Tier
+
+Possible Positioning
+
+Free
+
+Limited practice and evaluation credits
+
+Pro
+
+Higher attempt limits, personalized mentor, detailed analytics
+
+Premium
+
+Advanced adaptive plans, deeper reports, model answers, priority processing
+
+Institute
+
+Admin dashboard, cohorts, assignments, analytics, future multi-tenancy
+
+Exact pricing should be validated experimentally against willingness to pay and AI unit economics.
+
+13. Phase 4 — Web & Android
+
+After Telegram retention and learning value are validated, expose the same application/domain APIs to richer clients.
+
+Responsive web application.
+
+Android application.
+
+Unified authentication and student profile.
+
+Image capture directly from mobile camera.
+
+Better answer-page ordering and crop/quality guidance.
+
+Rich progress dashboards.
+
+Study-plan calendar.
+
+Push notifications.
+
+Same backend, AI Gateway, RAG, evaluation, and learning services.
+
+14. Phase 4 — Scale Architecture
+
+Scale only the components that demonstrate actual load.
+
+Component
+
+Initial
+
+Scale Trigger
+
+API
+
+Single/few stateless instances
+
+CPU/latency/traffic growth
+
+Workers
+
+Small BullMQ pool
+
+Queue age/backlog
+
+PostgreSQL
+
+Managed PostgreSQL
+
+Connection/query/storage pressure
+
+Redis
+
+Managed Redis
+
+Queue/cache pressure
+
+Object storage
+
+S3-compatible
+
+Image volume
+
+AI Gateway
+
+Provider abstraction
+
+Volume/provider resilience
+
+RAG
+
+pgvector
+
+Retrieval latency/corpus size
+
+Analytics
+
+Postgres initially
+
+Event volume/reporting load
+
+15. Migration Strategy From Current Node.js Application
+
+The migration must be incremental and reversible.
+
+Freeze a known-good baseline and tag it.
+
+Add tests around current behavior before moving logic.
+
+Introduce TypeScript where appropriate without forcing a full rewrite.
+
+Create domain/application modules around existing Telegram handlers.
+
+Move AI calls behind AI Gateway adapters.
+
+Move heavy operations into BullMQ workers.
+
+Introduce PostgreSQL repositories and explicit transactions.
+
+Add object storage abstraction for images.
+
+Introduce RAG as an isolated module.
+
+Introduce Evaluation Blueprint storage.
+
+Route existing flows through the new modules.
+
+Remove duplicated legacy code only after equivalent tests pass.
+
+16. Recommended Repository Shape
+
+apps/  api/  worker/  scheduler/  admin/  web/                 # laterpackages/  domain/  application/  db/  ai-gateway/  rag/  ocr/  evaluation/  questions/  learning/  telegram/  storage/  notifications/  analytics/  security/  shared/tests/  unit/  integration/  e2e/  ai/  rag/  ocr/  security/  load/benchmarks/  ai-gold-set/  rag-gold-set/  ocr-gold-set/
+
+17. Engineering Workstreams
+
+Workstream
+
+Primary Responsibility
+
+Product/domain
+
+Business rules and student journeys
+
+Backend
+
+APIs, persistence, jobs, integrations
+
+AI
+
+Prompts, model routing, structured outputs
+
+RAG
+
+Corpus, ingestion, retrieval, provenance
+
+Vision/OCR
+
+Handwriting extraction and confidence
+
+Evaluation
+
+Rubrics, blueprint, scoring, feedback
+
+Learning
+
+Skill profile and adaptive selection
+
+Frontend
+
+Web/Android when introduced
+
+Telegram
+
+Conversation UX and adapter
+
+DevOps
+
+CI/CD, infrastructure, monitoring
+
+QA
+
+Automated and AI benchmark testing
+
+Content
+
+PYQ/NCERT/source curation
+
+Business
+
+Pricing, growth, partnerships
+
+18. AI Model Strategy
+
+Keep all model calls behind AI Gateway.
+
+Use task-specific model routing rather than one model for everything.
+
+Use stronger models for difficult evaluation or quality-critical cases.
+
+Use lower-cost models for classification, tagging, simple transformations, and some retrieval tasks when benchmarked.
+
+Cache stable outputs where safe.
+
+Use asynchronous processing for non-interactive expensive operations.
+
+Track provider/model performance continuously.
+
+Maintain fallback providers/models for critical operations where practical.
+
+19. Cost-Control Roadmap
+
+Optimization
+
+When
+
+Token/cost logging
+
+Phase 0
+
+Avoid full-corpus prompts
+
+Phase 1
+
+Evaluation Blueprint reuse
+
+Phase 1
+
+Targeted RAG context
+
+Phase 1
+
+Caching
+
+Phase 1–2
+
+Model routing
+
+Phase 2
+
+Batch/offline processing
+
+Phase 2–3
+
+Cost-aware feature gating
+
+Phase 3
+
+Provider optimization
+
+Phase 3–4
+
+Primary unit-economics metric: AI cost per successful learning attempt, not simply cost per API call.
+
+20. Knowledge Base Rollout
+
+Verify and structure BPSC PYQs.
+
+Register source metadata and provenance.
+
+Ingest approved NCERT material.
+
+Chunk and embed content.
+
+Create retrieval filters and source tiers.
+
+Build RAG Gold Set.
+
+Add authoritative government sources.
+
+Add controlled current-affairs sources.
+
+Introduce Bihar-specific verified material.
+
+Continuously review source freshness and conflicts.
+
+21. Content Governance
+
+Every source has owner, type, authority tier, version, and ingestion status.
+
+PYQs must be verified before entering the trusted corpus.
+
+Current-affairs sources must carry publication/effective dates.
+
+Conflicting information must be flagged rather than silently merged.
+
+Deleted or superseded sources remain traceable in historical AI traces.
+
+Content reviewers can disable problematic chunks without code deployment.
+
+22. AI Quality Roadmap
+
+Stage
+
+AI Quality Objective
+
+MVP
+
+Valid structured output and basic factual grounding
+
+Production
+
+Stable question quality and examiner rubric behavior
+
+Beta
+
+Human-vs-AI scoring benchmark
+
+Personalization
+
+Reliable weakness/skill signals
+
+Scale
+
+Continuous model/prompt regression
+
+Advanced
+
+Multi-model verification and calibrated confidence
+
+23. QA & Release Roadmap
+
+Every release runs deterministic tests.
+
+AI changes run relevant Gold Set benchmarks.
+
+RAG changes run retrieval/grounding benchmarks.
+
+OCR changes run handwriting benchmarks.
+
+Security checks run in CI.
+
+Staging runs smoke tests.
+
+Critical regression triggers rollback.
+
+Production quality metrics are monitored after deployment.
+
+24. Analytics Roadmap
+
+Stage
+
+Analytics
+
+Phase 0
+
+AI call, error, latency, cost logging
+
+Phase 1
+
+Student journey and attempt funnel
+
+Phase 2
+
+Skill and learning analytics
+
+Phase 3
+
+Cohorts, retention, conversion, experiments
+
+Phase 4
+
+Cross-client analytics and advanced personalization
+
+North-Star Metric: Weekly Active Learning Students (WALS), supplemented by meaningful completed attempts and measurable improvement.
+
+25. Security & Privacy Roadmap
+
+Secure authentication and authorization.
+
+Student-owned resource checks.
+
+Private object storage.
+
+Signed URLs with short expiry.
+
+Upload validation.
+
+Secret management.
+
+Prompt-injection defense.
+
+Audit logs for sensitive administrative actions.
+
+Retention/deletion controls.
+
+Provider data-processing review.
+
+Incident response.
+
+Periodic security testing.
+
+26. Production Readiness Checklist
+
+Area
+
+Ready When
+
+Core journey
+
+Question-to-evaluation flow works reliably
+
+Data
+
+Backups and restore process tested
+
+AI
+
+Provider failures and malformed outputs handled
+
+RAG
+
+Evidence/provenance works
+
+OCR
+
+Representative handwriting benchmark passes
+
+QA
+
+Critical regression suite passes
+
+Security
+
+No unresolved critical findings
+
+Observability
+
+Alerts and traces available
+
+Cost
+
+Unit economics understood
+
+Operations
+
+Runbooks and ownership defined
+
+Support
+
+Student issue path defined
+
+Rollback
+
+Known-good version/config can be restored
+
+27. Launch Criteria
+
+Core journey success rate meets agreed threshold.
+
+AI examiner benchmark meets expert-approved threshold.
+
+Question quality gate prevents unsafe/poor questions.
+
+RAG grounding benchmark passes.
+
+OCR benchmark is acceptable for supported handwriting conditions.
+
+Critical security tests pass.
+
+AI cost per attempt is economically viable.
+
+Monitoring and alerts are active.
+
+Data retention and deletion processes are documented.
+
+Support and incident ownership are established.
+
+28. First 90-Day Execution Plan
+
+Period
+
+Priority
+
+Days 1–15
+
+Repository audit, architecture mapping, tests, AI call inventory, security baseline
+
+Days 16–30
+
+AI Gateway, DB/domain cleanup, queues, storage abstraction, observability
+
+Days 31–45
+
+Question pipeline, Quality Checker, Evaluation Blueprint, RAG foundation
+
+Days 46–60
+
+OCR pipeline, examiner pipeline, Telegram end-to-end flow
+
+Days 61–75
+
+Gold Sets, human benchmark, regression suite, admin quality tools
+
+Days 76–90
+
+Beta hardening, analytics, cost optimization, security/load testing
+
+29. Claude Code Master Execution Prompt
+
+Claude Code should treat Documents 01–12 as the product specification set. Before modifying code, inspect the existing repository and produce a gap analysis against these documents. Do not perform a blind rewrite.
+
+Preserve working behavior unless the specification explicitly changes it.
+
+Implement one vertical slice at a time.
+
+Before each major refactor, add tests around existing behavior.
+
+Create explicit interfaces at external boundaries.
+
+Never hard-code a model provider inside business logic.
+
+Never pass the full knowledge corpus to an LLM when retrieval can supply relevant evidence.
+
+Persist question lineage and Evaluation Blueprint.
+
+Preserve original handwriting images and OCR versions.
+
+Make AI jobs asynchronous where latency permits.
+
+Add observability before scaling.
+
+Do not mark a task complete without tests.
+
+After each milestone, run the relevant regression suite and report files changed, tests run, failures, and remaining risks.
+
+30. Claude Code Milestone Order
+
+Repository and architecture audit.
+
+Baseline test suite.
+
+Domain/module boundaries.
+
+Database/migration hardening.
+
+AI Gateway.
+
+Queue/worker infrastructure.
+
+Question generation + quality gate.
+
+Evaluation Blueprint.
+
+RAG ingestion/retrieval.
+
+OCR/Vision pipeline.
+
+Examiner evaluation.
+
+Telegram end-to-end integration.
+
+Learning profile.
+
+Adaptive question selection.
+
+Analytics.
+
+Admin quality review.
+
+Security hardening.
+
+Load/reliability testing.
+
+Beta readiness.
+
+Web/Android preparation.
+
+31. Product Moat
+
+The defensible advantage is not the underlying LLM. It is the combination of curated BPSC knowledge, verified PYQ lineage, evaluation blueprints, expert-calibrated rubrics, handwritten-answer data, longitudinal learning signals, and adaptive practice.
+
+Question lineage becomes proprietary structured knowledge.
+
+Evaluation traces become a benchmark for answer-writing quality.
+
+Student histories enable personalization.
+
+Human-vs-AI benchmark data improves reliability.
+
+Content governance improves trust.
+
+Repeated attempts create a learning dataset that generic AI assistants do not naturally possess.
+
+32. Long-Term Product Expansion
+
+BPSC Prelims practice.
+
+BPSC Mains answer writing.
+
+Essay evaluation.
+
+Interview preparation.
+
+Daily current-affairs practice.
+
+Bihar-specific knowledge modules.
+
+Teacher/institute dashboards.
+
+Cohort assignments.
+
+Peer or mentor review.
+
+Multi-exam expansion after BPSC product-market fit.
+
+Expansion should follow the same platform primitives rather than creating separate AI systems for every exam.
+
+33. Key Risks & Mitigation
+
+Risk
+
+Mitigation
+
+AI score inconsistency
+
+Blueprint + rubric + human benchmark
+
+OCR errors
+
+Confidence + original images + reprocessing
+
+Hallucination
+
+RAG + provenance + authority hierarchy
+
+AI cost explosion
+
+Gateway + routing + caching + budgets
+
+Overengineering
+
+Modular monolith first
+
+Poor retention
+
+Adaptive learning and measurable improvement
+
+Content errors
+
+Source governance and review
+
+Vendor lock-in
+
+Provider abstraction
+
+Security incident
+
+Least privilege + validation + monitoring
+
+Scaling too early
+
+Metrics-driven extraction
+
+34. Final Architecture-to-Execution Trace
+
+PRODUCT REQUIREMENTS → DOMAIN MODEL → APIs → JOBS → AI GATEWAY → RAG → OCR → EVALUATION BLUEPRINT → EXAMINER → FEEDBACK → LEARNING PROFILE → ANALYTICS → QA BENCHMARKS → PRODUCTION OBSERVABILITY → ITERATION
+
+This trace should remain visible throughout implementation so individual technical decisions can always be connected to the student outcome.
+
+35. Final Definition of Done
+
+The existing application has been mapped and safely refactored rather than blindly rewritten.
+
+The complete student learning loop works end-to-end.
+
+All AI providers are abstracted behind AI Gateway.
+
+Questions have lineage and Evaluation Blueprints.
+
+RAG supplies traceable evidence.
+
+Handwritten images are preserved and OCR is repeatable.
+
+Examiner scoring is benchmarked against human reviewers.
+
+Student weaknesses and progress are persisted.
+
+Next-question selection can use learning signals.
+
+Critical flows are covered by automated tests.
+
+AI/RAG/OCR regression suites are operational.
+
+Security, privacy, backup, monitoring, and rollback are production-ready.
+
+AI cost per learning attempt is measurable.
+
+Telegram remains a stable client while future Web/Android clients reuse the same backend.
+
+Product decisions are driven by learning outcomes and retention, not vanity usage.
+
+36. Final Product Principle
+
+Build the smallest system that can reliably produce a complete learning loop, measure whether it improves students, and then make that loop smarter. Do not start by building a giant AI platform. Start by building a trustworthy BPSC mentor.
+
+The strategic sequence is: TRUST → RELIABILITY → LEARNING VALUE → PERSONALIZATION → RETENTION → MONETIZATION → SCALE.
+
+Documents 01–12 together form the implementation baseline. Claude Code should use them as the source of truth, while treating explicit product-owner decisions and verified production constraints as higher-priority inputs when they evolve.

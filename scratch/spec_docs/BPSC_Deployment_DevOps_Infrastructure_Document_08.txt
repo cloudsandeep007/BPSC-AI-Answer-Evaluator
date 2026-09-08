@@ -1,0 +1,863 @@
+BPSC AI Platform
+
+Document 08 — Deployment, DevOps, Infrastructure & Production Operations
+
+Version 1.0 | Implementation Specification
+
+Purpose: Define how the BPSC AI platform is packaged, deployed, scaled, monitored, secured, backed up, and operated from MVP through production.
+
+1. Executive Summary
+
+Start with a production-capable modular monolith, not a large collection of independently deployed microservices. Separate API, asynchronous workers, scheduler/notifications, AI Gateway, database, cache/queue, object storage, and observability.
+
+The backend must remain channel-independent so Telegram is only the first client; Web and Android can reuse the same application services later.
+
+2. Production Architecture
+
+TELEGRAM / WEB / ANDROID → API → APPLICATION SERVICES → POSTGRESQL
+
+↘ REDIS / BULLMQ → WORKERS → AI GATEWAY → AI PROVIDERS
+
+↘ OBJECT STORAGE
+
+↘ NOTIFICATION WORKER → TELEGRAM
+
+↘ LOGGING / METRICS / TRACING
+
+Expensive OCR, evaluation, RAG-heavy generation and mentor tasks should normally be asynchronous.
+
+3. Deployment Units
+
+Unit
+
+Responsibility
+
+Scaling
+
+API
+
+Webhooks, REST APIs, auth, application services
+
+Horizontal
+
+Worker
+
+OCR, evaluation, questions, RAG, mentor jobs
+
+Horizontal by queue
+
+Scheduler
+
+Reminders, ingestion, maintenance
+
+Single active instance/lock
+
+Admin/Web
+
+Administration and future web client
+
+Horizontal
+
+PostgreSQL
+
+Transactions + pgvector
+
+Vertical first; replicas later
+
+Redis
+
+Queues, locks, cache
+
+Managed/replicated
+
+Object Storage
+
+Images, source files, artifacts
+
+Provider-managed
+
+AI Gateway
+
+Model routing, validation, cost logging
+
+With workers/API; extract later if needed
+
+4. Recommended Stack
+
+Layer
+
+Recommendation
+
+Runtime
+
+Node.js + TypeScript
+
+Database
+
+PostgreSQL + pgvector
+
+Queue
+
+Redis + BullMQ
+
+Storage
+
+S3-compatible storage / equivalent
+
+Containers
+
+Docker
+
+CI/CD
+
+GitHub Actions or equivalent
+
+Monitoring
+
+Structured logs + metrics + error tracking
+
+5. Environment Strategy
+
+Environment
+
+Purpose
+
+Local
+
+Developer work; synthetic data
+
+Development
+
+Integrated engineering
+
+Staging
+
+Production-like validation
+
+Production
+
+Real student data
+
+Use separate databases, storage locations and AI credentials per environment.
+
+Never use production data in development.
+
+Never commit secrets to Git.
+
+Run migrations and worker flows in staging before production.
+
+6. Monorepo Structure
+
+apps/  api/  worker/  scheduler/  admin/packages/  domain/ application/ database/ ai/ rag/ queue/ storage/ notifications/ config/tests/  integration/ e2e/ ai/ regression/infra/  docker/ migrations/ deployment/ scripts/
+
+Do not create a separate repository/service for every package. Extract services only when scaling or operational requirements justify it.
+
+7. Containerization
+
+Use pinned runtime/dependency versions.
+
+Use multi-stage Docker builds.
+
+Run as non-root where practical.
+
+Keep configuration outside images.
+
+Add health checks.
+
+Support graceful shutdown.
+
+Use separate API and worker entrypoints.
+
+8. API Deployment
+
+Keep API stateless.
+
+Store state in PostgreSQL/Redis.
+
+Never rely on container-local uploaded files.
+
+Use request/correlation IDs.
+
+Use connection pooling.
+
+Apply request-size limits and rate limits.
+
+Return quickly for asynchronous operations and expose job status.
+
+9. Worker & Queue Design
+
+Queue
+
+Typical Jobs
+
+Scaling Signal
+
+ocr
+
+Handwriting extraction
+
+Queue depth / job age
+
+evaluation
+
+Answer evaluation
+
+Queue depth / SLA
+
+question
+
+Generation + quality check
+
+Queue depth
+
+mentor
+
+Mentor synthesis
+
+Queue depth
+
+rag
+
+Ingestion/embeddings
+
+Corpus workload
+
+notification
+
+Telegram messages
+
+Pending notifications
+
+maintenance
+
+Cleanup/reconciliation
+
+Schedule
+
+Workers must use configurable concurrency. A large OCR spike must not starve evaluation or notification queues.
+
+10. Job Reliability
+
+Design for at-least-once execution.
+
+Every job must be idempotent.
+
+Use unique business operation keys where appropriate.
+
+Use bounded retries and exponential backoff.
+
+Set explicit timeouts.
+
+Record job and correlation IDs.
+
+Use priority where student-facing jobs require it.
+
+Prevent duplicate expensive AI work.
+
+11. Telegram Webhook Operations
+
+HTTPS only.
+
+Return quickly after accepting a meaningful update.
+
+Persist/enqueue work before expensive AI processing.
+
+Protect against duplicate updates.
+
+Handle blocked users and deleted chats gracefully.
+
+Keep Telegram SDK logic inside an adapter layer.
+
+The domain layer must not depend directly on Telegram SDK types.
+
+12. Database Operations
+
+PostgreSQL is the transactional source of truth.
+
+Use version-controlled migrations.
+
+Do not manually change production schema as normal practice.
+
+Monitor connections, locks, slow queries, storage and CPU.
+
+Tune pgvector indexes from measured workload.
+
+Back up regularly and test restoration.
+
+13. Migration Policy
+
+Create migration locally.
+
+Run tests.
+
+Apply to development.
+
+Apply to staging.
+
+Verify backward compatibility.
+
+Back up production before risky changes.
+
+Apply production migration.
+
+Deploy compatible code.
+
+Run smoke tests.
+
+Prefer expand → migrate → contract: add compatible structures first, migrate data, then remove obsolete structures later.
+
+14. Object Storage
+
+Store handwritten images and source documents in private object storage, not PostgreSQL blobs.
+
+Store object keys in the database.
+
+Use short-lived signed URLs.
+
+Validate file type and size.
+
+Scan uploads when appropriate.
+
+Keep originals for OCR/evaluation reruns.
+
+Apply lifecycle/retention policies.
+
+15. Secrets & Configuration
+
+Secret
+
+Rule
+
+AI provider keys
+
+Secret manager/environment secret
+
+Telegram token
+
+Secret manager/environment secret
+
+Database/Redis credentials
+
+Secret manager/environment secret
+
+Storage credentials
+
+Secret manager/environment secret
+
+JWT/session secrets
+
+Secret manager/environment secret
+
+Feature flags
+
+Managed configuration/database where appropriate
+
+Never put credentials in code, images, prompts, logs or Git history.
+
+16. CI Pipeline
+
+Checkout.
+
+Install from lockfile.
+
+Lint/format.
+
+Type-check.
+
+Run unit tests.
+
+Run API/schema tests.
+
+Validate migrations.
+
+Run AI contract/regression tests.
+
+Build production images.
+
+Run dependency/security checks.
+
+Publish immutable artifacts.
+
+17. CD / Release Flow
+
+GIT PUSH → CI → TESTS → BUILD → STAGING → SMOKE TEST → RELEASE GATE → PRODUCTION → HEALTH CHECK → MONITOR → ROLLBACK IF REQUIRED
+
+Use immutable image tags.
+
+Keep previous production version for rollback.
+
+Use rolling/blue-green deployment when justified.
+
+Ensure worker payloads remain backward compatible.
+
+Treat database migrations as a separate risk-controlled step when necessary.
+
+18. Health Checks
+
+Endpoint/Check
+
+Purpose
+
+/health/live
+
+Process is alive
+
+/health/ready
+
+Dependencies are usable
+
+Database
+
+Connection/query availability
+
+Redis
+
+Queue/cache availability
+
+Storage
+
+Required storage access
+
+AI Gateway
+
+Configuration/provider readiness without expensive calls
+
+Readiness failure should remove an instance from traffic; liveness should restart only genuinely unhealthy processes.
+
+19. Observability
+
+Use logs, metrics and traces.
+
+Structured JSON logs.
+
+Request/correlation IDs.
+
+API → queue → worker → AI tracing where practical.
+
+Error tracking.
+
+AI usage metrics.
+
+Queue depth and job age.
+
+Database performance metrics.
+
+Webhook failure metrics.
+
+20. Critical Metrics
+
+Metric
+
+Why
+
+Question generation latency
+
+Student experience
+
+OCR success/confidence
+
+Evaluation reliability
+
+Evaluation latency/failure rate
+
+Student experience and provider health
+
+AI cost per attempt
+
+Unit economics
+
+Queue depth/job age
+
+Capacity
+
+Webhook processing time
+
+Telegram reliability
+
+AI-vs-human score agreement
+
+Academic quality
+
+Answer completion rate
+
+Learning-loop health
+
+21. Alerting
+
+API error spikes.
+
+Webhook failure/backlog.
+
+Evaluation/OCR SLA breach.
+
+AI provider failure spike.
+
+Database or Redis pressure.
+
+Backup failure.
+
+AI cost spike.
+
+Unexpected surge in low-confidence evaluations.
+
+Alerts should be actionable, not noisy.
+
+22. Backup & Disaster Recovery
+
+Asset
+
+Strategy
+
+PostgreSQL
+
+Automated backups + point-in-time recovery where supported
+
+Object storage
+
+Versioning/replication/provider durability controls
+
+Redis
+
+Recoverable cache/queue state; durable persistence only where required
+
+Source/infrastructure
+
+Protected Git + versioned infrastructure
+
+Prompts/AI logs
+
+Versioned durable storage with retention controls
+
+A backup is not proven until restoration has been tested.
+
+23. Initial Recovery Targets
+
+Target
+
+Planning Value
+
+RPO
+
+Up to 1 hour for early production; improve with scale
+
+RTO
+
+A few hours for early MVP; tighten later
+
+AI job recovery
+
+Queued work resumes without duplicate results
+
+Image recovery
+
+Original uploads remain recoverable
+
+These are planning targets; final values depend on the selected infrastructure and budget.
+
+24. Failure Handling
+
+Failure
+
+Behavior
+
+AI provider outage
+
+Bounded retry; configured fallback; notify if prolonged
+
+OCR failure
+
+Retry; preserve image; allow rerun
+
+Evaluation failure
+
+Retry; prevent duplicate result
+
+Redis outage
+
+Fail safely; resume queues after recovery
+
+Database outage
+
+Readiness failure + controlled errors
+
+Telegram outage
+
+Persist/retry notifications
+
+Malformed AI JSON
+
+Validate; controlled repair/retry; log failure
+
+Worker crash
+
+Queue recovery/retry
+
+25. AI Provider Resilience
+
+Provider adapters implement a common interface.
+
+Set explicit timeouts.
+
+Use bounded retries with jitter.
+
+Do not retry non-retryable errors.
+
+Support configured model fallback.
+
+Track provider-specific failures.
+
+Record model/provider on every evaluation.
+
+A model change must never silently change scoring semantics.
+
+26. Cost Protection
+
+Set daily/monthly AI budgets.
+
+Track cost by workflow and student where appropriate.
+
+Use model routing.
+
+Cache stable outputs.
+
+Deduplicate jobs.
+
+Limit upload count/size.
+
+Limit retries.
+
+Prevent worker loops.
+
+Alert on abnormal token usage.
+
+27. Security Baseline
+
+TLS/HTTPS.
+
+Least-privilege credentials.
+
+Input validation.
+
+Rate limiting.
+
+Private object storage.
+
+Parameterized queries/ORM protections.
+
+Dependency/container scanning.
+
+Admin audit logs.
+
+Encryption at rest where supported.
+
+Secret rotation.
+
+Restricted production access.
+
+28. Student Data Protection
+
+The platform handles handwritten work and learning history. Treat these as sensitive operational data.
+
+Collect only required information.
+
+Define retention periods.
+
+Support deletion workflows where required.
+
+Restrict access by role.
+
+Keep raw images appropriately protected.
+
+Never expose one student's work to another.
+
+Never use production student data in development.
+
+Document what data each AI provider receives.
+
+29. Scaling Plan
+
+Scale
+
+Architecture
+
+0–1,000 active students
+
+Managed PostgreSQL, Redis, object storage, API + worker instances
+
+1,000–10,000
+
+Independent API/worker scaling; queue-specific workers; DB optimization
+
+10,000–100,000
+
+Read replicas, caching, dedicated AI workers, stronger observability
+
+100,000+
+
+Evaluate service extraction, partitioning/sharding, dedicated search/vector infrastructure, multi-region
+
+Scale from measured bottlenecks, not hypothetical traffic.
+
+30. Autoscaling Signals
+
+API latency/CPU.
+
+Worker queue depth.
+
+Oldest job age.
+
+OCR/evaluation SLA.
+
+AI rate limits.
+
+Database connections/CPU.
+
+Redis memory/throughput.
+
+For AI workloads, queue depth and job age are usually more useful than CPU alone.
+
+31. Local Development
+
+Docker Compose or equivalent.
+
+Local PostgreSQL + pgvector.
+
+Redis.
+
+Local storage adapter/emulator.
+
+API, worker and scheduler.
+
+Seed data.
+
+Sample PYQs/source chunks.
+
+Mock AI provider.
+
+Developers should be able to exercise the full workflow without spending real AI credits.
+
+32. Mock AI Provider
+
+Deterministic OCR.
+
+Deterministic question generation.
+
+Deterministic evaluation.
+
+Simulated timeouts/failures.
+
+Malformed JSON simulation.
+
+Low-confidence OCR simulation.
+
+Rate-limit simulation.
+
+This makes most tests fast, cheap and repeatable.
+
+33. Infrastructure as Code
+
+Define network/firewall rules, databases, Redis, storage, services, secrets references, monitoring and alerts as code as complexity grows.
+
+Keep infrastructure configuration version-controlled and reviewed.
+
+Avoid undocumented manual production changes.
+
+34. Operational Runbooks
+
+Create runbooks for API outage, worker backlog, AI outage, OCR degradation, evaluation-quality degradation, database/Redis/storage outage, Telegram webhook failure, cost spike, security incident, failed deployment and failed migration.
+
+Each runbook should contain detection → containment → diagnosis → recovery → validation → post-incident actions.
+
+35. Migration from the Current Node.js App
+
+Freeze existing behavior with tests.
+
+Extract configuration.
+
+Extract database layer.
+
+Move provider calls behind AI Gateway.
+
+Isolate Telegram adapter.
+
+Introduce OCR/evaluation queues.
+
+Move uploads to object storage.
+
+Introduce prompt registry.
+
+Add observability.
+
+Deploy incrementally while preserving the current student flow.
+
+Do not rewrite the entire application in one release.
+
+36. Claude Code Implementation Order
+
+Containerize the current app.
+
+Add production configuration management.
+
+Introduce Redis/BullMQ.
+
+Separate worker entrypoints.
+
+Create AI Gateway.
+
+Move uploads to object storage.
+
+Add structured logging and request IDs.
+
+Add health/readiness endpoints.
+
+Introduce migration-based DB deployment.
+
+Build CI/CD.
+
+Create staging.
+
+Add smoke tests and mock AI mode.
+
+Document backup/restore.
+
+Only then optimize for scale.
+
+37. Production Readiness Checklist
+
+API/workers/scheduler deploy successfully.
+
+Heavy AI work is asynchronous.
+
+Jobs are idempotent/retryable.
+
+Migrations are version controlled.
+
+Images are private and recoverable.
+
+Secrets are externalized.
+
+CI builds immutable artifacts.
+
+Staging exists.
+
+Health checks and alerts exist.
+
+Backups are tested.
+
+AI costs are measurable.
+
+Provider failures are handled.
+
+Rollback is documented.
+
+Runbooks exist.
+
+Telegram is isolated from core domain logic.
+
+38. Final Infrastructure Principle
+
+Do not build infrastructure for the company you might become. Build a reliable platform for the students you have today, with clean boundaries that make tomorrow's scale possible.
+
+INITIAL: MODULAR MONOLITH + POSTGRESQL/PGVECTOR + REDIS/BULLMQ + OBJECT STORAGE + AI GATEWAY + DOCKER + CI/CD
+
+SCALE PATH: MORE WORKERS → QUEUE SPECIALIZATION → DATABASE/CACHE OPTIMIZATION → READ REPLICAS → DEDICATED SERVICES ONLY WHERE MEASURED NEED EXISTS

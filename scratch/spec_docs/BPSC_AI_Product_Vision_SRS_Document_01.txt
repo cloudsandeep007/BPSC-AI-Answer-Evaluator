@@ -1,0 +1,161 @@
+BPSC AI Answer Evaluation & Personal Mentor
+
+Document 01 — Product Vision & Software Requirements Specification (SRS)
+
+Version 1.0 | Foundation Document
+
+1. Executive Summary
+
+This product is an AI-powered preparation and answer-evaluation platform initially focused on Hindi-medium BPSC aspirants. Students receive exam-relevant descriptive questions generated from a curated question bank, including approximately 20 years of BPSC previous-year-question context. They write answers by hand, upload photographs through Telegram or another client, and receive structured AI evaluation, scoring, feedback, model-answer guidance, and progress tracking.
+
+The long-term product should evolve from an “AI answer checker” into a personalized AI mentor that understands a student’s historical answers, recurring weaknesses, subject performance, and preparation trajectory.
+
+2. Product Vision
+
+Build the most useful AI-first answer-writing companion for Hindi-medium Indian competitive-exam aspirants: a system that asks the right question, evaluates handwritten answers like an examiner, explains how to improve, remembers the student’s weaknesses, and continuously adapts future practice.
+
+3. Problem Statement
+
+BPSC/State PSC aspirants often struggle to get frequent, affordable, high-quality evaluation of handwritten mains answers. Human evaluation is expensive and slow; generic AI chat does not reliably follow an exam-specific rubric; and students frequently receive marks without a longitudinal explanation of why they are improving or stagnating.
+
+The product addresses this gap by combining curated exam material, retrieval-based evidence, handwriting/OCR processing, exam-specific rubrics, AI evaluation, and longitudinal student analytics.
+
+4. Initial Target Market
+
+Primary launch market:• Hindi-medium BPSC aspirants in Bihar.• Candidates preparing for descriptive/mains-style answers.• Students using Telegram as a study channel.
+
+Expansion markets after validation:• UPPSC• MPPSC• JPSC• RPSC and other State PSC examinations• UPSC Hindi-medium preparation• Coaching institutes and test-series providers
+
+5. Core User Personas
+
+Persona A — Serious BPSC aspirantNeeds frequent answer practice, marks, actionable feedback, and current-affairs integration.
+
+Persona B — Self-study studentCannot afford frequent personal evaluation and wants an affordable examiner-like experience.
+
+Persona C — Coaching studentAlready has study material but wants additional daily answer practice and rapid feedback.
+
+Persona D — Coaching instituteNeeds scalable evaluation, student analytics, question delivery, and potentially white-label/co-branded evaluation.
+
+6. Core Product Loop
+
+1. Student selects exam/subject/question type.2. Question engine retrieves relevant source context and generates an exam-style question.3. Question Quality Checker validates the question against the intended exam pattern.4. System creates an Evaluation Blueprint: expected dimensions, key points, likely references, and marking rubric.5. Student writes the answer by hand.6. Student uploads one or more page images.7. Image/OCR pipeline detects pages, extracts text, and preserves page/order information.8. Retrieval layer fetches only relevant source material instead of sending the entire knowledge base.9. Evaluation engine scores the answer against the blueprint and evidence.10. Student receives marks, strengths, missing points, errors, improvement suggestions, and an improved-answer structure.11. Results are stored in the student profile.12. Mentor engine identifies recurring weaknesses and adapts future practice.
+
+7. Knowledge & Truth Hierarchy
+
+The system must not treat all sources equally.
+
+Priority 1 — Curated exam-specific and foundational sources, including the project's approved NCERT corpus and other explicitly approved material.
+
+Priority 2 — Official/authoritative static sources relevant to the subject.
+
+Priority 3 — Current affairs and recent credible sources when the question requires contemporary examples.
+
+Priority 4 — Other web information only when useful and sufficiently trustworthy.
+
+The evaluator should distinguish between factual correctness, relevance, analytical quality, and current-affairs enrichment rather than blindly rewarding extra information.
+
+8. Question Generation Requirements
+
+The question engine should:• Use the curated BPSC/PYQ corpus as contextual grounding.• Generate new questions rather than simply reproducing PYQs.• Preserve the exam’s style, demand, topic, and expected answer depth.• Support subject/topic selection.• Support short/medium/long descriptive questions.• Store source lineage and related PYQ references.• Assign difficulty and cognitive demand.• Produce an Evaluation Blueprint alongside each question.• Reject or regenerate low-quality, ambiguous, duplicated, or off-syllabus questions.
+
+9. Answer Evaluation Requirements
+
+The evaluator should assess:• Content relevance• Factual accuracy• Coverage of expected points• Analysis/reasoning• Structure and organization• Introduction/body/conclusion• Use of examples/data/current affairs where appropriate• Balance and multidimensionality• Question-specific demand fulfillment• Language clarity• Presentation/legibility signals where technically reliable
+
+The system should avoid pretending that AI marks are equivalent to official examiner marks. Scores should be presented as an AI evaluation estimate based on the configured rubric.
+
+10. Student Feedback Requirements
+
+Every evaluation should provide:• Overall score and rubric breakdown• What was done well• Important missing points• Factual/conceptual corrections• Better structure for the answer• Suggested examples/current-affairs enrichment• A concise “how to improve next time” section• Optional improved-answer outline/model answer• Topic-level weakness tags
+
+The system should prioritize actionable feedback rather than producing unnecessarily long generic explanations.
+
+11. Longitudinal AI Mentor
+
+The mentor layer should analyze multiple attempts rather than only one answer.
+
+It should identify:• Repeated weak topics• Repeated structural problems• Weak introductions/conclusions• Poor time/word management when measurable• Factual misconception patterns• Subjects with declining or improving performance• Gaps between knowledge and answer expression
+
+It should then recommend targeted practice and select future questions accordingly.
+
+12. Functional Requirements
+
+FR-01: User registration and authentication.FR-02: Exam/profile selection.FR-03: Subject/topic selection.FR-04: Question generation from curated sources.FR-05: PYQ lineage and metadata storage.FR-06: Question quality validation.FR-07: Handwritten answer image upload.FR-08: Multi-page ordering and validation.FR-09: OCR/vision extraction.FR-10: Retrieval of relevant source chunks.FR-11: Rubric-based AI evaluation.FR-12: Score and feedback generation.FR-13: Attempt history.FR-14: Topic/subject performance analytics.FR-15: Personalized recommendations.FR-16: Telegram delivery and interaction.FR-17: Future Android/web client support.FR-18: AI usage and cost tracking.FR-19: Admin content/source management.FR-20: Feedback and quality monitoring.
+
+13. Non-Functional Requirements
+
+Performance: asynchronous processing for image/OCR/evaluation workloads.
+
+Reliability: failed AI jobs must be retryable without creating duplicate attempts.
+
+Scalability: architecture must allow multiple worker instances.
+
+Cost control: every model call must be measurable by tokens, latency, model, and estimated cost.
+
+Security: user data and answer images must be access-controlled and encrypted in transit and at rest where supported.
+
+Observability: logs, traces, job status, model failures, evaluation latency, and cost should be measurable.
+
+Provider independence: AI provider/model calls should be abstracted behind an internal AI gateway so models can be changed later.
+
+14. Business Model Hypothesis
+
+Recommended initial validation model:
+
+Free:• Limited evaluations/questions to demonstrate value.
+
+Paid Basic:• Monthly answer-evaluation allowance.• Daily practice.• Progress history.
+
+Paid Pro:• Higher evaluation limits.• Advanced feedback.• Personalized mentor.• Current-affairs enrichment.• Advanced analytics.
+
+Institutional:• Per-student or seat-based pricing.• Institute dashboard.• Bulk question assignment.• Student performance analytics.• Optional white-label capabilities.
+
+Pricing should be validated experimentally after measuring the actual AI cost per evaluated answer and willingness to pay.
+
+15. Key Product Metrics
+
+North-star metric:• Successfully evaluated answers per active student per week, combined with evidence of improvement.
+
+Acquisition:• New users• Activation rate• Cost per acquired user
+
+Engagement:• Weekly active students• Questions attempted per student• Answers submitted per week• Evaluation completion rate
+
+Learning:• Improvement in rubric scores over repeated attempts• Reduction in recurring weakness tags• Topic mastery progression
+
+Business:• Free-to-paid conversion• Monthly recurring revenue• Churn• Average revenue per user• Gross margin after AI/infrastructure costs
+
+AI economics:• Cost per question generated• Cost per answer evaluated• Tokens per evaluation• Average evaluation latency• Model failure/retry rate
+
+16. Major Risks
+
+1. Evaluation quality may not match trusted human evaluation.2. Handwriting/OCR errors can distort scores.3. AI may hallucinate facts or references.4. Current-affairs information can become stale.5. Sending excessive context to the model can make evaluations expensive.6. Students may optimize for AI scoring rather than genuine exam improvement.7. Generic feedback can reduce perceived value.8. Model-provider pricing or capabilities can change.
+
+Mitigations include evaluation blueprints, retrieval, source hierarchy, confidence indicators, benchmark testing against human evaluators, cost controls, and continuous quality audits.
+
+17. Important Architectural Principle
+
+Do not send the entire NCERT/PYQ/reference corpus to the model for every answer.
+
+The intended architecture is:Question/Answer → classify topic → retrieve relevant evidence → construct compact evaluation context → evaluate → store result.
+
+This Retrieval-Augmented Generation (RAG) approach reduces unnecessary token usage, improves grounding, and makes source provenance easier to audit.
+
+18. MVP Scope
+
+The first production MVP should focus on:• BPSC Hindi-medium users• Telegram interface• Curated question/PYQ corpus• Question generation• Evaluation Blueprint• Multi-page handwritten answer upload• OCR/vision processing• RAG retrieval• Rubric-based evaluation• Score + actionable feedback• Attempt history• Basic student progress• AI cost logging• Admin source/question management
+
+Avoid initially building a large social network, native mobile application, complex gamification, or multi-exam support before the evaluation loop is proven.
+
+19. Future Roadmap
+
+Phase 1 — Reliable BPSC answer evaluation.Phase 2 — Personalized AI mentor and adaptive practice.Phase 3 — Current-affairs intelligence and richer analytics.Phase 4 — Android/web applications.Phase 5 — Additional State PSC exams.Phase 6 — Coaching institute platform and B2B licensing.Phase 7 — Multi-language expansion and broader competitive-exam coverage.
+
+20. Definition of Product Success
+
+The product is successful when a BPSC student can repeatedly submit handwritten answers, trust the evaluation enough to act on it, understand exactly how to improve, and see measurable improvement over time—without requiring a human evaluator for every practice answer.
+
+The strategic moat is not merely the LLM. It is the combination of curated exam knowledge, question lineage, evaluation rubrics, handwritten-answer data, longitudinal learning signals, and a feedback loop that improves personalization over time.
+
+21. Next Document
+
+Document 02 will define the detailed system architecture: client applications, API layer, queues/workers, AI gateway, OCR pipeline, RAG pipeline, evaluation pipeline, database architecture, storage, observability, security boundaries, and end-to-end sequence diagrams.

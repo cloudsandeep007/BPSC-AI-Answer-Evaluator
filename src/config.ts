@@ -3,6 +3,10 @@ import "dotenv/config";
 function required(name: string): string {
   const v = process.env[name];
   if (!v || !v.trim()) {
+    if (process.env.NODE_ENV === "test") {
+      if (name === "SUPABASE_URL") return "https://mock-test.supabase.co";
+      return `mock-test-${name.toLowerCase()}`;
+    }
     throw new Error(`Missing required env var: ${name}`);
   }
   return v.trim();
@@ -30,6 +34,8 @@ export const config = {
   // of the model logic needed.
   confidenceThreshold: Number(process.env.TRANSCRIPT_CONFIDENCE_THRESHOLD ?? "0.6"),
   port: Number(process.env.PORT ?? "3000"),
+  telegramWebhookSecret: process.env.TELEGRAM_WEBHOOK_SECRET ?? null,
+  useMockAi: process.env.USE_MOCK_AI === "true",
 
   // Bookkeeping row that exists only so submissions.question_id has a valid
   // target when a student submits before any real question has been served.

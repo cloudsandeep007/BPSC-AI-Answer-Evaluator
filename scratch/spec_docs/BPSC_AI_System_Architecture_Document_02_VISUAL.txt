@@ -1,0 +1,93 @@
+BPSC AI Answer Evaluation & Personal Mentor
+
+Document 02 — Detailed System Architecture Specification
+
+Version 1.1 — Visual Architecture Edition
+
+Purpose
+
+This version replaces the text-only architecture diagrams with embedded visual diagrams. It is intended to be read by both the product owner and Claude Code as the technical architecture contract.
+
+1. Visual System Architecture
+
+Interpretation: Telegram is the first client, while Web/Android remain future clients. The core platform is independent of the client. Expensive AI work is asynchronous through queues and workers. AI calls pass through the AI Gateway and Cost Controller.
+
+2. Recommended Architecture Strategy
+
+Use a modular monorepo rather than immediately deploying many independent microservices. Start with API, worker, and scheduler processes. Keep domain modules separated so OCR, evaluation, mentor, or other high-load components can later be extracted and scaled independently.
+
+3. End-to-End Evaluation Flow
+
+The student uploads handwritten pages. The attempt is created immediately, while OCR and evaluation happen asynchronously. The evaluator combines the stored question blueprint with targeted retrieved evidence instead of receiving the complete knowledge base.
+
+4. Question Generation Flow
+
+The question engine uses the curated BPSC/PYQ corpus as grounding. Every generated question receives an Evaluation Blueprint and passes through a quality checker before being delivered.
+
+5. RAG Knowledge Architecture
+
+The knowledge base is ingested offline. At runtime, only relevant chunks are retrieved using topic/metadata filters and semantic similarity. This is the central mechanism for controlling context size and improving grounding.
+
+6. Core AI Components
+
+Teacher AI generates questions and evaluation blueprints. Question Quality Checker validates syllabus alignment, originality, clarity, difficulty and answerability. OCR/Vision extracts handwritten content. Examiner AI scores answers against the blueprint and evidence. Mentor AI analyzes historical attempts. AI Cost Controller manages model selection and budgets. RAG Retriever supplies evidence but does not invent it.
+
+7. Evaluation Blueprint
+
+For every question store: question demand, expected dimensions, key points, optional points, common mistakes, relevant foundational references, current-affairs dimensions, suggested structure, marking rubric, expected answer depth and word-limit expectations.
+
+8. Source Hierarchy
+
+P0: approved exam/PYQ material. P1: approved NCERT/foundation corpus. P2: official government or authoritative sources. P3: credible current-affairs sources. P4: general web information. The evaluator should retain source identifiers for important factual corrections.
+
+9. AI Gateway
+
+No application module should call Gemini directly. All model calls go through one internal abstraction that handles provider selection, prompt versions, structured output, retries, token usage, cost, timeouts, fallback and correlation IDs.
+
+10. Cost Controller
+
+Before a model call, estimate input/output size and select an appropriate model. After execution, record actual usage. Enforce per-evaluation, per-user and system budgets. Cache reusable retrieval results and avoid regenerating model answers unnecessarily.
+
+11. Data Layer
+
+PostgreSQL should hold users, exams, subjects, topics, questions, question lineage, evaluation blueprints, attempts, OCR results, evaluations, feedback items, learning signals, subscriptions and AI usage. pgvector should initially be used for source chunks and embeddings. Object storage holds original handwritten images.
+
+12. Async Queues
+
+Use separate logical queues for question generation, question quality, image processing, OCR, evaluation, mentor updates, notifications, embeddings and current-affairs ingestion. Jobs must be idempotent and retryable.
+
+13. Failure Handling
+
+Use states such as CREATED → PROCESSING → COMPLETED or CREATED → PROCESSING → FAILED → RETRYING → COMPLETED. Use bounded retries, exponential backoff, dead-letter/manual-review handling and provider fallback.
+
+14. API Boundaries
+
+Core API groups should include /auth, /users, /exams, /subjects, /topics, /questions, /attempts, /evaluations, /progress, /mentor, /subscriptions, /payments, /admin and /webhooks. Telegram is an adapter, not the location of business logic.
+
+15. Security
+
+Validate file type and size, store images privately, enforce ownership checks, protect provider credentials, rate-limit AI-triggering endpoints, audit admin changes and separate student/admin/system permissions.
+
+16. Observability
+
+Every request and AI job needs a correlation ID. Track API latency, queue latency, OCR duration, evaluation duration, model, tokens, cost, failures, retries and user-visible processing time.
+
+17. Repository Structure
+
+apps/api, apps/worker, apps/scheduler, apps/admin; packages/domain, database, ai-gateway, prompts, rag, evaluation, question-engine, telegram, storage, queue, observability, config and shared-types; docs/ contains architecture documents.
+
+18. Implementation Order
+
+First map the existing application. Then modularize without changing behavior. Add PostgreSQL and object storage, introduce Redis/BullMQ, create the AI Gateway, separate question/evaluation logic, implement Evaluation Blueprint, add RAG, OCR, structured evaluation, cost telemetry, mentor and quality benchmarking.
+
+19. Claude Code Instruction
+
+Before changing the repository, inspect the current code and produce a migration map. Preserve working Telegram behavior. Refactor incrementally. Do not introduce unnecessary infrastructure. Each module must have clear inputs/outputs and tests. AI provider calls must be isolated behind the AI Gateway.
+
+20. Architecture Goal
+
+A Telegram-first product that can later support Android/Web, multiple PSC exams, coaching institutes and different AI providers without rewriting the core domain. The defensible asset is the combination of curated knowledge, question lineage, evaluation rubrics, handwritten-answer history and longitudinal learning signals.
+
+21. Diagram Legend / Reading Guide
+
+Solid arrows represent the main data/control flow. Queues separate user-facing requests from long-running AI processing. PostgreSQL/pgvector is the structured and semantic knowledge store. Object storage preserves original answer images. The AI Gateway is the only intended boundary to external model providers.

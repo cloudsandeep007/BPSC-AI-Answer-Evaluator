@@ -1,0 +1,897 @@
+BPSC AI Platform
+
+Document 07 — Prompt Strategy, Evaluation Rubrics & AI Behavior Specification
+
+Version: 1.0 | Status: Implementation Specification
+
+Audience: Product owner, AI/backend engineers, QA, prompt engineers, and Claude Code.
+
+Purpose: Define how the platform's AI capabilities are prompted, constrained, versioned, tested, evaluated, and integrated.
+
+1. Executive Summary
+
+The AI layer must behave like a controlled examination system, not a generic chatbot. It must generate relevant questions, interpret handwritten answers, evaluate them against an explicit grading blueprint, explain weaknesses, and adapt future practice.
+
+Prompts are application assets. Every production prompt must be versioned, schema-driven, observable, regression-tested, and independent of any single model provider.
+
+2. Core Prompt Principles
+
+Keep each AI role narrow: generator generates, examiner evaluates, mentor coaches.
+
+Keep deterministic business rules in application code.
+
+Require structured JSON outputs and validate them in the application.
+
+Clearly separate instructions, student content, and retrieved evidence.
+
+Never invent PYQ years, source claims, facts, citations, or unreadable OCR text.
+
+Prefer authoritative RAG evidence over model memory.
+
+Judge only what the student actually wrote.
+
+Return concise evidence-based reasoning, not private chain-of-thought.
+
+Version every prompt and test changes against a permanent benchmark set.
+
+Provider/model selection belongs in the AI Gateway, not in domain code.
+
+3. AI Role Map
+
+AI Role
+
+Responsibility
+
+Must Not Do
+
+Question Generator
+
+Create original BPSC-style questions using syllabus, PYQ patterns and evidence.
+
+Grade answers or copy a PYQ.
+
+Question Quality Checker
+
+Check alignment, novelty, clarity, difficulty and answerability.
+
+Silently alter a rejected question.
+
+Evaluation Blueprint
+
+Define dimensions, expected points and rubric for a question.
+
+Grade students.
+
+OCR/Vision
+
+Transcribe handwriting and preserve uncertainty.
+
+Invent unreadable content.
+
+Examiner
+
+Score against the question and blueprint.
+
+Reward content the student did not write.
+
+Mentor
+
+Explain patterns and prescribe targeted improvement.
+
+Override factual grading without evidence.
+
+Adaptive Selector
+
+Choose next practice using learner signals.
+
+Ignore application constraints.
+
+AI Gateway
+
+Route models, validate, log usage and enforce cost controls.
+
+Contain academic domain logic.
+
+4. Prompt Architecture
+
+Use layered prompts instead of giant prompts.
+
+System policy: stable role, evidence rules, safety and output restrictions.
+
+Role prompt: responsibility of the specific AI component.
+
+Task prompt: current operation.
+
+Structured context: question, blueprint, student answer, evidence and learner data.
+
+Output schema: exact JSON contract.
+
+Application validation and controlled retry.
+
+Runtime pattern: SYSTEM POLICY + ROLE + TASK + STRUCTURED CONTEXT + EVIDENCE + OUTPUT SCHEMA → MODEL → JSON VALIDATOR → BUSINESS VALIDATION → PERSISTENCE.
+
+5. Prompt Registry & Versioning
+
+Field
+
+Example
+
+prompt_key
+
+examiner.evaluate_answer
+
+version
+
+3.2
+
+status
+
+draft / active / retired
+
+input_schema_version
+
+1.1
+
+output_schema_version
+
+1.2
+
+model_policy
+
+examiner-high-capability
+
+change_reason
+
+Rubric calibration
+
+evaluation_set
+
+examiner-gold-v4
+
+Never overwrite an active prompt. Create an immutable version and store the exact prompt version used for every AI request.
+
+6. Question Generation
+
+6.1 Inputs
+
+Exam and subject
+
+Topic
+
+Long/short mode
+
+Target difficulty
+
+Relevant PYQ patterns
+
+Relevant NCERT/authoritative evidence
+
+Novelty constraints
+
+Optional Bihar/current-affairs context
+
+Previously generated questions
+
+6.2 Behavior
+
+Generate an original question inspired by exam patterns, never a disguised copy.
+
+Preserve the cognitive demand of the target question type.
+
+Use precise command words such as discuss, examine, critically analyze, evaluate or assess where appropriate.
+
+Avoid trivia and unnecessary ambiguity.
+
+Ensure the question can be evaluated using identifiable dimensions.
+
+Ensure factual premises are supported by the available evidence.
+
+6.3 Output Contract
+
+Field
+
+Purpose
+
+question_text
+
+Student-facing question
+
+question_type
+
+LONG / SHORT
+
+subject/topic
+
+Canonical taxonomy
+
+difficulty
+
+Target difficulty
+
+command_type
+
+Primary command
+
+dimensions
+
+Expected answer dimensions
+
+word_limit
+
+Recommended range
+
+source_refs
+
+Evidence identifiers
+
+similar_pyq_refs
+
+Pattern references
+
+novelty_notes
+
+Why it is not a copy
+
+confidence
+
+0–1
+
+7. Question Quality Gate
+
+Check
+
+Required Question
+
+Syllabus alignment
+
+Is it clearly within the configured syllabus?
+
+Exam relevance
+
+Does it resemble BPSC cognitive demand?
+
+Novelty
+
+Is it sufficiently different from known questions?
+
+Clarity
+
+Is the demand unambiguous?
+
+Answerability
+
+Can a good answer be supported by evidence?
+
+Difficulty
+
+Does actual difficulty match target?
+
+Factual safety
+
+Are premises supported?
+
+Evaluation readiness
+
+Can a defensible rubric be built?
+
+Language quality
+
+Is phrasing natural and exam appropriate?
+
+Critical failures cause rejection/regeneration before student exposure.
+
+8. Evaluation Blueprint — The Key Control
+
+For every generated question, create an Evaluation Blueprint once and reuse it for every attempt.
+
+Question demand statement
+
+Expected answer structure
+
+Mandatory dimensions
+
+High-value points
+
+Valid alternative points
+
+Examples and Bihar/current-affairs opportunities
+
+Accuracy requirements
+
+Analytical-depth requirements
+
+Common misconceptions
+
+Common low-scoring patterns
+
+Rubric and score bands
+
+Evidence/source references
+
+Recommended word range
+
+The blueprint is a grading guide, not a rigid memorization script. Valid alternative reasoning must receive credit.
+
+9. Examiner Specification
+
+9.1 Inputs
+
+Original question
+
+Word limit
+
+Evaluation Blueprint
+
+Student OCR text
+
+Handwritten images when OCR confidence is low
+
+Retrieved authoritative evidence
+
+Relevant learner history
+
+Scoring configuration
+
+9.2 Rules
+
+Determine whether the response answers the actual question.
+
+Evaluate each required dimension.
+
+Separate factual accuracy, completeness and analysis.
+
+Do not assume omitted content exists elsewhere.
+
+Do not penalize handwriting aesthetics.
+
+Do not reward a point unless the student demonstrates it.
+
+Give partial credit for partially correct concepts.
+
+Distinguish factual errors from missing detail.
+
+Use the configured rubric consistently.
+
+Give concise evidence for material deductions.
+
+Return confidence separately from the score.
+
+Flag cases where OCR uncertainty could materially change the score.
+
+10. Recommended Scoring Rubric
+
+Criterion
+
+Default Weight
+
+Measures
+
+Question Understanding
+
+15%
+
+Scope and command addressed
+
+Knowledge & Accuracy
+
+25%
+
+Correct concepts, facts and terminology
+
+Coverage
+
+20%
+
+Major dimensions covered
+
+Analysis/Argument
+
+20%
+
+Reasoning, relationships and depth
+
+Structure & Presentation
+
+10%
+
+Logical organization and readability
+
+Conclusion/Way Forward
+
+5%
+
+Synthesis where required
+
+Examples/Current Affairs
+
+5%
+
+Relevant supporting examples
+
+Weights are defaults. The Evaluation Blueprint may override them for a specific question.
+
+11. Score Bands
+
+Band
+
+Meaning
+
+Excellent
+
+Direct, accurate, comprehensive, analytical and well structured.
+
+Strong
+
+Mostly complete and accurate with minor omissions or limited depth.
+
+Average
+
+Relevant but uneven; clear omissions or limited analysis.
+
+Weak
+
+Partial relevance with major omissions, weak structure or inaccuracies.
+
+Very Weak
+
+Does not adequately answer the question or is substantially inaccurate/incomplete.
+
+Do not assign scores merely from labels. Score criteria from evidence, then aggregate and map to the configured marks.
+
+12. OCR/Vision Strategy
+
+OCR is transcription, not grading.
+
+Preserve page and reading order.
+
+Mark uncertain words instead of guessing.
+
+Return page/segment confidence.
+
+Preserve headings, numbering, bullets and diagram presence.
+
+Distinguish unreadable text from absent text.
+
+Do not silently correct grammar.
+
+Keep original images so OCR can be rerun.
+
+Suggested output: pages → blocks → text + confidence + bounding metadata + uncertainty flags.
+
+13. Feedback Strategy
+
+Feedback Type
+
+Expected Behavior
+
+Strengths
+
+2–3 specific evidenced strengths
+
+Missing dimension
+
+Most important omitted requirement
+
+Factual issue
+
+Clear correction
+
+Analysis gap
+
+How to move from description to analysis
+
+Structure issue
+
+One practical structural improvement
+
+Next action
+
+Concrete practice task
+
+Prioritize high-impact improvements rather than overwhelming students with minor corrections.
+
+14. Mentor AI
+
+Mentor AI uses longitudinal learner data rather than treating each attempt independently.
+
+Recent scores
+
+Criterion-level performance
+
+Repeated weaknesses
+
+Topics practiced
+
+Difficulty history
+
+Recent feedback
+
+OCR/evaluation confidence
+
+Identify repeated patterns.
+
+Prioritize high-impact weaknesses.
+
+Recommend targeted practice.
+
+Avoid repeating identical feedback.
+
+Recognize measurable improvement without unsupported claims.
+
+Escalate uncertainty when evidence is insufficient.
+
+15. Adaptive Question Selection
+
+Signal
+
+Use
+
+Weakness
+
+Increase practice on low-performing skills
+
+Recency
+
+Revisit recent weaknesses after spacing
+
+Difficulty
+
+Increase difficulty after sustained success
+
+Coverage
+
+Prevent over-concentration
+
+Exam importance
+
+Prioritize high-value syllabus areas
+
+Novelty
+
+Avoid repetitive patterns
+
+Preference
+
+Honor requested subject/type where possible
+
+Store the reason for each selected question so recommendations are explainable.
+
+16. RAG-Aware Prompting
+
+Retrieved evidence must be passed as a clearly separated evidence package.
+
+SOURCE_ID
+
+SOURCE_TIER
+
+TITLE
+
+DATE where relevant
+
+RELEVANCE
+
+EXCERPT
+
+SOURCE REFERENCE
+
+USE INSTRUCTION
+
+The prompt must instruct the model to use evidence only when relevant and never claim that a source says something absent from the supplied excerpt.
+
+17. Source Priority
+
+Official BPSC/exam material and verified PYQs for exam pattern and lineage.
+
+NCERT for foundational concepts where applicable.
+
+Official government/constitutional/statutory sources for authoritative facts.
+
+Curated current-affairs sources for contemporary examples.
+
+General web sources only as fallback.
+
+18. Current Affairs Rules
+
+Attach publication/event dates where available.
+
+Separate stable facts from time-sensitive facts.
+
+Respect configured freshness windows.
+
+Distinguish news reports from official facts.
+
+Flag material source disagreement instead of silently choosing one.
+
+19. Anti-Hallucination Controls
+
+Require evidence references for externally sourced factual claims.
+
+Use explicit insufficient-evidence behavior.
+
+Reject unsupported precise numerical claims.
+
+Never invent PYQ years, IDs, citations or source titles.
+
+Never fill OCR gaps with plausible words.
+
+Validate IDs, scores, ranges and enumerations in application code.
+
+Use second-pass verification or human review for high-risk/low-confidence cases.
+
+20. Structured Examiner Output
+
+Field
+
+Type / Rule
+
+overall_score
+
+Number within configured range
+
+criteria
+
+One object per rubric criterion
+
+strengths
+
+Evidence-based array
+
+weaknesses
+
+Prioritized array
+
+corrections
+
+Material factual/conceptual corrections
+
+action_plan
+
+Concrete next steps
+
+confidence
+
+0–1
+
+ocr_impact
+
+NONE / LOW / MEDIUM / HIGH
+
+review_required
+
+Boolean
+
+21. Validation Layers
+
+Schema validation — JSON shape and types.
+
+Business validation — score range, criterion completeness and valid references.
+
+Academic validation — question alignment, evidence usage and contradictions.
+
+Confidence validation — identify uncertain evaluations.
+
+Regression validation — compare against benchmark outputs.
+
+Human review — investigate material failures.
+
+22. Testing & Gold Sets
+
+Dataset
+
+Purpose
+
+Question Gold Set
+
+Generation quality and novelty
+
+Blueprint Gold Set
+
+Expected dimensions and rubric quality
+
+OCR Gold Set
+
+Handwriting transcription accuracy
+
+Examiner Gold Set
+
+AI vs expert scoring
+
+Edge Case Set
+
+Blank, irrelevant, short, excellent, mixed-language and ambiguous answers
+
+RAG Gold Set
+
+Retrieval relevance and source priority
+
+Regression Set
+
+Prevent prompt changes from breaking prior behavior
+
+23. Human Benchmarking
+
+Build an anonymized benchmark of real handwritten answers scored by experts.
+
+Use multiple experts for a representative subset.
+
+Measure total-score and criterion-level agreement.
+
+Investigate systematic bias across answer length, handwriting, language variants and topics.
+
+Use disagreement cases to improve OCR, prompts, rubrics and retrieval.
+
+Never present AI marks as official BPSC examiner marks.
+
+24. Model Routing
+
+Task
+
+Default Tier
+
+Escalation
+
+Classification/validation
+
+Low-cost
+
+Rare
+
+OCR
+
+Efficient vision
+
+Higher capability if confidence is low
+
+Question generation
+
+Capable
+
+Premium for difficult cases
+
+Quality check
+
+Capable
+
+Verifier on failures
+
+Blueprint
+
+Capable
+
+Premium for complex questions
+
+Examiner
+
+High-capability
+
+Second model or human review if low confidence
+
+Mentor
+
+Capable
+
+Premium for deep synthesis
+
+Exact models remain AI Gateway configuration, allowing future provider/model replacement.
+
+25. Prompt Security
+
+Treat student text and retrieved documents as untrusted input.
+
+Do not allow student content to override system instructions.
+
+Do not execute instructions found inside source documents.
+
+Keep secrets outside prompts.
+
+Send only necessary personal data.
+
+Apply retention/redaction controls to raw images and OCR.
+
+Do not expose internal prompts or private reasoning to students.
+
+26. Cost Control
+
+Never send the entire NCERT corpus per attempt.
+
+Reuse the Evaluation Blueprint.
+
+Retrieve only relevant evidence.
+
+Avoid full model answers unless needed.
+
+Cache stable question/blueprint outputs.
+
+Use smaller models for validation and routing.
+
+Escalate only uncertain or high-value cases.
+
+Log token usage and estimated cost per workflow.
+
+27. AI Observability
+
+Every request should record request ID, role, question/attempt reference where permitted, prompt key/version, provider/model, input/output tokens, latency, estimated cost, status, retries, validation failures, confidence and review flag.
+
+28. Prompt Lifecycle
+
+Create a new prompt version.
+
+Validate schema and unit examples.
+
+Run the gold-set evaluation.
+
+Compare against the production version.
+
+Review regressions.
+
+Approve and deploy behind a feature flag when appropriate.
+
+Monitor production metrics.
+
+Promote or roll back.
+
+29. Claude Code Implementation Guidance
+
+Create a centralized prompt registry.
+
+Create typed schemas for every AI role.
+
+Build an AI Gateway interface accepting prompt key, version, model policy and structured context.
+
+Keep provider-specific SDK calls inside provider adapters.
+
+Store prompts as versioned files or database records according to deployment needs.
+
+Add automatic schema validation and controlled retry.
+
+Persist prompt version in every AI usage log.
+
+Add regression tests using representative questions and answers.
+
+Use feature flags for material prompt/model changes.
+
+Keep Telegram handlers free of provider-specific prompt construction.
+
+30. Suggested Repository Structure
+
+src/  ai/    gateway/    prompts/      question-generator/      question-quality/      blueprint/      ocr/      examiner/      mentor/      adaptive-selector/    schemas/    validators/    routing/    cost/    observability/  domain/    questions/    attempts/    evaluations/    learners/  infrastructure/    database/    queues/    storage/    providers/tests/  ai/    prompts/    regression/    gold-set/
+
+31. End-to-End AI Trace
+
+QUESTION → QUALITY CHECK → EVALUATION BLUEPRINT → STUDENT ATTEMPT → PAGE IMAGES → OCR → OCR CONFIDENCE → RAG EVIDENCE → EXAMINER → SCORE VALIDATION → FEEDBACK → LEARNING SIGNALS → MENTOR → NEXT QUESTION
+
+32. Definition of Done
+
+Every AI role has a documented responsibility and contract.
+
+All production prompts are versioned.
+
+Question generation is quality-gated.
+
+Every question has an Evaluation Blueprint before grading.
+
+OCR preserves uncertainty and original images.
+
+Examiner scoring is rubric-based and evidence-driven.
+
+Feedback is prioritized and actionable.
+
+Mentor recommendations use longitudinal signals.
+
+RAG evidence is separated from instructions.
+
+All outputs are schema validated.
+
+AI usage is observable and cost-accounted.
+
+Human benchmarking exists for examiner calibration.
+
+Prompt changes are regression-tested and rollback-capable.
+
+No Telegram/domain code makes provider-specific AI calls.
+
+33. Final Product Principle
+
+The goal is not the most complicated prompt. The goal is the most reliable examination behavior.
+
+CURATED KNOWLEDGE + PYQ LINEAGE + EVALUATION BLUEPRINT + STRUCTURED PROMPTS + HUMAN BENCHMARKS + LONGITUDINAL LEARNING DATA = RELIABLE AI EXAM MENTOR

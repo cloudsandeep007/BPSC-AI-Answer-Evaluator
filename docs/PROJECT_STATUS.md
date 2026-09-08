@@ -73,7 +73,12 @@ consistent between students answering the same question.
 | `config.ts` | Reads and validates environment variables (API keys, thresholds) |
 | `text.ts` | Every user-facing message, in all three languages (Hindi / Hinglish / English) |
 | `hash.ts` | SHA-256 hashing of photos |
-| `index.ts` | Production entry point — an HTTP server for Telegram webhooks. **Written but not currently used** |
+| `ai/gateway.ts` | Central AI Gateway abstraction - routes model calls, tracks tokens & latency, manages mock provider |
+| `ai/providers/geminiProvider.ts` | Google Gemini REST adapter with exponential backoff and JSON extraction |
+| `storage/supabaseStorage.ts` | Uploads original student answer sheets to Supabase Storage bucket and creates signed URLs |
+| `queue/queueManager.ts` | BullMQ queue scheduler with seamless inline fallback for local dev when Redis is absent |
+| `worker.ts` | Standalone BullMQ background worker listening on evaluation-queue |
+| `index.ts` | Production entry point — an HTTP server for Telegram webhooks with secret token validation |
 | `dev-polling.ts` | Local entry point — runs the bot without needing a public URL. **This is what actually runs today** |
 
 ### Which AI model does what, and why
@@ -257,10 +262,10 @@ Affairs, Science & Technology and most of Geography are not covered, so every
   placeholder. Submissions only land on it when a student photographs an answer
   without ever asking for a question; those cannot be graded and the bot says
   so. Real submissions now point at real generated questions.
-- **Which question a student is answering is tracked in memory**, not in the
-  database — `users` has no column for it and adding one needs a migration
-  (blocked on `SUPABASE_DB_URL`). On restart it falls back to the newest active
-  question, which is correct while only one question is live at a time.
+- **Which question a student is answering is now persisted in the database** via
+  `users.active_question_id` and `users.edit_state` (added in migration
+  `0002_user_session_state.sql`), eliminating in-memory session loss across
+  restarts.
 - **Cost per evaluation is not recorded** — `evaluations.cost_paise` is written
   as null. Token counts are available from the Gemini response but are not yet
   converted to money.
@@ -335,7 +340,41 @@ Other commands:
 
 ## Changelog
 
-Newest first. One entry per work session.
+### 2026-09-08 — Phase 2 Asynchronous Processing & Supabase Storage for Answer Images
+
+- Added Supabase Storage adapter (`src/storage/supabaseStorage.ts`) to upload student
+  handwritten answer sheet image buffers to a private `answer-sheets` bucket, preserving
+  original artifacts for human audits and presentation evaluations.
+- Added migration `0003_storage_and_jobs.sql` adding `image_storage_path` and `status`
+  to `submissions`, and creating a durable `jobs` table to mirror BullMQ queue states.
+- Implemented queue manager (`src/queue/queueManager.ts`) using BullMQ and Redis with an
+  automatic inline asynchronous fallback when `REDIS_URL` is not set, ensuring local
+  developers without Redis are never blocked.
+- Added standalone worker entry point (`src/worker.ts`) to run decoupled evaluation
+  workers in background processes.
+- Refactored `src/bot.ts` to asynchronously upload image buffers to Supabase Storage and
+  route answer grading via `queueManager`.
+- Added unit tests in `tests/unit/storage.test.ts` and `tests/unit/queue.test.ts`.
+
+### 2026-09-08 — Phase 0 Audit & Phase 1 Architecture Decoupling & AI Gateway
+
+- Conducted exhaustive repository discovery and architecture gap analysis against
+  all 12 authoritative specification documents; produced `docs/00-REPOSITORY-AUDIT.md`,
+  `docs/00-gap-analysis.json`, and `docs/00-implementation-plan.md`.
+- Set up automated unit test suite with `vitest`, compatible with local Node 20.10.
+  Added unit tests in `tests/unit/calibration.test.ts` reproducing the 6 official
+  examiner worked examples with 100% agreement.
+- Secured the Telegram webhook endpoint in `src/index.ts` with
+  `X-Telegram-Bot-Api-Secret-Token` header validation against `config.telegramWebhookSecret`.
+- Eliminated fragile in-memory session maps (`currentQuestion`, `awaitingEdit`,
+  `pendingReplacement`) in `src/bot.ts`. Added migration `0002_user_session_state.sql`
+  adding `active_question_id` and `edit_state` directly to `users` table so bot
+  restarts never lose active student question sessions.
+- Created internal AI Gateway abstraction (`src/ai/gateway.ts`) with provider routing,
+  token accounting, latency measurement, and an offline deterministic mock provider
+  (`src/ai/providers/mockProvider.ts`) for fast, zero-cost CI/CD testing.
+- Refactored `src/stageA.ts`, `src/stage0.ts`, and `src/stageB.ts` to route all
+  model calls through `aiGateway`.
 
 ### 2026-09-07 — BPSC content ingested, Stage 0 and Stage B built (Step 3, Parts 3–4)
 

@@ -1,0 +1,1055 @@
+BPSC AI Platform
+
+Document 09 — Analytics, Metrics & Product Intelligence Specification
+
+Version 1.0 | Implementation Specification
+
+Purpose: Define what the platform should measure, how events and metrics should be structured, how AI quality and unit economics should be tracked, and how analytics should drive product decisions.
+
+1. Executive Summary
+
+Analytics should answer one central question: Are students actually improving because of the BPSC AI learning loop?
+
+The platform must measure more than Telegram messages, users and AI calls. It needs telemetry connecting question → attempt → OCR → evaluation → feedback → skill change → next practice.
+
+Use four layers: Product Analytics, Learning Analytics, AI Quality Analytics, and Business/Operational Analytics.
+
+2. Analytics Principles
+
+Track outcomes, not vanity metrics.
+
+Represent important actions with stable versioned events.
+
+Keep operational metrics separate from learning outcomes.
+
+Make every AI result traceable to question, blueprint, prompt/model and evidence.
+
+Protect student privacy and minimize personally identifying analytics.
+
+Prefer cohort and longitudinal analysis over isolated daily numbers.
+
+3. Analytics Architecture
+
+TELEGRAM / WEB / ANDROID → APPLICATION EVENTS → ANALYTICS PIPELINE → REPORTING / DASHBOARDS
+
+↘ PRODUCT
+
+↘ LEARNING
+
+↘ AI QUALITY
+
+↘ BUSINESS / OPERATIONS
+
+Operational PostgreSQL remains the transactional source of truth. Begin with PostgreSQL reporting tables and move to a warehouse only when scale requires it.
+
+4. Analytics Layers
+
+Layer
+
+Primary Question
+
+Product
+
+Do students start, return, complete and use the core loop?
+
+Learning
+
+Are skills and answer quality improving?
+
+AI Quality
+
+Is OCR, evaluation and question generation reliable?
+
+Business/Operations
+
+What converts, what does each interaction cost, and where does the system fail?
+
+5. North-Star Metric
+
+Recommended North-Star Metric: Weekly Active Learning Students (WALS).
+
+Definition: a student who completes at least one meaningful answer attempt in a seven-day period that reaches evaluation and feedback.
+
+Supporting outcome: percentage of returning learning students whose normalized/difficulty-adjusted performance improves over a rolling window.
+
+6. Core Product Funnel
+
+Stage
+
+Measure
+
+Acquisition
+
+start/referral/campaign attribution
+
+Activation
+
+first question generated
+
+Attempt
+
+attempt started
+
+Submission
+
+attempt submitted
+
+Processing
+
+OCR completed
+
+Evaluation
+
+evaluation completed
+
+Feedback
+
+feedback delivered/read where measurable
+
+Practice
+
+next question started
+
+Retention
+
+another evaluated attempt
+
+Learning
+
+measurable skill/score improvement
+
+The key funnel is question → answer → evaluation → feedback → next practice, not simply registration → payment.
+
+7. Event Taxonomy
+
+Event
+
+Meaning
+
+user_created
+
+Account created
+
+onboarding_completed
+
+Initial setup complete
+
+subject_selected
+
+Subject selected
+
+question_requested
+
+Practice requested
+
+question_generated
+
+Question successfully created
+
+question_rejected
+
+Quality gate rejection
+
+attempt_started
+
+Attempt began
+
+page_uploaded
+
+Handwritten page uploaded
+
+attempt_submitted
+
+Attempt submitted
+
+ocr_completed
+
+OCR completed
+
+ocr_failed
+
+OCR failed
+
+evaluation_started
+
+Evaluation began
+
+evaluation_completed
+
+Evaluation completed
+
+evaluation_failed
+
+Evaluation failed
+
+feedback_delivered
+
+Feedback delivered
+
+next_question_selected
+
+Adaptive selection completed
+
+mentor_requested
+
+Mentor interaction requested
+
+subscription_started
+
+Subscription activated
+
+payment_completed
+
+Payment completed
+
+subscription_cancelled
+
+Subscription cancelled
+
+8. Event Envelope
+
+Field
+
+Purpose
+
+event_id
+
+Unique event ID
+
+event_name
+
+Stable taxonomy name
+
+event_version
+
+Schema version
+
+occurred_at
+
+Server-side timestamp
+
+user_id
+
+Internal user reference
+
+session_id
+
+Interaction reference
+
+attempt_id
+
+Attempt reference
+
+question_id
+
+Question reference
+
+correlation_id
+
+End-to-end trace
+
+source
+
+telegram/web/android/system
+
+properties
+
+Event-specific attributes
+
+schema_version
+
+Payload version
+
+Important timestamps should be generated server-side.
+
+9. Student Journey Metrics
+
+Metric
+
+Definition
+
+Activation Rate
+
+Activated users ÷ eligible new users
+
+First Attempt Rate
+
+Users starting an attempt ÷ activated users
+
+Completion Rate
+
+Submitted attempts ÷ started attempts
+
+Evaluation Completion Rate
+
+Completed evaluations ÷ submitted attempts
+
+Feedback Delivery Rate
+
+Feedback delivered ÷ completed evaluations
+
+Second Attempt Rate
+
+Users completing second attempt ÷ first-attempt users
+
+7-Day Learning Retention
+
+Students returning for another evaluated attempt within 7 days
+
+30-Day Learning Retention
+
+Equivalent 30-day behavior
+
+10. Attempt Quality Metrics
+
+Attempts per active learning student.
+
+Median answer word count.
+
+Time from question to submission.
+
+Pages per attempt.
+
+Submission abandonment rate.
+
+OCR confidence.
+
+Evaluation confidence.
+
+Review-required percentage.
+
+Difficulty-adjusted score.
+
+11. Learning Metrics
+
+Metric
+
+Purpose
+
+Criterion Score
+
+Track understanding, knowledge, analysis and structure
+
+Skill Improvement
+
+Compare proficiency over time
+
+Weakness Recovery Rate
+
+Measure whether flagged weaknesses improve
+
+Topic Mastery
+
+Estimate performance by topic
+
+Difficulty-Adjusted Score
+
+Control for question difficulty
+
+Coverage
+
+Measure syllabus breadth
+
+Consistency
+
+Measure recent score variation
+
+Transfer Performance
+
+Check performance on novel questions
+
+12. Student Skill Profile
+
+Maintain topic/criterion skill records containing skill_id, topic_id, criterion, proficiency, confidence, sample_count, last_practiced_at, last_improved_at and weakness_status.
+
+Do not declare mastery from one excellent answer. Require sufficient observations and confidence.
+
+13. Difficulty-Adjusted Learning
+
+A 70% score on an easy question is not necessarily equivalent to 70% on a difficult question.
+
+Store target and observed question difficulty.
+
+Use difficulty as a covariate in progress reporting.
+
+Compare students primarily with their own trajectory.
+
+Track performance on novel questions to test genuine transfer.
+
+14. AI Quality Dashboard
+
+Metric
+
+Detects
+
+Question acceptance rate
+
+Generation quality
+
+Regeneration rate
+
+Generation failures
+
+Near-duplicate rate
+
+Novelty failure
+
+OCR confidence
+
+Transcription quality
+
+OCR correction rate
+
+Actual OCR errors
+
+Evaluation confidence
+
+Grading uncertainty
+
+Human-AI score agreement
+
+Examiner calibration
+
+Criterion disagreement
+
+Rubric weaknesses
+
+Factual correction rate
+
+Hallucination/factual issues
+
+Provider failure rate
+
+AI infrastructure health
+
+15. Question Generation Analytics
+
+Questions per subject/topic/type/difficulty.
+
+Acceptance/rejection rate.
+
+Rejection reasons.
+
+Generation latency and cost.
+
+PYQ similarity.
+
+Duplicate similarity.
+
+Regeneration count.
+
+Current-affairs usage.
+
+Source-tier usage.
+
+High generation volume with high rejection is a quality problem, not a success.
+
+16. OCR Analytics
+
+Metric
+
+Purpose
+
+OCR success rate
+
+Core workflow reliability
+
+Median OCR latency
+
+User experience
+
+Average confidence
+
+Transcription quality
+
+Low-confidence rate
+
+Review workload
+
+Manual correction rate
+
+Error signal
+
+Page failure rate
+
+Image/system issue
+
+Language/script error rate
+
+Hindi handwriting robustness
+
+17. Evaluation Analytics
+
+Evaluation completion rate.
+
+Evaluation latency.
+
+Score distribution.
+
+Criterion distributions.
+
+Low-confidence percentage.
+
+Review-required percentage.
+
+Human-vs-AI score difference.
+
+Systematic score bias.
+
+Score drift by prompt/model version.
+
+Score drift by topic and question type.
+
+After prompt/model changes, compare score distributions against baseline. A sudden shift may be calibration drift rather than student improvement.
+
+18. AI Cost Analytics
+
+Metric
+
+Purpose
+
+Cost per question
+
+Generation economics
+
+Cost per evaluated attempt
+
+Core unit economics
+
+OCR cost per page
+
+Vision economics
+
+Mentor cost per student
+
+Personalization economics
+
+AI cost per active student
+
+Overall cost
+
+AI cost / subscription revenue
+
+Margin planning
+
+Retry cost
+
+Failure inefficiency
+
+Cache savings
+
+Optimization impact
+
+Store provider-reported usage and estimated cost when possible.
+
+19. Unit Economics
+
+Core measure: AI + OCR + storage + queue/compute allocation attributable to meaningful learning activity.
+
+Track cost per completed evaluated attempt and cost per retained learning student separately from fixed operating expenses.
+
+20. Business Metrics
+
+Metric
+
+Use
+
+Free-to-Paid Conversion
+
+Paid users ÷ eligible free users
+
+Trial Conversion
+
+Paid conversions from trial
+
+ARPU
+
+Revenue ÷ active paying users
+
+MRR
+
+Monthly recurring revenue where applicable
+
+Churn
+
+Customers lost in period
+
+Refund Rate
+
+Refunds ÷ payments
+
+LTV
+
+Expected customer lifetime value
+
+CAC
+
+Acquisition spend ÷ acquired paying users
+
+LTV:CAC
+
+Economic sustainability
+
+Gross AI Margin
+
+Revenue less variable AI/processing cost
+
+21. Subscription Analytics
+
+Plan selected.
+
+Trial started/completed.
+
+Payment initiated/completed/failed.
+
+Subscription activated/renewed/cancelled.
+
+Refunds.
+
+Usage before cancellation.
+
+Learning outcomes before/after subscription.
+
+Do not optimize solely for payment conversion; measure whether paid students actually use and benefit from the learning system.
+
+22. Cohort Analysis
+
+Dimension
+
+Examples
+
+Signup
+
+Month/week cohort
+
+First learning
+
+First learning week
+
+Acquisition
+
+Referral/campaign
+
+Subject
+
+History/Polity/Geography
+
+Answer type
+
+Long/Short
+
+Difficulty
+
+Easy/Medium/Hard
+
+Plan
+
+Free/Paid
+
+Prompt version
+
+Examiner version
+
+Model
+
+Configured model version
+
+23. Experimentation
+
+Define hypothesis first.
+
+Define primary and guardrail metrics.
+
+Assign users consistently.
+
+Log experiment exposure.
+
+Avoid changing several major variables without attribution.
+
+Check duration/sample size.
+
+Measure learning outcomes, not only clicks.
+
+Document the decision.
+
+Example: a weakness-based next question increases second-attempt completion without reducing answer quality.
+
+24. Experiment Metrics
+
+Primary
+
+Guardrails
+
+Second-attempt rate
+
+Evaluation latency
+
+Learning retention
+
+AI cost/attempt
+
+Difficulty-adjusted improvement
+
+Evaluation confidence
+
+Weakness recovery
+
+Question rejection rate
+
+Paid conversion
+
+Refund/cancellation rate
+
+25. Dashboards
+
+Dashboard
+
+Audience
+
+Key Views
+
+Executive
+
+Founder/Product
+
+WALS, retention, learning, revenue, AI cost
+
+Student Journey
+
+Product
+
+Funnel/drop-offs
+
+Learning
+
+Academic/Product
+
+Skills, topics, improvement, weaknesses
+
+AI Quality
+
+AI/QA
+
+OCR, evaluation, question quality, human agreement
+
+Operations
+
+Engineering
+
+Queues, latency, failures, providers
+
+Finance
+
+Business
+
+Revenue, subscriptions, AI cost, margin
+
+Admin/Support
+
+Operations
+
+Processing status, failures, troubleshooting
+
+26. Real-Time vs Batch
+
+Need
+
+Freshness
+
+API health
+
+Real-time
+
+Queue backlog
+
+Real-time
+
+Payment status
+
+Near-real-time
+
+Daily active users
+
+Hourly/daily
+
+Learning trend
+
+Daily/weekly
+
+Human-AI calibration
+
+Daily/weekly
+
+LTV/CAC
+
+Periodic batch
+
+Do not build real-time infrastructure for metrics that do not require it.
+
+27. Analytics Data Model
+
+events
+
+event_properties
+
+daily_user_metrics
+
+daily_learning_metrics
+
+question_metrics
+
+topic_metrics
+
+ai_usage_metrics
+
+evaluation_quality_metrics
+
+subscription_metrics
+
+experiment_assignments
+
+Raw important events should be immutable. Aggregates should be rebuildable.
+
+28. Data Quality Rules
+
+Registered/versioned event names.
+
+Required fields validated.
+
+IDs reference valid entities where applicable.
+
+Detect duplicate events.
+
+Version schema changes.
+
+Make aggregate jobs idempotent.
+
+Reconcile important aggregates with transactional counts.
+
+29. Privacy
+
+Use internal IDs instead of unnecessary personal identifiers.
+
+Do not put handwritten answer text in ordinary analytics events.
+
+Do not put raw prompts/responses in analytics tables unless required.
+
+Restrict analytics access.
+
+Apply retention policies.
+
+Avoid exposing tiny cohorts.
+
+Document third-party analytics data sharing.
+
+30. Admin Analytics
+
+Student journey status.
+
+Attempt processing status.
+
+OCR/evaluation failures.
+
+Question quality failures.
+
+AI cost summary.
+
+Prompt/model distribution.
+
+Human review queue.
+
+Subscription status.
+
+Audit history.
+
+Admin analytics should expose what operators need without exposing unnecessary student content.
+
+31. AI Regression Analytics
+
+For every material prompt/model change, compare:
+
+Average/median score.
+
+Criterion-level scores.
+
+Confidence.
+
+Human-AI disagreement.
+
+Factual correction rate.
+
+Evaluation latency.
+
+Cost per evaluation.
+
+Maintain version-comparison reports so releases are approved using evidence.
+
+32. Alert Framework
+
+Alert
+
+Example Trigger
+
+Evaluation quality
+
+Human-AI disagreement materially exceeds baseline
+
+OCR
+
+Low-confidence rate materially increases
+
+Question quality
+
+Rejection rate exceeds baseline
+
+Cost
+
+Cost per attempt exceeds budget
+
+Retention
+
+Learning retention materially falls
+
+Funnel
+
+Submission/evaluation completion drops
+
+Operations
+
+Queue age/provider errors exceed SLA
+
+33. MVP Metrics
+
+Weekly Active Learning Students.
+
+First evaluated attempt rate.
+
+Attempt completion rate.
+
+Evaluation completion rate.
+
+Second evaluated attempt rate.
+
+7-day learning retention.
+
+Difficulty-adjusted score trend.
+
+Weakness recovery rate.
+
+OCR success/confidence.
+
+Human-AI evaluation agreement.
+
+AI cost per evaluated attempt.
+
+Free-to-paid conversion.
+
+Start with these rather than hundreds of dashboards.
+
+34. Metrics That Should Not Be Primary KPIs
+
+Total Telegram messages.
+
+Total questions generated.
+
+Total AI tokens consumed.
+
+Raw app opens.
+
+Number of feedback messages.
+
+Session length without learning context.
+
+Follower/member count alone.
+
+These are diagnostic signals, not proof of educational value.
+
+35. Event Flow
+
+USER ACTION → APPLICATION SERVICE → VALID TRANSACTION → DOMAIN EVENT → ANALYTICS EVENT → AGGREGATION → DASHBOARD
+
+Emit important events from application/domain services rather than reconstructing behavior from UI logs.
+
+36. Claude Code Implementation Guidance
+
+Create a typed event registry.
+
+Create one shared event envelope.
+
+Emit domain events from application services.
+
+Persist events idempotently.
+
+Build daily/hourly aggregation jobs.
+
+Create reporting-service queries.
+
+Create dashboard-ready APIs.
+
+Add event schema tests.
+
+Add reconciliation tests.
+
+Keep analytics providers replaceable.
+
+37. Suggested Repository Structure
+
+packages/  analytics/    events/    schemas/    emitter/    aggregations/    queries/    privacy/  domain/events/  application/analytics/apps/  api/  worker/  admin/tests/  analytics/    events/    aggregations/    reconciliation/
+
+38. Implementation Sequence
+
+Define event taxonomy.
+
+Implement event envelope and validation.
+
+Instrument the core learning loop.
+
+Persist immutable events.
+
+Build aggregates.
+
+Build Product and Learning dashboards.
+
+Add AI quality/cost dashboards.
+
+Add subscription metrics.
+
+Add experimentation.
+
+Move to warehouse/BI only when justified by scale.
+
+39. Definition of Done
+
+Core learning actions emit versioned events.
+
+Events are idempotent and queryable.
+
+End-to-end student funnel is measurable.
+
+Longitudinal learning improvement is measurable.
+
+Topic/criterion performance is measurable.
+
+AI quality is benchmarked against humans.
+
+AI cost is attributable by workflow.
+
+Subscription/revenue events are measurable.
+
+Dashboards separate learning/product/AI/operations.
+
+Privacy controls protect student content.
+
+Aggregates can be rebuilt.
+
+Metric definitions are documented.
+
+Prompt/model releases can be compared with historical baselines.
+
+40. Final Product Intelligence Principle
+
+The platform should know not only how many students used it, but whether they complete the learning loop, where they struggle, whether the AI is reliable, what each interaction costs, and whether the product produces measurable improvement.
+
+NORTH-STAR: MEANINGFUL LEARNING ACTIVITY + MEASURABLE IMPROVEMENT + TRUSTWORTHY AI + SUSTAINABLE UNIT ECONOMICS
+
+If a metric cannot support a product, academic-quality, operational, or business decision, it should not automatically become a KPI.

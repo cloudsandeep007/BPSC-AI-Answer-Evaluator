@@ -22,7 +22,7 @@
 // scripts/verify-calibration.ts).
 
 import { config } from "./config";
-import { callGemini, extractJson } from "./gemini";
+import { aiGateway } from "./ai/gateway";
 import { supabase } from "./supabase";
 import { SlotType } from "./content/answerTemplates";
 import { Band, DimensionScores, computeScore } from "./content/calibration";
@@ -325,28 +325,25 @@ export async function evaluateSubmission(submissionId: string, languageLabel: st
   const grounded = needsCurrentInfo(question.subject ?? "");
 
   // 2. Ask the model to compare, not to decide.
-  const res = await callGemini({
+  const res = await aiGateway.callStructured<JudgeOutput>({
+    feature: "stageB",
     model: config.geminiJudgeModel,
     system:
       "You are a BPSC examiner marking a script. The marking key is your primary consistency guide, not a rigid ceiling - a correct, current, or validly argued point beyond it still earns credit, with its own real citation. You never award a numeric mark.",
-    parts: [
-      {
-        text: judgePrompt(
-          question.question_hi ?? "",
-          submission.transcript,
-          rawKey.slot_type,
-          rawKey.directive,
-          key,
-          languageLabel,
-          grounded,
-        ),
-      },
-    ],
+    userPrompt: judgePrompt(
+      question.question_hi ?? "",
+      submission.transcript,
+      rawKey.slot_type,
+      rawKey.directive,
+      key,
+      languageLabel,
+      grounded,
+    ),
     maxOutputTokens: 4096,
     search: grounded,
   });
 
-  const judged = extractJson<JudgeOutput>(res.text);
+  const judged = res.data;
   if (!judged?.dimensions) throw new Error("Stage B: judging model returned no usable dimensions");
 
   const dimensions: DimensionScores = {

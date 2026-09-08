@@ -1,0 +1,295 @@
+BPSC AI Answer Evaluation & Personal Mentor
+
+Document 02 — Detailed System Architecture Specification
+
+Version 1.0 | Technical Architecture Blueprint for Claude Code
+
+1. Architecture Objective
+
+The architecture must support the current Telegram-first BPSC Hindi-medium product while keeping the core platform independent of Telegram so Android and Web clients can be added later.
+
+The most important design principle is: keep the application modular, but do NOT create a large number of independently deployed microservices on day one. Use a modular monorepo with clear service boundaries and asynchronous workers. Components can later be extracted into separate deployable services when scale or team structure justifies it.
+
+2. Recommended Technology Baseline
+
+Backend: Node.js + TypeScript.API: REST initially; internal event/job contracts should be explicit.Database: PostgreSQL.Vector search: pgvector initially, avoiding a separate vector database until scale requires it.Object storage: S3-compatible storage such as Cloudflare R2 or AWS S3.Queue: Redis + BullMQ or an equivalent durable job system.Cache: Redis.AI access: Internal AI Gateway abstraction.Clients: Telegram Bot first; Web/Android later.Admin: Web admin application.Observability: structured logs, metrics, error tracking and AI-cost telemetry.Deployment: Docker-based deployment with CI/CD.
+
+Node.js is a strong fit for this workload because it is an asynchronous, event-driven runtime designed for scalable network applications. citeturn0search3
+
+3. High-Level Architecture
+
+The platform should be organized into six logical layers:
+
+1. Client Layer   Telegram Bot / Web / Android.
+
+2. API & Identity Layer   API Gateway, authentication, rate limiting and request validation.
+
+3. Core Domain Layer   Users, exams, subjects, questions, attempts, evaluations, progress and subscriptions.
+
+4. AI Processing Layer   AI Gateway, Question Generator, Question Quality Checker, OCR/Vision, RAG Retrieval, Evaluator, Mentor and Cost Controller.
+
+5. Async Processing Layer   Job queues and workers for image processing, retrieval, evaluation and notifications.
+
+6. Data Layer   PostgreSQL + pgvector, Redis and object storage.
+
+4. Architecture Diagram — End to End
+
+Use this Mermaid diagram as the primary architecture representation:
+
+flowchart TB    TG[Telegram Bot]    WEB[Web Client]    AND[Android App - Future]
+
+TG --> API[API Gateway / Backend]    WEB --> API    AND --> API
+
+API --> AUTH[Auth & User Module]    API --> Q[Question Module]    API --> ATT[Attempt Module]    API --> PAY[Subscription / Payment Module]    API --> ADMIN[Admin Module]
+
+Q --> JOBQ[(Redis / BullMQ)]    ATT --> JOBQ
+
+JOBQ --> OCR[OCR / Vision Worker]    JOBQ --> EVAL[Evaluation Worker]    JOBQ --> MENTOR[Mentor Worker]    JOBQ --> NOTIFY[Notification Worker]
+
+OCR --> AIGW[AI Gateway]    EVAL --> AIGW    MENTOR --> AIGW    Q --> AIGW
+
+AIGW --> COST[AI Cost Controller]    COST --> MODELS[Gemini / Other AI Providers]
+
+EVAL --> RAG[RAG Retrieval]    Q --> RAG    MENTOR --> RAG
+
+RAG --> PGV[(PostgreSQL + pgvector)]    AUTH --> PG[(PostgreSQL)]    Q --> PG    ATT --> PG    EVAL --> PG    MENTOR --> PG
+
+ATT --> S3[(Object Storage)]    OCR --> S3
+
+API --> REDIS[(Redis Cache)]    ADMIN --> PG
+
+5. Critical Design Decision — Modular Monolith First
+
+The project should not immediately become 15 independently deployed microservices.
+
+Instead, use one Node.js backend repository containing modules with strict boundaries and separate worker processes.
+
+Recommended initial deployables:• API process• Worker process• Scheduler/notification process• Admin/Web application
+
+Each domain remains internally modular. When traffic grows, expensive or high-volume components such as OCR and evaluation workers can be independently scaled.
+
+This gives the project most benefits of service separation without early operational complexity.
+
+6. Client Flow
+
+Telegram is the first client.
+
+Example:Student → /start → selects BPSC → selects subject → selects question type → receives question → writes answer → uploads pages → receives processing status → receives evaluation.
+
+The backend must not contain Telegram-specific business logic inside core domain modules. Telegram should call application services through an adapter.
+
+Future:Android and Web should call the same backend APIs and use the same question/evaluation domain services.
+
+7. Question Generation Flow
+
+The question-generation pipeline should be:
+
+User selection→ topic resolution→ retrieve relevant PYQs/source chunks→ Question Generator→ Evaluation Blueprint Generator→ Question Quality Checker→ accept/reject→ store question + lineage + blueprint→ deliver to student.
+
+The model should NOT be asked to invent questions without grounding.
+
+Each generated question should store:• exam• paper/subject• topic• subtopic• question type• difficulty• expected word limit• related PYQs• source references• generation model• generation timestamp• quality-check result• evaluation blueprint
+
+8. Evaluation Blueprint
+
+This is a core architectural improvement over the current system.
+
+When the question is created, generate and store a compact blueprint containing:
+
+• Question demand• Required dimensions• Expected key points• Optional points• Common mistakes• Relevant foundational references• Suitable current-affairs dimensions• Suggested structure• Marking rubric• Expected answer depth• Word-limit expectations
+
+The evaluator then receives the blueprint instead of having to rediscover the entire answer from the question every time.
+
+This should reduce cost and increase consistency.
+
+9. Handwritten Answer Processing Flow
+
+Student uploads one or more images.
+
+Flow:Telegram/Web→ image validation→ object storage→ create Attempt→ create Processing Job→ image preprocessing→ page ordering/quality check→ OCR/Vision extraction→ confidence assessment→ normalized answer representation→ evaluation queue.
+
+Store both:1. Original images.2. Extracted/normalized text and structured page metadata.
+
+Do not destroy the original image because later handwriting/presentation analysis may require it.
+
+10. RAG Architecture
+
+The knowledge base should be ingested offline.
+
+Ingestion:Source document→ parsing→ cleaning→ metadata extraction→ chunking→ embedding→ PostgreSQL + pgvector.
+
+Each chunk should contain metadata:• source• class• book• chapter• subject• topic• page/section• authority level• language• version/date.
+
+Runtime:Question/answer→ topic classification→ semantic retrieval→ metadata filtering→ reranking if needed→ compact context→ evaluator.
+
+Do not send all NCERT content to the model on every evaluation.
+
+11. Source Priority Rules
+
+The retrieval layer must support explicit authority ranking.
+
+Suggested priority:P0 — Official exam/PYQ and approved benchmark material.P1 — Approved NCERT/foundation corpus.P2 — Official government/authoritative sources.P3 — High-quality current-affairs sources.P4 — General web sources.
+
+The evaluator must be able to identify which source supported a factual correction. This is important for trust and debugging.
+
+12. AI Gateway
+
+Every LLM/Vision call should pass through one internal AI Gateway.
+
+Responsibilities:• Provider abstraction• Model selection• Prompt versioning• Input/output logging• Token tracking• Cost calculation• Timeout/retry• Fallback model• Safety limits• Request correlation ID• Quality metadata
+
+Application modules should never call Gemini directly.
+
+Example interface:
+
+AI Gateway→ generateText()→ generateStructured()→ analyzeImage()→ embed()→ estimateCost()
+
+This makes the provider replaceable later.
+
+13. AI Cost Controller
+
+Before an expensive call:
+
+1. Estimate input size.2. Identify model.3. Estimate expected output.4. Compare against user/product budget.5. Choose appropriate model.6. Execute.7. Record actual usage and cost.8. Flag unusual calls.
+
+The controller should support policies such as:• maximum tokens per evaluation• maximum AI cost per user/day• fallback model• retry limits• premium-model access only for selected plans
+
+This component should be treated as a business-critical service, not merely logging.
+
+14. AI Components
+
+Teacher — generates exam questions and evaluation blueprints.
+
+Question Quality Checker — validates relevance, originality, difficulty, syllabus alignment and answerability.
+
+OCR/Vision — extracts handwritten content and page information.
+
+Examiner — evaluates answers using the question blueprint, retrieved evidence and rubric.
+
+Mentor — analyzes historical attempts and produces personalized recommendations.
+
+Cost Controller — controls model selection and AI expenditure.
+
+RAG Retriever — retrieves evidence; it should not independently invent information.
+
+15. Evaluation Sequence Diagram
+
+sequenceDiagram    participant S as Student    participant C as Telegram/Web    participant API as API    participant Q as Job Queue    participant OCR as OCR Worker    participant R as RAG    participant E as Examiner    participant AI as AI Gateway    participant DB as PostgreSQL    participant M as Mentor
+
+S->>C: Upload handwritten pages    C->>API: Create answer attempt    API->>DB: Store attempt    API->>Q: Enqueue OCR job    API-->>C: Processing started
+
+Q->>OCR: Process images    OCR->>AI: Vision/OCR request    AI-->>OCR: Extracted text    OCR->>DB: Store OCR result    OCR->>Q: Enqueue evaluation
+
+Q->>E: Evaluate attempt    E->>DB: Load question + blueprint    E->>R: Retrieve relevant evidence    R->>DB: Semantic search    DB-->>R: Relevant chunks    R-->>E: Evidence package
+
+E->>AI: Structured evaluation request    AI-->>E: Score + feedback    E->>DB: Store evaluation    E->>Q: Enqueue mentor update
+
+Q->>M: Update learning profile    M->>DB: Store weakness/progress signals    API-->>C: Evaluation ready    C-->>S: Score + feedback
+
+16. Question Generation Sequence
+
+sequenceDiagram    participant U as Student    participant API as API    participant Q as Question Service    participant R as RAG    participant AI as AI Gateway    participant QC as Quality Checker    participant DB as PostgreSQL
+
+U->>API: Select subject/topic/type    API->>Q: Generate question    Q->>R: Retrieve PYQ/source context    R-->>Q: Relevant context    Q->>AI: Generate question + blueprint    AI-->>Q: Question + blueprint    Q->>QC: Validate    QC->>AI: Quality evaluation    AI-->>QC: Quality result    QC-->>Q: Accept/Reject    Q->>DB: Store approved question    Q-->>API: Return question    API-->>U: Deliver question
+
+17. Database Core Entities
+
+UsersExamsSubjectsTopicsSourcesSourceChunksQuestionsQuestionLineageEvaluationBlueprintsAttemptsAttemptPagesOCRResultsEvaluationsEvaluationCriteriaFeedbackItemsStudentSkillProfilesWeaknessSignalsStudyPlansAIUsageLogsPromptVersionsSubscriptionsPaymentsNotificationsAdminActions
+
+Important relationship:Question → Evaluation Blueprint → Attempt → Evaluation → Learning Signals → Future Question Selection.
+
+18. Simplified ER Diagram
+
+erDiagram    USERS ||--o{ ATTEMPTS : creates    USERS ||--o{ STUDENT_SKILLS : has    EXAMS ||--o{ QUESTIONS : contains    SUBJECTS ||--o{ QUESTIONS : categorizes    QUESTIONS ||--|| EVALUATION_BLUEPRINTS : has    QUESTIONS ||--o{ QUESTION_LINEAGE : references    ATTEMPTS ||--o{ ATTEMPT_PAGES : contains    ATTEMPTS ||--|| EVALUATIONS : receives    EVALUATIONS ||--o{ FEEDBACK_ITEMS : contains    EVALUATIONS ||--o{ WEAKNESS_SIGNALS : creates    SOURCES ||--o{ SOURCE_CHUNKS : contains    USERS ||--o{ AI_USAGE_LOGS : generates    PROMPT_VERSIONS ||--o{ AI_USAGE_LOGS : used_by
+
+19. Async Job Design
+
+Jobs should be idempotent and retryable.
+
+Suggested queues:• question-generation• question-quality• image-processing• ocr• evaluation• mentor• notifications• embeddings• current-affairs-ingestion
+
+Every job should include:• job ID• entity ID• attempt number• correlation ID• created timestamp• status• retry count• error metadata
+
+The API should return quickly after enqueueing expensive work. Node.js supports asynchronous/event-driven processing well, which fits this model. citeturn0search3turn0search1
+
+20. Failure & Retry Strategy
+
+AI failures must not create duplicate evaluations.
+
+Use:• idempotency keys• job state transitions• bounded retries• exponential backoff• dead-letter handling• provider fallback• human/admin review flag for persistent failures.
+
+Example states:CREATED → PROCESSING → COMPLETEDCREATED → PROCESSING → FAILED → RETRYING → COMPLETEDCREATED → PROCESSING → FAILED → MANUAL_REVIEW
+
+21. API Boundary
+
+Core API groups:
+
+/auth/users/exams/subjects/topics/questions/attempts/evaluations/progress/mentor/subscriptions/payments/admin/webhooks
+
+Telegram adapter:Telegram webhook → application service → domain logic → Telegram response.
+
+Never put scoring logic directly inside Telegram webhook handlers.
+
+22. Security Requirements
+
+• Validate every uploaded file.• Restrict MIME types and file sizes.• Store files outside the application server filesystem.• Use signed/private object URLs where applicable.• Enforce user ownership checks on attempts/evaluations.• Never expose internal prompts or provider credentials.• Keep API keys in secret management/environment configuration.• Rate-limit image uploads and AI-triggering endpoints.• Audit administrative content changes.• Separate student, admin and system permissions.
+
+23. Observability
+
+Every request and AI job should have a correlation ID.
+
+Track:• API latency• queue latency• OCR duration• evaluation duration• AI model• input/output tokens• estimated/actual cost• failure reason• retry count• evaluation quality signals• user-visible processing time.
+
+A single student evaluation should be traceable end-to-end.
+
+24. Repository Structure
+
+Recommended monorepo:
+
+apps/  api/  worker/  scheduler/  admin/
+
+packages/  domain/  database/  ai-gateway/  prompts/  rag/  evaluation/  question-engine/  telegram/  storage/  queue/  observability/  config/  shared-types/
+
+docs/  01-product-vision-srs.md  02-system-architecture.md
+
+The exact framework can remain flexible. The important requirement is strict separation of responsibilities.
+
+25. Deployment Strategy
+
+MVP:• One API container• One worker container• One scheduler container• Managed PostgreSQL• Managed Redis• Object storage• AI provider
+
+Scaling:API replicas can scale independently.OCR workers can scale independently.Evaluation workers can scale independently.Queue depth should drive worker scaling.
+
+Do not introduce Kubernetes or complex multi-cloud infrastructure until usage justifies it.
+
+26. Cost Optimization Architecture
+
+Highest-cost operation is likely handwritten-answer evaluation, not ordinary application logic.
+
+Optimization sequence:1. Do not send entire knowledge base.2. Store question blueprint once.3. Retrieve only relevant chunks.4. Normalize OCR before evaluation.5. Use structured JSON outputs.6. Use cheaper models for classification/simple tasks.7. Reserve premium reasoning/vision calls for tasks that benefit.8. Cache repeated retrievals.9. Log actual token consumption.10. Set user-level and system-level budgets.
+
+27. Quality-Control Architecture
+
+Create a benchmark dataset of real handwritten BPSC answers evaluated by experienced human evaluators.
+
+For every model/prompt change:• Run benchmark evaluations.• Compare rubric dimensions.• Measure score agreement.• Measure factual error rate.• Measure hallucination rate.• Measure OCR error impact.• Reject regressions.
+
+Never optimize only for low AI cost. Optimize for cost per trustworthy evaluation.
+
+28. What Claude Code Should NOT Do
+
+Do not:• Convert everything into independent microservices immediately.• Hard-code Gemini calls throughout the codebase.• Send all NCERT documents in every prompt.• Generate a full model answer for every student request if unnecessary.• Put business logic inside Telegram handlers.• Store uploaded images permanently on local disk.• Mix question generation and evaluation prompts.• Allow the model to invent sources.• Make the database schema depend on one AI provider.• Build Android/Web clients before the core evaluation loop is reliable.
+
+29. Implementation Order
+
+Step 1 — Refactor current Node.js app into modules without changing behavior.Step 2 — Introduce PostgreSQL domain models.Step 3 — Introduce object storage for answer images.Step 4 — Introduce Redis/BullMQ worker processing.Step 5 — Create AI Gateway.Step 6 — Separate question generation and evaluation.Step 7 — Build Evaluation Blueprint.Step 8 — Build source ingestion + pgvector RAG.Step 9 — Build OCR pipeline.Step 10 — Add structured evaluation.Step 11 — Add AI cost telemetry/control.Step 12 — Add longitudinal mentor.Step 13 — Add admin quality dashboard.Step 14 — Benchmark against human evaluations.Step 15 — Scale only after product metrics justify it.
+
+30. Architecture Success Criteria
+
+The architecture is considered ready when:
+
+• Telegram can be replaced by another client without rewriting domain logic.• AI providers can be changed without rewriting business logic.• A question can be traced back to its source/lineage.• Every evaluation can identify its question blueprint and evidence.• Every AI call has measurable cost/usage.• Failed jobs can retry safely.• Student attempts create durable learning signals.• RAG retrieves targeted context rather than entire documents.• OCR/evaluation workloads can scale independently.• The system can later support additional PSC examinations.
+
+31. Claude Code Implementation Brief
+
+Use this document as the architecture contract. Before modifying the existing application, inspect the current repository and map existing files/functions to the modules defined here. Do not rewrite working functionality unnecessarily. First produce an implementation plan and a migration map. Preserve current Telegram behavior while progressively introducing the queue, AI Gateway, Evaluation Blueprint, RAG, structured evaluation, and observability layers. Implement incrementally with tests after each major boundary.

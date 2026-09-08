@@ -7,6 +7,14 @@ const handleUpdate = webhookCallback(bot, "http");
 
 const server = http.createServer(async (req, res) => {
   if (req.method === "POST" && req.url === "/telegram-webhook") {
+    if (config.telegramWebhookSecret) {
+      const secret = req.headers["x-telegram-bot-api-secret-token"];
+      if (secret !== config.telegramWebhookSecret) {
+        res.writeHead(401, { "content-type": "application/json" });
+        res.end(JSON.stringify({ error: "Unauthorized: invalid secret token" }));
+        return;
+      }
+    }
     await handleUpdate(req, res);
     return;
   }

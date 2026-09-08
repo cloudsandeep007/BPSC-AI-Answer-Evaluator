@@ -1,0 +1,1001 @@
+BPSC AI Platform
+
+Document 10 — Security, Privacy & Compliance Specification
+
+Version 1.0 | Status: Implementation Specification
+
+Audience: Product owner, Claude Code, backend engineers, AI engineers, DevOps, QA, and future security/privacy teams.
+
+Purpose: Define the security, privacy, access-control, AI-safety, audit, incident-response and compliance foundations for the BPSC AI platform.
+
+1. Executive Summary
+
+The platform processes student accounts, handwritten answer images, OCR text, evaluation results, learning profiles, subscriptions and AI interaction data. Security must therefore be designed into the architecture from the beginning.
+
+The primary principle is least privilege: every user, service, worker, database account, storage bucket and AI integration receives only the access required for its job.
+
+2. Security Objectives
+
+Protect student accounts and submitted work.
+
+Prevent unauthorized access between students.
+
+Protect AI provider credentials and infrastructure secrets.
+
+Prevent prompt injection from student text and retrieved documents.
+
+Maintain integrity of marks, evaluations and learning history.
+
+Provide auditability for sensitive administrative actions.
+
+Minimize collection and retention of personal data.
+
+Detect, contain and recover from security incidents.
+
+3. Threat Model
+
+Threat
+
+Primary Control
+
+Account takeover
+
+Strong authentication, rate limiting and session controls
+
+Unauthorized student-data access
+
+Object-level authorization and private storage
+
+Prompt injection
+
+Treat student/source text as untrusted data
+
+Malicious upload
+
+File validation, size limits and scanning where appropriate
+
+API abuse
+
+Authentication, authorization, throttling and monitoring
+
+Secret leakage
+
+Secret manager, redaction and access control
+
+Injection attacks
+
+Parameterized queries and strict validation
+
+Admin misuse
+
+RBAC and audit logging
+
+Data loss
+
+Backups and tested restoration
+
+AI hallucination
+
+Evidence hierarchy, validation and benchmarking
+
+Webhook abuse
+
+Authenticity controls and idempotency
+
+Supply-chain compromise
+
+Dependency/container scanning and lockfiles
+
+4. Data Classification
+
+Class
+
+Examples
+
+Handling
+
+Public
+
+General product information
+
+Normal controls
+
+Internal
+
+Operational metrics and non-sensitive configuration
+
+Authenticated access
+
+Confidential
+
+Profiles and subscription records
+
+Restricted access and encryption
+
+Sensitive Student Data
+
+Handwritten images, OCR, evaluations, learning profiles
+
+Strict access, private storage and retention controls
+
+Secrets
+
+API keys, bot tokens, database credentials
+
+Secret manager only; never log
+
+5. Data Inventory
+
+Data
+
+Source
+
+Storage
+
+Policy Direction
+
+User profile
+
+Onboarding
+
+PostgreSQL
+
+Collect only what is needed
+
+Telegram identifiers
+
+Telegram
+
+PostgreSQL
+
+Minimize and protect
+
+Handwritten images
+
+Student upload
+
+Private object storage
+
+Defined retention period
+
+OCR text
+
+Vision pipeline
+
+PostgreSQL
+
+Retain while needed
+
+Evaluation
+
+Examiner AI
+
+PostgreSQL
+
+Learning/history requirements
+
+Learning profile
+
+Application
+
+PostgreSQL
+
+Retain while useful/required
+
+AI usage logs
+
+AI Gateway
+
+DB/analytics
+
+Limited operational retention
+
+Payments
+
+Payment provider
+
+DB/provider
+
+Applicable accounting/legal requirements
+
+Source documents
+
+Admin ingestion
+
+Object storage + DB
+
+License and operational requirements
+
+6. Identity & Authentication
+
+Use an internal stable user ID independent of Telegram.
+
+Telegram should be an initial identity/channel adapter, not the database primary identity.
+
+For Web/Android, use secure session or token-based authentication.
+
+Expire and revoke sessions appropriately.
+
+Protect authentication endpoints with rate limits.
+
+Never use usernames as permanent identity keys.
+
+7. Authorization
+
+Authentication answers 'who are you?'; authorization answers 'what are you allowed to access?'
+
+Role
+
+Typical Access
+
+Student
+
+Own profile, attempts, evaluations and permitted mentor data
+
+Reviewer
+
+Assigned review data only
+
+Support
+
+Operational troubleshooting with minimized student-content access
+
+Content Admin
+
+Source/question management
+
+Finance Admin
+
+Subscription/payment information
+
+System Admin
+
+Infrastructure/configuration administration
+
+Super Admin
+
+Highly restricted emergency/admin functions
+
+Every sensitive endpoint must perform object-level authorization. Knowing an ID must never be sufficient to access a resource.
+
+8. Ownership & Future Multi-Tenancy
+
+Every student-owned entity must have an explicit ownership relationship.
+
+Attempt, page, OCR, evaluation and feedback records must be authorized against the authenticated user.
+
+Future institute/organization support should introduce tenant boundaries explicitly.
+
+Never rely only on UI controls for authorization.
+
+9. API Security
+
+Validate every request with strict schemas.
+
+Limit request and upload sizes.
+
+Rate-limit authentication, generation and upload operations.
+
+Use safe pagination limits.
+
+Reject unexpected fields where appropriate.
+
+Return controlled external errors; keep diagnostic detail in protected logs.
+
+Never expose stack traces, credentials or internal database details.
+
+10. Telegram Security
+
+Keep the bot token in a secret manager or protected environment secret.
+
+Protect webhook configuration and authenticity.
+
+Treat messages and images as untrusted input.
+
+Do not use Telegram text as an authorization mechanism.
+
+Make update processing idempotent.
+
+Keep Telegram SDK logic inside an adapter.
+
+11. File Upload Security
+
+Allow only configured image/document types.
+
+Validate both declared type and actual file signature where practical.
+
+Set maximum file size and page-count limits.
+
+Reject executable/script content.
+
+Store files outside the application container filesystem.
+
+Use private object storage.
+
+Use short-lived signed URLs.
+
+Scan files where appropriate.
+
+12. Object Storage Security
+
+Control
+
+Requirement
+
+Bucket visibility
+
+Private by default
+
+Access
+
+Service identity only
+
+Student access
+
+Short-lived signed URL
+
+Admin access
+
+Explicit RBAC
+
+Encryption
+
+Provider-supported encryption at rest
+
+Lifecycle
+
+Defined retention/deletion
+
+Versioning
+
+Enable when recovery value justifies it
+
+Access logging
+
+Enable for sensitive operations where available
+
+13. Database Security
+
+Use least-privilege database users.
+
+Separate migration privileges from application privileges where practical.
+
+Do not expose PostgreSQL publicly unless unavoidable and strongly protected.
+
+Use TLS for remote database connections.
+
+Encrypt backups.
+
+Use parameterized queries/ORM safely.
+
+Monitor privileged operations, unusual queries and access patterns.
+
+14. Secrets Management
+
+Store AI provider keys, Telegram tokens, database credentials, storage keys and authentication secrets in a managed secret system.
+
+Never commit secrets.
+
+Never print secrets in logs.
+
+Redact authorization headers and API keys from error reports.
+
+Rotate compromised or stale credentials.
+
+Use separate credentials for local, staging and production.
+
+Apply least privilege to service credentials.
+
+15. AI Security Boundary
+
+AI inputs are untrusted data. Student answers, uploaded documents, retrieved web text and source documents may contain instructions designed to manipulate a model.
+
+Keep system instructions separate from student/source content.
+
+Tell models explicitly not to follow instructions found inside student answers or retrieved documents.
+
+Use structured context fields.
+
+Validate all model outputs.
+
+Never allow AI output to execute arbitrary code or SQL.
+
+Never let a model make authorization decisions.
+
+Keep tool permissions outside the model's control.
+
+16. Prompt Injection Defense
+
+Classify student/source content as DATA, never as instructions.
+
+Use explicit instruction-priority rules.
+
+Separate evidence from task instructions.
+
+Limit tools available to each AI role.
+
+Validate outputs before downstream processing.
+
+Never execute URLs, code, SQL or commands returned by the model.
+
+Log suspicious injection attempts for security review.
+
+17. Evaluation Integrity
+
+Scores must be based on the configured question and Evaluation Blueprint.
+
+The model must not modify its own grading rules.
+
+Application code validates score ranges and criterion IDs.
+
+Prompt and model versions are stored with evaluations.
+
+Low-confidence results can be routed for review.
+
+Students must not be told that AI marks are official BPSC examiner marks.
+
+18. RAG Security
+
+Retrieved documents are untrusted model input.
+
+Source content must never override system instructions.
+
+Store provenance and source tier.
+
+Do not put secrets or private student data into general knowledge collections.
+
+Apply access filters for future organization-specific knowledge.
+
+Store retrieval references for important AI decisions.
+
+19. Privacy by Design
+
+Collect the minimum data needed.
+
+Use internal identifiers.
+
+Separate identity information from learning content where practical.
+
+Send only necessary data to AI providers.
+
+Do not use raw student answers for unrelated analytics.
+
+Define retention periods.
+
+Provide deletion/export workflows where legally required.
+
+Document third-party processors.
+
+20. Data Retention
+
+Data
+
+Policy Direction
+
+Temporary processing artifacts
+
+Delete after successful processing when no longer required
+
+Original handwritten images
+
+Retain according to product value, consent and legal requirements
+
+OCR text
+
+Retain while needed for evaluation/history
+
+Evaluation history
+
+Retain for learning history unless deletion is required
+
+Operational logs
+
+Shorter controlled retention
+
+Security/audit logs
+
+Longer controlled retention
+
+Payment records
+
+Applicable accounting/legal requirements
+
+Final retention periods should be approved through product and legal/privacy review.
+
+21. Data Deletion
+
+Authenticate the requester.
+
+Identify all linked records and objects.
+
+Apply dependency-aware deletion or anonymization.
+
+Delete/revoke associated storage objects.
+
+Remove analytics data where appropriate.
+
+Invalidate active sessions.
+
+Record a minimal deletion audit event.
+
+Ensure downstream processors and backup policies are handled according to the applicable requirements.
+
+Do not promise immediate irreversible deletion from every backup unless the infrastructure actually supports that guarantee.
+
+22. Data Export
+
+Provide authenticated export where required.
+
+Include profile, attempt, evaluation and learning-history data as appropriate.
+
+Generate exports through controlled background jobs.
+
+Deliver using short-lived secure links.
+
+Rate-limit export requests.
+
+Audit export activity.
+
+23. Third-Party AI Providers
+
+Maintain a provider register before production use.
+
+Field
+
+Example
+
+Provider
+
+Configured AI provider
+
+Purpose
+
+OCR / generation / evaluation
+
+Data shared
+
+Image/OCR/question context
+
+Processing region
+
+Provider-supported region
+
+Retention
+
+Provider policy/configuration
+
+Contractual status
+
+Terms/DPA status
+
+Security review
+
+Completed/pending
+
+Fallback
+
+Approved alternate provider
+
+Before sending real student data, verify provider terms, retention, data-use settings and applicable contractual/privacy requirements.
+
+24. Compliance Considerations
+
+The platform should be designed with applicable Indian privacy and technology obligations in mind, including the Digital Personal Data Protection framework and other requirements that may apply based on the final business model, age of users, payment processing and data flows.
+
+This document is an engineering specification, not legal advice. Obtain qualified legal/privacy review before production launch, especially for consent, children's data, cross-border processing, notices, deletion and processor contracts.
+
+25. Children's Data
+
+If the product is offered to minors, additional safeguards may apply.
+
+Define the intended minimum user age.
+
+Implement age-related controls where required.
+
+Obtain required parental/guardian consent where applicable.
+
+Minimize collection.
+
+Review profiling/advertising implications.
+
+Review AI processing of children's handwritten work separately.
+
+26. Payment Security
+
+Do not store raw card credentials.
+
+Use a reputable payment provider.
+
+Verify payment webhooks.
+
+Make payment processing idempotent.
+
+Store provider transaction references rather than unnecessary payment secrets.
+
+Restrict finance data by role.
+
+Audit refunds and subscription changes.
+
+27. Audit Logging
+
+Action
+
+Examples
+
+Authentication
+
+Login, logout, failed attempts
+
+Authorization
+
+Protected-resource access denial
+
+Admin
+
+Role/configuration changes
+
+Content
+
+Source/question modifications
+
+Evaluation
+
+Manual review or score adjustment
+
+Payment
+
+Refund/subscription changes
+
+Data
+
+Export/deletion requests
+
+Security
+
+Credential/configuration changes
+
+Audit logs should be append-oriented, access-controlled and protected against ordinary user modification.
+
+28. Logging Rules
+
+Never log passwords, API keys, tokens or payment secrets.
+
+Avoid full handwritten answer text in ordinary operational logs.
+
+Redact authorization headers.
+
+Use internal IDs instead of unnecessary personal data.
+
+Use structured logs.
+
+Restrict access to logs.
+
+Apply retention policies.
+
+29. Security Monitoring
+
+Repeated authentication failures.
+
+Unusual API request volume.
+
+Large upload spikes.
+
+Repeated authorization failures.
+
+Unexpected administrative actions.
+
+Unusual data exports.
+
+AI provider credential errors.
+
+Unexpected database access.
+
+Storage access anomalies.
+
+Abnormal AI-cost spikes.
+
+30. Incident Response
+
+Lifecycle: DETECT → CONTAIN → INVESTIGATE → ERADICATE → RECOVER → REVIEW
+
+Detect and classify severity.
+
+Contain affected accounts/services.
+
+Preserve relevant evidence.
+
+Rotate compromised credentials.
+
+Patch the root cause.
+
+Restore/recover services.
+
+Validate data integrity.
+
+Communicate according to applicable obligations.
+
+Document lessons and preventive actions.
+
+31. Incident Severity
+
+Severity
+
+Example
+
+Critical
+
+Large student-data exposure, credential compromise or destructive production incident
+
+High
+
+Confirmed unauthorized access to sensitive records or major service compromise
+
+Medium
+
+Contained security issue with limited scope
+
+Low
+
+Minor configuration/policy issue without material exposure
+
+32. Security Testing
+
+Dependency vulnerability scanning.
+
+Container scanning.
+
+Static analysis.
+
+API authorization tests.
+
+Authentication and rate-limit tests.
+
+File-upload security tests.
+
+Prompt-injection tests.
+
+RAG access-control tests.
+
+Secret scanning.
+
+Backup restoration tests.
+
+Periodic penetration testing as the platform grows.
+
+33. AI Red-Team Cases
+
+Scenario
+
+Expected Result
+
+Student says 'ignore previous instructions'
+
+Examiner continues its assigned task
+
+Retrieved source contains instructions
+
+Model treats them as source data
+
+OCR contains fake system instructions
+
+Ignored as student content
+
+Model outputs score 999
+
+Application rejects output
+
+Model invents a citation
+
+Validation/review flags it
+
+Student accesses another user's attempt ID
+
+Authorization denies access
+
+Malformed AI JSON
+
+Controlled retry/failure
+
+Model is asked to reveal system prompt
+
+System policy prevents disclosure
+
+34. Internal Staff Access
+
+Use named accounts; avoid shared administrator accounts.
+
+Require strong authentication for privileged access.
+
+Apply least privilege.
+
+Review access periodically.
+
+Remove access when roles change.
+
+Separate production access from normal development access where practical.
+
+Audit sensitive administrative actions.
+
+35. Secure Development Lifecycle
+
+Threat-model new features.
+
+Define security requirements.
+
+Implement secure defaults.
+
+Review authorization boundaries.
+
+Run automated security checks.
+
+Test abuse cases.
+
+Deploy to staging.
+
+Monitor production.
+
+Review incidents and update controls.
+
+36. Web Security Controls
+
+Use HTTPS.
+
+Configure appropriate security headers.
+
+Use CSRF protection when cookie-based authentication is used.
+
+Restrict CORS to known origins.
+
+Use Secure, HttpOnly and appropriate SameSite cookie settings where applicable.
+
+Prevent clickjacking where applicable.
+
+Set sensible content-type and request-size controls.
+
+37. Backup Security
+
+Encrypt backups.
+
+Restrict backup access.
+
+Use separate backup credentials.
+
+Protect backup deletion permissions.
+
+Monitor backup success/failure.
+
+Test restoration.
+
+Maintain appropriate retention.
+
+Consider immutable/off-site copies for critical production data.
+
+38. Business Continuity
+
+Component
+
+Continuity Approach
+
+API
+
+Multiple instances, restart and rollback
+
+Workers
+
+Queue persistence and retry
+
+AI provider
+
+Fallback or delayed processing
+
+PostgreSQL
+
+Backup/restore and managed failover as scale grows
+
+Redis
+
+Recoverable cache; durable queue configuration as required
+
+Object storage
+
+Provider durability/versioning
+
+Telegram
+
+Queue notifications and retry
+
+39. Claude Code Implementation Guidance
+
+Create centralized authentication and authorization middleware.
+
+Create reusable ownership guards for student resources.
+
+Add typed request validation.
+
+Add secure file-upload validation.
+
+Move secrets to environment/secret management.
+
+Add security-focused audit events.
+
+Create an AI input-trust boundary.
+
+Add AI output schema validation.
+
+Add rate limiting.
+
+Add security test fixtures.
+
+Add log redaction.
+
+Add retention/deletion interfaces.
+
+Keep security policies reusable rather than duplicating checks.
+
+40. Suggested Repository Structure
+
+packages/  security/    auth/    authorization/    policies/    audit/    redaction/    rate-limit/  privacy/    retention/    deletion/    export/  ai/    gateway/    safety/    validators/apps/  api/  worker/  admin/tests/  security/    auth/    authorization/    uploads/    prompt-injection/    privacy/    audit/
+
+41. Production Security Checklist
+
+Authentication implemented and tested.
+
+Object-level authorization tested.
+
+Telegram webhook protected.
+
+Uploads validated and stored privately.
+
+Secrets externalized.
+
+Database access restricted.
+
+AI inputs treated as untrusted.
+
+Prompt-injection tests pass.
+
+AI output schemas enforced.
+
+Audit logging enabled.
+
+Backups encrypted and restoration tested.
+
+Retention policy documented.
+
+Deletion/export workflow designed.
+
+Provider data-use terms reviewed.
+
+Security monitoring enabled.
+
+Incident-response runbook exists.
+
+42. Definition of Done
+
+No student can access another student's data through API manipulation.
+
+Sensitive files are private.
+
+Privileged actions are attributable to an account.
+
+Secrets are absent from source and logs.
+
+AI cannot directly execute arbitrary actions.
+
+AI evaluations are versioned and auditable.
+
+RAG respects access boundaries.
+
+Security tests cover major abuse paths.
+
+Backups can be restored.
+
+Privacy and retention requirements are documented.
+
+Applicable legal/privacy review is completed before production launch.
+
+43. Final Security Principle
+
+Security is not a feature beside the BPSC AI system. It is a property of every request, image, database record, AI call, worker job and administrative action.
+
+LEAST PRIVILEGE + DATA MINIMIZATION + STRONG AUTHORIZATION + UNTRUSTED-AI INPUT BOUNDARY + AUDITABILITY + TESTED RECOVERY = TRUSTWORTHY BPSC AI PLATFORM

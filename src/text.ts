@@ -30,6 +30,9 @@ export const strings: Record<Lang, Record<string, string>> = {
     btnEditCancel: "नहीं, रद्द करें",
     editCancelled: "ठीक है, रद्द कर दिया। ऊपर दिया पूरा उत्तर कॉपी करके सही किया हुआ पूरा जवाब भेजें।",
     unrecognized: "समझ नहीं आया। शुरू करने के लिए अपने उत्तर की फोटो भेजें।",
+    pageAdded: "📄 पृष्ठ जुड़ गया। क्या और पृष्ठ जोड़ने हैं?",
+    btnAddPage: "➕ अगला पृष्ठ भेजें",
+    btnDonePages: "✅ सभी पृष्ठ पूरे — जाँचें",
   },
   hinglish: {
     reading: "Photo padh rahe hain, thoda wait kariye...",
@@ -60,6 +63,9 @@ export const strings: Record<Lang, Record<string, string>> = {
     btnEditCancel: "Nahi, cancel karo",
     editCancelled: "Theek hai, cancel kar diya. Upar diya poora answer copy karke sahi kiya hua poora jawab bhejiye.",
     unrecognized: "Samajh nahi aaya. Shuru karne ke liye apne answer ki photo bhejiye.",
+    pageAdded: "📄 Page add ho gaya. Kya aur page add karna hai?",
+    btnAddPage: "➕ Agla page bhejiye",
+    btnDonePages: "✅ Sabhi page poore — Check kariye",
   },
   en: {
     reading: "Reading your photo, one moment...",
@@ -90,6 +96,9 @@ export const strings: Record<Lang, Record<string, string>> = {
     btnEditCancel: "No, cancel",
     editCancelled: "Okay, cancelled. Copy the full answer above, fix it, and send the whole corrected answer back.",
     unrecognized: "I didn't understand that. Send a photo of your answer to get started.",
+    pageAdded: "📄 Page added. Do you want to add more pages?",
+    btnAddPage: "➕ Add Next Page",
+    btnDonePages: "✅ All Pages Done — Grade Now",
   },
 };
 

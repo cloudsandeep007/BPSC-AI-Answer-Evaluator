@@ -1,0 +1,211 @@
+BPSC AI Answer Evaluation & Personal Mentor
+
+Document 05 — Database & Data Model Specification
+
+Version 1.0 | PostgreSQL + pgvector | Transactional & Learning Data
+
+1. Purpose
+
+This document defines the persistent data model for the BPSC AI platform. The database must support the complete lifecycle: user → question → answer attempt → handwritten pages → OCR → retrieval → evaluation → feedback → learning signals → personalized practice, while also retaining source provenance, AI usage and subscription data.
+
+2. Database Philosophy
+
+PostgreSQL should be the system of record for structured application data. pgvector should support semantic retrieval for knowledge chunks. Object storage should hold original images and source files; the database stores references and metadata rather than large binary files.
+
+3. Core Domains
+
+Identity: users, profiles, authentication.
+
+Exam: exams, papers, subjects, topics, topic aliases.
+
+Question bank: questions, PYQs, question lineage, evaluation blueprints.
+
+Knowledge: sources, source versions, source chunks, embeddings.
+
+Practice: attempts, attempt pages, OCR results.
+
+Evaluation: evaluations, criteria scores, feedback items, evidence references.
+
+Learning: skill profiles, weakness signals, study plans, recommendations.
+
+AI operations: prompts, model configurations, AI usage logs, jobs.
+
+Business: plans, subscriptions, payments.
+
+Administration: admin actions, source reviews, quality reviews.
+
+4. User Model
+
+users should contain a stable internal user_id and platform identifiers such as Telegram user ID. Keep authentication/provider identifiers separate from learning data where practical. profiles can hold exam preference, language, target exam, daily goal and onboarding state.
+
+5. Exam Model
+
+exams represents BPSC and future PSC exams. Suggested fields: exam_id, code, name, state, language, active, configuration_json, created_at, updated_at. Avoid hard-coding BPSC-specific logic into table structures.
+
+6. Subject & Topic Model
+
+subjects belong to an exam or can be shared across exams. topics should support hierarchical parent_topic_id. topic_aliases should map alternate wording to canonical topics, improving retrieval and adaptive question selection.
+
+7. PYQ Model
+
+pyqs should be structured records, not only PDF text. Store pyq_id, exam_id, year, paper, subject_id, topic_id, question_text, marks, word_limit, question_type, source_id and source_location. Add normalized_text for similarity/duplicate detection.
+
+8. Question Model
+
+questions stores generated or curated practice questions. Recommended fields: question_id, exam_id, subject_id, topic_id, question_text, question_type, difficulty, word_limit, status, generation_model, prompt_version, created_at and approved_at.
+
+9. Question Lineage
+
+question_lineage connects a generated question to its influencing PYQs and source chunks. Include relation_type such as INSPIRED_BY, GROUNDED_IN or SIMILAR_TO. This provides a future audit trail and helps prevent accidental PYQ copying.
+
+10. Evaluation Blueprint Model
+
+evaluation_blueprints should be versioned and linked one-to-one or one-to-many with questions. Store question demand, dimensions, expected points, common mistakes, enrichment opportunities, rubric configuration, source references and generation metadata. Prefer normalized child tables for criteria and expected points when querying them individually.
+
+11. Attempt Model
+
+attempts represents a student's response to a specific question. Fields should include attempt_id, user_id, question_id, status, started_at, submitted_at, processing timestamps, final_score, max_score and evaluation_id. Do not store only the final score; the detailed evaluation is a separate entity.
+
+12. Attempt Pages
+
+attempt_pages stores each uploaded page: page_id, attempt_id, page_number, object_storage_key, MIME type, file size, checksum, upload timestamp, preprocessing status and image metadata. Use a checksum to prevent accidental duplicate uploads.
+
+13. OCR Results
+
+ocr_results should preserve page-level extracted text, normalized text, confidence indicators, uncertain regions and OCR model/version. Keep original image references so OCR can be re-run later with a better model.
+
+14. Evaluation Model
+
+evaluations stores the evaluation header: evaluation_id, attempt_id, evaluator_model, evaluator_prompt_version, rubric_version, score, max_score, confidence, status, created_at and processing metadata. A new evaluation should be a new record rather than overwriting history.
+
+15. Criterion Scores
+
+evaluation_criteria stores individual dimensions such as content, analysis, structure, examples, conclusion and language. Fields: evaluation_id, criterion_code, score, max_score, weight, reason and evidence_quality.
+
+16. Feedback Items
+
+feedback_items stores actionable feedback: type, priority, text, related_topic_id, evidence/source references and resolved status if applicable. Types may include STRENGTH, MISSING_POINT, FACTUAL_CORRECTION, STRUCTURE, LANGUAGE, CURRENT_AFFAIRS and ACTION.
+
+17. Evaluation Evidence
+
+evaluation_evidence links evaluation feedback to source chunks or other evidence. Store evaluation_id, feedback_item_id, source_chunk_id, relevance_score and evidence_role. This allows the system to explain where a factual correction originated.
+
+18. Learning Profile
+
+student_skill_profiles stores aggregate skill signals by user and topic/criterion. Suggested fields: user_id, topic_id, skill_code, strength_score, confidence, sample_count, last_attempt_at, trend and updated_at. These are derived signals and can be recalculated.
+
+19. Weakness Signals
+
+weakness_signals stores individual observations from evaluations: user_id, attempt_id, topic_id, weakness_code, severity, evidence, detected_at and resolved_at. This creates a longitudinal history rather than replacing previous mistakes.
+
+20. Study Plans
+
+study_plans should contain user_id, exam_id, target_date, goal, generated_by, status and plan metadata. study_plan_items can reference topics, questions or activities. Keep plans versioned so changes are auditable.
+
+21. Knowledge Source Model
+
+sources identifies approved knowledge collections. Store source_id, title, publisher, source_type, authority_level, language, status, license_notes and created_at. Do not delete active provenance references.
+
+22. Source Versions
+
+source_versions supports immutable versions of a source. Store source_version_id, source_id, version_label, checksum, publication_date, ingestion_date, parser_version, status and object_storage_key.
+
+23. Source Chunks
+
+source_chunks stores retrieval units: chunk_id, source_version_id, text, normalized_text, metadata_json, topic_id, authority_level, page/section information and embedding_version. Keep stable IDs for provenance.
+
+24. Vector Data
+
+Store embeddings using pgvector or a compatible vector type. Associate each embedding with source_chunk_id and embedding_model/version. When the embedding model changes, create a new embedding version rather than silently mixing vectors.
+
+25. Retrieval Logs
+
+retrieval_logs records the query context, filters, candidate IDs, selected chunks, retrieval method, latency and model versions. For privacy, avoid storing unnecessary raw student content; store a safe representation where full text is not required.
+
+26. AI Usage Logs
+
+ai_usage_logs should capture user_id, feature, request_id, provider, model, prompt_version, input_tokens, output_tokens, image_count, latency_ms, estimated_cost, actual_cost if available, status and retry_count. This table is essential for unit economics.
+
+27. Prompt Versions
+
+prompt_versions stores prompt_id, feature, version, system_prompt_hash, status, created_at, approved_at and notes. Avoid storing secrets or sensitive configuration in prompt text if it is not necessary.
+
+28. AI Model Configuration
+
+model_configs should be configurable by feature. Store provider, model identifier, capability, input/output limits, active status and routing priority. Secrets must remain outside the database.
+
+29. Job Model
+
+jobs can mirror queue state for durable application visibility. Store job_id, queue_name, entity_type, entity_id, status, attempts, error_code, error_message, scheduled_at, started_at and completed_at. Redis/BullMQ remains the execution mechanism; PostgreSQL can provide durable business-level status.
+
+30. Subscription Model
+
+plans defines Free/Basic/Pro/Institutional entitlements. subscriptions links users or organizations to plans, with start/end dates, status and provider identifiers. Do not make AI limits dependent on hard-coded plan names.
+
+31. Payment Model
+
+payments stores provider transaction IDs, amount, currency, status, plan/subscription reference, timestamps and webhook reconciliation state. Never store raw card information.
+
+32. Admin & Quality Review
+
+admin_actions records content approvals, source changes, question approvals, evaluation overrides and user-support actions. quality_reviews can store human review results for benchmark answers.
+
+33. Organization Model
+
+For future coaching-institute support, introduce organizations, organization_members and organization_subscriptions. Do not force this complexity into the MVP if there are no institutional users yet.
+
+34. Recommended Relationships
+
+users → attempts → attempt_pages → ocr_results; questions → evaluation_blueprints; attempts → evaluations → evaluation_criteria/feedback/evidence; evaluations → weakness_signals → student_skill_profiles; sources → source_versions → source_chunks → embeddings; questions → question_lineage → pyqs/source_chunks.
+
+35. ER Diagram — Logical Model
+
+users ||--o{ attempts; exams ||--o{ questions; subjects ||--o{ questions; topics ||--o{ questions; questions ||--|| evaluation_blueprints; questions ||--o{ attempts; attempts ||--o{ attempt_pages; attempt_pages ||--o{ ocr_results; attempts ||--o{ evaluations; evaluations ||--o{ evaluation_criteria; evaluations ||--o{ feedback_items; feedback_items ||--o{ evaluation_evidence; source_versions ||--o{ source_chunks; sources ||--o{ source_versions; users ||--o{ student_skill_profiles; users ||--o{ weakness_signals.
+
+36. Indexing Strategy
+
+Create indexes for foreign keys and common filters. Examples: attempts(user_id, created_at), questions(exam_id, subject_id, topic_id), pyqs(exam_id, year, subject_id), source_chunks(source_version_id), feedback_items(evaluation_id), weakness_signals(user_id, topic_id), ai_usage_logs(user_id, created_at). Add vector indexes after retrieval volume justifies them and benchmark the chosen index configuration.
+
+37. Constraints
+
+Use foreign keys, unique constraints and check constraints for critical fields. Examples: unique external platform ID, unique source checksum/version, unique question status identifiers, non-negative scores, score <= max_score, and unique page number per attempt.
+
+38. Data Lifecycle
+
+Attempts and evaluations should normally be retained for learning analytics. Original images should follow a configurable retention policy. Source versions should remain available when historical evaluations depend on them. Soft deletion is preferred for auditable entities.
+
+39. Transaction Boundaries
+
+Creating an attempt and its initial state should be transactional. Completing an evaluation should atomically persist the evaluation header and criterion scores before publishing the ‘evaluation completed’ event. Mentor updates can happen asynchronously.
+
+40. Event-Driven Updates
+
+Important events: question.created, question.approved, attempt.created, answer.uploaded, ocr.completed, evaluation.completed, learning_signal.created, subscription.updated. Events should contain IDs rather than huge payloads.
+
+41. Data Privacy
+
+Separate personally identifying/account data from answer/evaluation data where practical. Use internal IDs in logs. Do not expose Telegram IDs, payment identifiers or internal object-storage keys to the student-facing AI prompts.
+
+42. Backup & Recovery
+
+Use managed PostgreSQL backups and test restoration periodically. Object storage must have appropriate retention/versioning where required. RAG indexes should be rebuildable from source versions and embeddings rather than treated as the only copy of knowledge.
+
+43. Migration From Current Application
+
+First inspect the current schema and preserve existing data. Add new tables incrementally. Create compatibility mappings for current question and answer records. Backfill source metadata and question IDs before switching evaluation to the new pipeline.
+
+44. Claude Code Implementation Order
+
+1) Inspect current database/storage. 2) Generate migration plan. 3) Add users/exams/subjects/topics. 4) Add questions/PYQs/blueprints. 5) Add attempts/pages/OCR. 6) Add evaluations/feedback/evidence. 7) Add source/chunk/embedding tables. 8) Add learning tables. 9) Add AI usage/prompt tables. 10) Add subscription/payment tables. 11) Add indexes/constraints. 12) Add migrations and seed data.
+
+45. Definition of Done
+
+The database design is complete when a single evaluation can be traced from user and question through uploaded pages, OCR, evidence, rubric scores and feedback to learning signals, while source provenance and AI cost/model information remain auditable.
+
+Appendix A — Suggested Core Table List
+
+usersprofilesexamssubjectstopicstopic_aliasespyqsquestionsquestion_lineageevaluation_blueprintsevaluation_criteria_templatesattemptsattempt_pagesocr_resultsevaluationsevaluation_criteriafeedback_itemsevaluation_evidencestudent_skill_profilesweakness_signalsstudy_plansstudy_plan_itemssourcessource_versionssource_chunksembeddingsretrieval_logsprompt_versionsmodel_configsai_usage_logsjobsplanssubscriptionspaymentsadmin_actionsquality_reviews
+
+Appendix B — Golden Trace
+
+USER  → QUESTION → BLUEPRINT → ATTEMPT → PAGE IMAGES → OCR → RETRIEVED CHUNKS → EVALUATION → CRITERION SCORES → FEEDBACK → WEAKNESS SIGNALS → STUDENT SKILL PROFILE → NEXT QUESTION.

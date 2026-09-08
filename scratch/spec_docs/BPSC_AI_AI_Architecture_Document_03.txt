@@ -1,0 +1,315 @@
+BPSC AI Answer Evaluation & Personal Mentor
+
+Document 03 — AI Architecture & AI Pipeline Specification
+
+Version 1.0 | Model Strategy, RAG, OCR, Evaluation, Mentor & Cost Control
+
+1. Purpose
+
+This document defines how artificial intelligence should be used inside the BPSC Hindi-medium answer-writing platform. It separates AI responsibilities into specialized pipelines instead of using one large prompt for every task.
+
+The objective is to maximize evaluation quality while controlling cost, latency, hallucination risk and model dependency.
+
+2. AI Architecture Principle
+
+The system should follow: Retrieve → Structure → Reason → Evaluate → Learn.
+
+AI should not be responsible for ordinary application logic. Node.js handles authentication, orchestration, database operations, queues, subscriptions and delivery. AI is used where language, vision, semantic retrieval, classification and reasoning provide clear value.
+
+3. AI Component Map
+
+Teacher AI — generates exam-style questions and Evaluation Blueprints.
+
+Question Quality Checker — validates generated questions before delivery.
+
+OCR/Vision — reads handwritten pages and extracts structured content.
+
+RAG Retriever — finds relevant evidence from the approved knowledge base.
+
+Examiner AI — evaluates the student's answer against the question-specific blueprint and retrieved evidence.
+
+Mentor AI — analyzes historical attempts and creates personalized recommendations.
+
+AI Gateway — provides a common interface to all models.
+
+Cost Controller — selects models and enforces token/cost policies.
+
+4. AI Request Routing
+
+All AI calls should follow:
+
+Application Module→ AI Gateway→ Cost Controller→ Model Router→ Selected Provider/Model→ Structured Output Validator→ Application Module
+
+No business module should directly call Gemini or another provider.
+
+5. Question Generation Pipeline
+
+INPUT:Exam + subject + topic + question type + desired difficulty.
+
+STEP 1: Resolve syllabus/topic metadata.STEP 2: Retrieve relevant PYQs and approved source chunks.STEP 3: Teacher AI generates a new question.STEP 4: Teacher AI generates its Evaluation Blueprint.STEP 5: Quality Checker independently validates the question.STEP 6: If rejected, regenerate with rejection reasons.STEP 7: Store question, blueprint, lineage and quality result.STEP 8: Deliver only approved questions.
+
+6. Question Generation Output Contract
+
+The model should return structured JSON conceptually equivalent to:
+
+{  "question": "...",  "exam": "BPSC",  "subject": "...",  "topic": "...",  "question_type": "long",  "difficulty": "medium",  "word_limit": 250,  "demand": ["explain", "analyze"],  "key_dimensions": ["..."],  "expected_points": ["..."],  "common_mistakes": ["..."],  "source_ids": ["..."]}
+
+The exact schema should be defined with runtime validation in TypeScript.
+
+7. Question Quality Checker
+
+The checker should evaluate:• syllabus alignment• relevance to BPSC• originality versus supplied PYQs• clarity• ambiguity• difficulty• answerability• expected answer depth• factual correctness• source grounding
+
+A low-quality question must never reach the student merely because generation succeeded.
+
+8. Evaluation Blueprint
+
+The Evaluation Blueprint is the most important optimization in the AI architecture.
+
+Instead of asking the evaluator to understand the question from scratch every time, generate the blueprint once and store it.
+
+The blueprint contains:• question demand• expected dimensions• essential points• optional enrichment points• likely factual traps• suitable examples• current-affairs opportunities• structure expectations• marking criteria• word limit• source references
+
+This should improve consistency and reduce repeated reasoning.
+
+9. Handwriting / OCR Pipeline
+
+INPUT:One or more handwritten page images.
+
+PIPELINE:Image validation→ preprocessing→ page ordering→ handwriting/vision extraction→ confidence estimation→ normalized text→ page-aware answer representation.
+
+The original images must always be preserved.
+
+The system should distinguish OCR uncertainty from student mistakes. If the model cannot confidently read a section, the evaluation should not confidently penalize the student for it.
+
+10. OCR Output Contract
+
+Conceptual structure:
+
+{  "pages": [    {      "page_number": 1,      "text": "...",      "confidence": 0.91,      "uncertain_regions": ["..."]    }  ],  "full_text": "...",  "overall_confidence": 0.88}
+
+Confidence values are system signals, not guaranteed probabilities.
+
+11. RAG Architecture
+
+Knowledge ingestion happens separately from answer evaluation.
+
+INGESTION:Documents→ parsing→ cleaning→ chunking→ metadata→ embeddings→ vector index.
+
+RUNTIME:Question + answer/topic→ query construction→ metadata filtering→ semantic retrieval→ optional reranking→ evidence package→ Examiner AI.
+
+12. RAG Chunking Strategy
+
+Avoid arbitrary large chunks.
+
+Prefer meaningful units such as:• NCERT chapter sections• textbook concepts• PYQ explanations• official reports• current-affairs articles/briefs
+
+Each chunk should retain source metadata and a stable source_chunk_id.
+
+13. RAG Metadata
+
+Recommended metadata:source_idsource_typeexamsubjecttopicsubtopicbookclasschapterpagelanguageauthority_levelpublication_dateeffective_datecontent_version
+
+Metadata filters should be applied before or alongside semantic retrieval wherever possible.
+
+14. NCERT-First Truth Strategy
+
+For foundational concepts, the system should first consult the approved NCERT corpus.
+
+However, “NCERT first” must not mean “NCERT only.” BPSC answers may require constitutional provisions, Bihar-specific facts, government programs, statistics, contemporary examples and current affairs.
+
+The evaluator should use additional authoritative sources when they materially improve the answer.
+
+15. Current Affairs Pipeline
+
+Current affairs should be ingested separately from static NCERT material.
+
+Pipeline:Approved source→ fetch/ingest→ date validation→ topic classification→ source credibility check→ summarization→ embedding→ current-affairs index.
+
+Current-affairs evidence should carry publication date and source metadata so stale information can be identified.
+
+16. Examiner AI Pipeline
+
+INPUT PACKAGE:• question• evaluation blueprint• student's normalized answer• OCR confidence information• relevant retrieved evidence• answer images when visual presentation matters• exam/subject metadata• rubric• model/prompt version.
+
+The Examiner should return structured scoring and feedback.
+
+17. Examiner Scoring Model
+
+Do not make the total score a mysterious single number.
+
+Use dimensions such as:1. Question demand2. Content/knowledge3. Analysis4. Structure5. Examples/current affairs6. Conclusion7. Language clarity8. Presentation where measurable
+
+Weights should be configurable by exam/question type.
+
+18. Evaluation Output Contract
+
+Conceptual JSON:
+
+{  "score": 0,  "max_score": 10,  "criteria": [    {"name":"content","score":0,"max":0,"reason":"..."}  ],  "strengths": ["..."],  "missing_points": ["..."],  "factual_corrections": ["..."],  "improvement_actions": ["..."],  "evidence": [    {"source_chunk_id":"...","used_for":"..."}  ],  "confidence": "medium"}
+
+The UI can convert this structured result into student-friendly feedback.
+
+19. Model Answer Strategy
+
+Do not automatically generate a long model answer for every attempt.
+
+Preferred flow:Evaluation → identify gaps → generate a targeted improved outline.
+
+Generate a full model answer only when:• the student requests it,• the plan includes it,• or the answer has substantial learning value.
+
+This can materially reduce unnecessary AI expenditure.
+
+20. Mentor AI
+
+The Mentor operates across multiple attempts.
+
+Inputs:• recent evaluations• historical scores• weakness signals• topic mastery• repeated mistakes• question difficulty• practice frequency• current study goals.
+
+Outputs:• weekly priorities• targeted questions• revision recommendations• recurring mistake alerts• personalized next-step guidance.
+
+21. Learning Profile
+
+Do not store only a score.
+
+Create structured signals such as:• topic_strength• content_gap• analysis_gap• structure_gap• conclusion_gap• factual_accuracy_signal• current_affairs_usage• recurring_error• confidence/trend• last_seen
+
+These signals become inputs to adaptive question selection.
+
+22. Adaptive Question Selection
+
+The next question should not be purely random.
+
+Selection can combine:• syllabus importance• student's weak topics• spaced practice• recent mistakes• desired difficulty• exam balance• question diversity• current-affairs relevance.
+
+A student repeatedly weak in “conclusion writing” should receive questions where conclusion quality can be specifically practiced.
+
+23. Prompt Architecture
+
+Prompts should be versioned and separated by task.
+
+Suggested prompt families:teacher-question-v1teacher-blueprint-v1quality-check-v1ocr-normalization-v1examiner-v1mentor-v1current-affairs-v1
+
+Never edit a production prompt without creating a new version and recording it with evaluations.
+
+24. Prompt Context Assembly
+
+Do not place every source in the prompt.
+
+The context builder should assemble:SYSTEM RULES+ TASK INSTRUCTIONS+ QUESTION+ BLUEPRINT+ STUDENT ANSWER+ SELECTED EVIDENCE+ OCR CONFIDENCE+ OUTPUT SCHEMA
+
+The context builder is a deterministic application component wherever possible.
+
+25. Anti-Hallucination Controls
+
+The Examiner should be instructed to distinguish:• directly supported facts• reasonable inference• uncertain information.
+
+For factual corrections, require evidence where practical.
+
+The system should never invent citations or claim that a source said something it did not say.
+
+26. Model Routing Strategy
+
+Use a tiered strategy rather than one premium model for everything.
+
+Tier A — cheap/fast model:classification, metadata extraction, simple normalization, routing.
+
+Tier B — capable model:question generation, normal evaluation and feedback.
+
+Tier C — premium reasoning/vision:difficult handwriting, ambiguous cases, complex evaluation or premium-plan features.
+
+Exact model names should be configurable, not hard-coded into business logic.
+
+27. AI Cost Accounting
+
+Every AI request should record:• user_id• feature• provider• model• prompt_version• input tokens• output tokens• image count/size when relevant• latency• estimated cost• actual cost if available• success/failure• retry count.
+
+This enables real cost-per-answer measurement.
+
+28. Cost Budget Example
+
+For planning purposes, define a maximum AI budget per evaluation rather than assuming every evaluation can use unlimited tokens.
+
+Example policy:• OCR budget• retrieval budget• examiner budget• optional model-answer budget• total evaluation budget
+
+The actual currency values should be configured only after measuring the chosen provider's current pricing.
+
+29. Evaluation Caching
+
+Cache stable computations.
+
+Good candidates:• embeddings• source retrieval results for identical queries• question blueprints• quality-check results for immutable questions• repeated current-affairs summaries.
+
+Do NOT blindly cache personalized evaluation outputs across students.
+
+30. Quality Benchmarking
+
+Create a gold-standard dataset.
+
+For each benchmark answer:• obtain expert score• record criterion-level feedback• run AI evaluation• compare scores• compare missing points• compare factual corrections• measure hallucinations• measure OCR-related errors.
+
+Use this dataset before changing prompts or models in production.
+
+31. Human-in-the-Loop
+
+The product should eventually allow an admin/expert to review selected evaluations.
+
+Trigger review when:• OCR confidence is low• AI confidence is low• model providers disagree• unusually high/low score• factual dispute detected• user appeals an evaluation.
+
+Human review results can later become valuable benchmark data.
+
+32. Evaluation Confidence
+
+Confidence should not be presented as fake mathematical certainty.
+
+Use interpretable labels such as:High — readable answer, strong evidence and clear rubric match.Medium — some uncertainty.Low — significant OCR ambiguity, missing evidence or difficult interpretation.
+
+Low-confidence evaluations should be eligible for reprocessing or review.
+
+33. Multi-Model Verification
+
+For selected high-value or disputed evaluations, two independent model evaluations can be compared.
+
+If scores or critical factual judgments diverge beyond configured thresholds, send the case to a stronger model or human review.
+
+Do not run multi-model verification on every free-tier answer unless economics support it.
+
+34. AI Safety & Data Handling
+
+Student answer images and personal data should be treated as private application data.
+
+The system should:• minimize unnecessary data sent to models• avoid exposing unrelated student information• enforce access control• define retention policies• avoid storing secrets in prompts• document provider data-handling settings.
+
+Provider-specific privacy terms should be reviewed before production launch.
+
+35. AI Pipeline State Machine
+
+Suggested evaluation states:
+
+UPLOADED→ VALIDATED→ OCR_PROCESSING→ OCR_COMPLETE→ RETRIEVAL_PROCESSING→ EVALUATION_PROCESSING→ EVALUATED→ MENTOR_UPDATED→ DELIVERED
+
+Failure states should support:RETRYABLE_FAILUREandMANUAL_REVIEW.
+
+36. Recommended Implementation Sequence
+
+Phase 1: AI Gateway + structured outputs.Phase 2: Question Blueprint.Phase 3: Question Quality Checker.Phase 4: Source ingestion and RAG.Phase 5: OCR/Vision pipeline.Phase 6: Examiner pipeline.Phase 7: Cost Controller.Phase 8: Benchmarking.Phase 9: Mentor/learning profile.Phase 10: Adaptive question selection.Phase 11: Multi-model verification for premium/high-risk cases.
+
+37. Key Principle for the Current Application
+
+Your current application can remain functional while this architecture is introduced gradually.
+
+The first practical refactor should be:Current Telegram webhook→ application service→ question service / attempt service→ queue→ AI Gateway→ specialized AI pipeline.
+
+Do not rewrite the whole application in one step. Claude Code should first inspect the current repository and map existing functions to these responsibilities.
+
+38. Definition of Done
+
+The AI architecture is ready when:• every model call goes through the AI Gateway;• questions have stored blueprints;• questions are quality-checked;• knowledge is retrieved rather than fully injected;• handwritten answers are processed asynchronously;• evaluation output is structured;• source evidence is traceable;• AI usage/cost is recorded;• mentor signals persist across attempts;• prompts are versioned;• benchmark tests exist;• model providers can be changed without rewriting core business logic.
+
+Appendix A — Practical AI Data Flow
+
+QUESTION:User selection → RAG/PYQ retrieval → Teacher → Blueprint → Quality Checker → Question.ANSWER:Images → OCR/Vision → normalized answer → Blueprint + targeted RAG evidence → Examiner → structured evaluation → learning signals → Mentor.This two-pipeline design is intentional: question generation prepares the evaluation contract before the student writes, while answer evaluation uses that contract to reduce repeated AI reasoning.
+
+Appendix B — Guidance for Claude Code
+
+Inspect the existing Node.js application before implementation. Preserve existing behavior. Introduce the AI Gateway first, then move existing Gemini calls behind it. Add typed request/response schemas and logging. Refactor question generation and answer evaluation into separate application services. Introduce queues for long-running image and evaluation work. Do not introduce a new AI framework merely for abstraction; simple TypeScript interfaces are sufficient initially.

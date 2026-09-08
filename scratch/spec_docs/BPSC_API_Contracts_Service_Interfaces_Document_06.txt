@@ -1,0 +1,219 @@
+BPSC AI Answer Evaluation & Personal Mentor
+
+Document 06 — API Contracts & Service Interfaces
+
+Version 1.0 | Node.js + TypeScript | Telegram-first, Web/Android-ready
+
+1. Purpose
+
+Define the public API and internal service boundaries so the Telegram bot remains an adapter, AI providers remain replaceable, and Web/Android can reuse the same backend.
+
+2. API Principles
+
+Use REST initially. Use typed internal service interfaces. Validate every external request and AI response. Use stable internal IDs. Long-running OCR/evaluation operations must be asynchronous.
+
+3. Client Architecture
+
+Telegram is the first client; Web and Android are future clients. All clients should use the same application services. Telegram buttons/commands belong in a Telegram adapter, not domain logic.
+
+4. High-Level Flow
+
+Client → API Gateway → Authentication → Application Service → Database or Queue → Worker → AI Gateway/RAG → Database → Domain Event → Notification.
+
+5. API Groups
+
+/auth, /users, /exams, /subjects, /topics, /questions, /attempts, /evaluations, /progress, /mentor, /sources, /subscriptions, /payments, /admin, /webhooks.
+
+6. Authentication
+
+Use a provider-neutral internal user_id. Map Telegram identity to that ID. Future Web/Android identities map to the same user. Never use a Telegram ID as the primary business identifier.
+
+7. Response Envelope
+
+Success: { data, request_id, meta }. Error: { error: { code, message, details }, request_id }. Never expose stack traces, SQL errors, provider secrets or internal prompts.
+
+8. Correlation IDs
+
+Assign request_id/correlation_id at the edge and pass it through queues, AI calls and logs. One evaluation should be traceable from upload to final notification.
+
+9. Question Generation
+
+POST /api/v1/questions/generate accepts exam_id, subject_id, optional topic_id, question_type, difficulty, optional word_limit and language. It should return a job or question status rather than block on lengthy generation.
+
+10. Question Response
+
+Return question_id, status, question_text, exam, subject, topic, question_type, difficulty, word_limit and blueprint_status. Do not expose hidden prompts or chain-of-thought.
+
+11. Attempt Creation
+
+POST /api/v1/attempts creates an attempt for a question and returns attempt_id, status and upload information. The attempt remains OPEN until submitted.
+
+12. Page Upload
+
+POST /api/v1/attempts/{attemptId}/pages validates ownership, MIME type and file size, stores the image privately and records only the storage reference and metadata in PostgreSQL.
+
+13. Submit Attempt
+
+POST /api/v1/attempts/{attemptId}/submit changes the attempt to SUBMITTED and enqueues processing. Return HTTP 202 with processing status.
+
+14. Evaluation Status
+
+GET /api/v1/attempts/{attemptId} returns attempt state and evaluation availability. GET /api/v1/evaluations/{evaluationId} returns the completed structured evaluation.
+
+15. Evaluation Response
+
+Return score, max_score, confidence, criterion scores, strengths, missing points, factual corrections, improvement actions and evidence references. Keep internal diagnostics separate.
+
+16. Progress
+
+GET /api/v1/progress returns aggregate scores, topic trends, criterion trends and recurring weaknesses. Aggregates should come from durable evaluation data.
+
+17. Mentor
+
+GET /api/v1/mentor/summary returns current priorities. POST /api/v1/mentor/recommendations can request targeted recommendations. Heavy mentor generation should be asynchronous.
+
+18. Next Question
+
+POST /api/v1/practice/next-question selects a question using learning signals, syllabus balance, difficulty, recent mistakes and diversity.
+
+19. Telegram Webhook
+
+POST /api/v1/webhooks/telegram validates and deduplicates Telegram updates, translates them into internal commands, and calls application services. It must contain no scoring/RAG business logic.
+
+20. Telegram Commands
+
+Examples: /start, /practice, /subject, /progress, /mentor, /help. Buttons map to internal commands such as SELECT_SUBJECT and REQUEST_NEXT_QUESTION.
+
+21. Queue Contracts
+
+QUESTION_GENERATE, QUESTION_QUALITY_CHECK, OCR_PROCESS, EVALUATE_ATTEMPT, UPDATE_MENTOR, SEND_NOTIFICATION, INGEST_SOURCE, GENERATE_EMBEDDING and CURRENT_AFFAIRS_INGEST.
+
+22. Job Payload
+
+Keep queue messages small and ID-based: { job_id, entity_type, entity_id, correlation_id, requested_at, attempt_number }. Never put entire images or knowledge documents into queue payloads.
+
+23. AI Gateway
+
+Expose provider-neutral functions such as generateText(), generateStructured(), analyzeImage(), embed() and estimateCost(). Return provider, model, usage, latency, status and request ID.
+
+24. Evaluation Contract
+
+Send question, evaluation blueprint, normalized answer, OCR confidence, retrieved evidence, rubric and configuration to the AI Gateway. Validate the returned JSON before persistence.
+
+25. RAG Contract
+
+retrieve(request) accepts exam/subject/topic/query signals and limits. It returns source_chunk_id, source_id, excerpt, authority, date and relevance data. It must never fabricate evidence.
+
+26. Storage Contract
+
+Provide upload(), getPrivateUrl(), metadata(), and retention/delete operations. Keep S3/R2 provider-specific code behind the storage interface.
+
+27. Notification Contract
+
+notify(user_id, event_type, payload) supports Telegram now and other channels later. Evaluation completion should emit an event rather than directly coupling the evaluator to Telegram.
+
+28. Payment Contract
+
+createCheckout(), verifyPayment(), handleWebhook(), getSubscription() and cancelSubscription(). Plan entitlements belong to the application layer, not Telegram.
+
+29. Idempotency
+
+Submission, payment and AI-triggering operations should be idempotent. Repeating the same submit request must not create duplicate evaluation jobs.
+
+30. HTTP Status Codes
+
+200 success, 201 created, 202 accepted/async, 400 invalid input, 401 unauthenticated, 403 unauthorized, 404 not found, 409 conflict, 429 rate limited, 500/503 server/provider failure.
+
+31. Validation
+
+Use runtime schema validation for API inputs and AI outputs. TypeScript types alone cannot validate external JSON. Validate enums, IDs, score ranges, file size and required fields.
+
+32. Rate Limits
+
+Apply separate limits to normal API calls, image uploads, question generation and AI-heavy operations. Premium quotas may differ, but system-wide cost/safety limits remain.
+
+33. Authorization
+
+Every resource access must verify ownership or admin permission. A user changing an attempt ID must never expose another user's answer or evaluation.
+
+34. API Versioning
+
+Start with /api/v1. Make compatible additions where possible. Breaking changes require a new version.
+
+35. Internal Services
+
+QuestionService: create/generate/validate/approve/get. AttemptService: create/addPage/submit/getStatus. EvaluationService: enqueue/get/reprocess. MentorService: updateProfile/getSummary/generateRecommendations.
+
+36. Domain Events
+
+user.created, question.generated, question.approved, attempt.created, answer.page_uploaded, attempt.submitted, ocr.completed, evaluation.completed, learning_signal.created, mentor.updated, subscription.updated and payment.confirmed.
+
+37. Event Consumer Rule
+
+Events contain IDs and essential metadata, not large documents. Consumers must be idempotent and retryable.
+
+38. Security
+
+Use HTTPS, authentication, authorization, file validation, request limits, rate limiting, secret management and audit logs. Never expose provider keys, internal prompts or storage credentials.
+
+39. Error Taxonomy
+
+Use stable codes such as INVALID_INPUT, UNAUTHORIZED, FORBIDDEN, NOT_FOUND, DUPLICATE_REQUEST, FILE_TOO_LARGE, PROCESSING_FAILED, OCR_LOW_CONFIDENCE, EVALUATION_UNAVAILABLE, AI_PROVIDER_UNAVAILABLE and RATE_LIMITED.
+
+40. Processing UX
+
+Expose states: Upload received → Reading handwriting → Checking answer → Preparing feedback → Evaluation ready. Polling is sufficient for the MVP; push updates can be added later.
+
+41. Conversation State
+
+Persist important Telegram conversation state in the database or cache, not only process memory. A restart must not destroy the student's learning state.
+
+42. Observability
+
+Log request_id, user_id where appropriate, operation, duration, status and error code. AI calls additionally record provider/model, prompt version, token usage and cost.
+
+43. Testing
+
+Unit-test services and validators; integration-test repositories/queues; contract-test APIs; end-to-end test Telegram → question → upload → evaluation → notification. Keep a separate AI benchmark suite.
+
+44. Claude Code Refactoring
+
+Inspect the existing Node.js repository first. Map Telegram handlers, Gemini calls, source loading, question generation and evaluation. Refactor boundaries incrementally and preserve working behavior.
+
+45. First Migration Target
+
+Current Telegram webhook → Telegram Adapter → Application Service → Queue/AI Gateway/RAG → Database → Notification Adapter. Do not rewrite the whole application at once.
+
+46. Definition of Done
+
+Telegram is only an adapter; AI calls are centralized; long jobs are asynchronous; inputs/outputs are validated; ownership checks exist; jobs are idempotent; contracts are versioned; and Web/Android can later reuse the same backend.
+
+Appendix A — Core API Contract Summary
+
+POST /api/v1/questions/generatePOST /api/v1/attemptsPOST /api/v1/attempts/{attemptId}/pagesPOST /api/v1/attempts/{attemptId}/submitGET  /api/v1/attempts/{attemptId}GET  /api/v1/evaluations/{evaluationId}GET  /api/v1/progressGET  /api/v1/mentor/summaryPOST /api/v1/practice/next-questionPOST /api/v1/webhooks/telegramPOST /api/v1/webhooks/payment
+
+Appendix B — Golden Request Flow
+
+TELEGRAM → WEBHOOK → TELEGRAM ADAPTER → APPLICATION SERVICE → DATABASE / QUEUE → WORKER → AI GATEWAY → RAG → EXAMINER → DATABASE → DOMAIN EVENT → NOTIFICATION → TELEGRAM.
+
+Appendix C — Claude Code Acceptance Checklist
+
+☐ Existing code mapped before refactoring.
+
+☐ Telegram contains no evaluation business logic.
+
+☐ All provider calls go through AI Gateway.
+
+☐ AI outputs use runtime schema validation.
+
+☐ Attempt submission is idempotent.
+
+☐ OCR/evaluation run asynchronously.
+
+☐ Every evaluation has a correlation ID.
+
+☐ Every resource checks ownership.
+
+☐ API errors use stable codes.
+
+☐ Web/Android can reuse application services.

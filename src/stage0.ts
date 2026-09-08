@@ -6,7 +6,7 @@
 // against the same key.
 
 import { config } from "./config";
-import { callGemini, extractJson } from "./gemini";
+import { aiGateway } from "./ai/gateway";
 import { supabase } from "./supabase";
 import { ANSWER_TEMPLATES, SlotType, SUPPORTED_SLOT_TYPES, maxMarksFor } from "./content/answerTemplates";
 import { Citation, asCitation } from "./citation";
@@ -291,15 +291,16 @@ export async function generateQuestion(choice?: QuestionChoice): Promise<Generat
   let subTopic = "";
 
   for (let attempt = 1; attempt <= 3; attempt++) {
-    const res = await callGemini({
+    const res = await aiGateway.callStructured<{ question: string; question_hi: string; sub_topic: string }>({
+      feature: "stage0",
       model: GENERATION_MODEL,
       system:
         "You are a BPSC Mains paper-setter. You write original exam questions in the commission's house style. You never reuse a past question.",
-      parts: [{ text: questionPrompt(slot, template, grounded) }],
+      userPrompt: questionPrompt(slot, template, grounded),
       maxOutputTokens: 1024,
       search: grounded,
     });
-    const parsed = extractJson<{ question: string; question_hi: string; sub_topic: string }>(res.text);
+    const parsed = res.data;
     if (!parsed?.question) continue;
 
     const closest = closestHistorical(parsed.question, slot.topic);
@@ -340,18 +341,20 @@ export async function generateQuestion(choice?: QuestionChoice): Promise<Generat
   // 3. Build the answer key, NCERT first, own knowledge second, live search
   //    third when this topic's answers actually go stale without it.
   const ncertEntries = ncertFor(slot.topic);
-  const keyRes = await callGemini({
+  const keyRes = await aiGateway.callStructured<{
+    model_answer: string;
+    expected_points: Array<Omit<ExpectedPoint, "source"> & { source: unknown }>;
+  }>({
+    feature: "stage0",
     model: GENERATION_MODEL,
     system:
       "You are a BPSC subject expert building a marking key. You prefer NCERT-sourced facts over your own knowledge whenever both cover the same ground, and every point you produce carries a real, checkable citation - never a bare label.",
-    parts: [{ text: expectedPointsPrompt(questionText, slot, template, ncertEntries, grounded) }],
+    userPrompt: expectedPointsPrompt(questionText, slot, template, ncertEntries, grounded),
     maxOutputTokens: 4096,
     search: grounded,
   });
 
-  const key = extractJson<{ model_answer: string; expected_points: Array<Omit<ExpectedPoint, "source"> & { source: unknown }> }>(
-    keyRes.text,
-  );
+  const key = keyRes.data;
   if (!key?.expected_points?.length) {
     throw new Error(`Stage 0: no expected_points generated for question ${questionId}`);
   }

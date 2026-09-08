@@ -1,7 +1,19 @@
 import { Bot, InlineKeyboard, InputFile } from "grammy";
 import { buildReportCard } from "./reportCard";
 import { config } from "./config";
-import { getOrCreateUser, setUserLanguage, saveSubmission, updateSubmissionTranscript } from "./supabase";
+import {
+  getOrCreateUser,
+  setUserLanguage,
+  saveSubmission,
+  updateSubmissionTranscript,
+  updateSubmissionStoragePath,
+  setUserActiveQuestion,
+  getUserActiveQuestion,
+  setUserEditState,
+  getUserEditState,
+} from "./supabase";
+import { storageService } from "./storage/supabaseStorage";
+import { queueManager } from "./queue/queueManager";
 import { transcribeImage } from "./stageA";
 import { generateQuestion, AVAILABLE_TOPICS } from "./stage0";
 import { SlotType } from "./content/answerTemplates";
@@ -28,21 +40,7 @@ interface PendingReplacement extends EditState {
   newWordCount: number;
 }
 
-// Telegram user id -> state, only while we're waiting for them to type a
-// corrected transcript after tapping "Edit". In-memory by design: small,
-// ephemeral, single-process state. If the process restarts mid-edit, the
-// student's next message just won't match anything and is ignored - they
-// re-send the photo. Acceptable at this stage; revisit if it becomes a
-// real problem once traffic is real.
-const awaitingEdit = new Map<number, EditState>();
-
-// Telegram user id -> a proposed replacement that looked like it might be a
-// short note rather than a full rewrite, waiting on an explicit yes/no
-// before it overwrites the saved transcript. See the word-count guard in
-// the message:text handler below for why this exists.
-const pendingReplacement = new Map<number, PendingReplacement>();
-
-// A "corrected answer" that comes back much shorter than what was already
+// SHRINK GUARD: A "corrected answer" that comes back much shorter than what was already
 // saved is more likely a short note ("add X under heading Y") than an
 // intentional full rewrite - a costly mistake to apply silently, since it
 // destroys the rest of the transcript. Only guards non-trivial answers;
@@ -50,19 +48,8 @@ const pendingReplacement = new Map<number, PendingReplacement>();
 const SHRINK_GUARD_MIN_ORIGINAL_WORDS = 15;
 const SHRINK_GUARD_RATIO = 0.5;
 
-// Which question each student is currently answering. In memory, like the
-// edit state above: there is no column on `users` for it, and adding one
-// needs a migration. On restart this falls back to the newest active
-// question, which is correct while only one question is live at a time.
-const currentQuestion = new Map<number, string>();
-
 async function questionForUser(telegramId: number): Promise<string | null> {
-  // No fallback to "the newest active question" here on purpose: once
-  // different students can each have their own freshly-generated question
-  // (see /question below), guessing "the newest one" would sometimes hand a
-  // student someone else's question after a restart. Returning null makes
-  // gradeAndReply correctly ask them to run /question again instead.
-  return currentQuestion.get(telegramId) ?? null;
+  return getUserActiveQuestion(telegramId);
 }
 
 // Short codes for callback_data - keeps payloads well under Telegram's 64-byte
@@ -94,7 +81,7 @@ async function sendGeneratedQuestion(ctx: any, telegramId: number, lang: Lang, t
   await ctx.reply(t(lang, "generatingQuestion"));
   try {
     const generated = await generateQuestion({ topic, slotType });
-    currentQuestion.set(telegramId, generated.questionId);
+    await setUserActiveQuestion(telegramId, generated.questionId);
     await ctx.reply(
       `<b>${escapeHtml(t(lang, "questionHeader"))}</b> (${generated.marks} marks, ~${generated.wordLimit} words)\n\n` +
         `${escapeHtml(generated.questionText)}\n\n` +
@@ -224,6 +211,11 @@ bot.on("message:photo", async (ctx) => {
     word_count: result.wordCount,
   });
 
+  // Persist original image buffer to Supabase Storage asynchronously
+  storageService.uploadAnswerSheet(user.id, submissionId, buffer, "image/jpeg")
+    .then((storagePath) => updateSubmissionStoragePath(submissionId, storagePath))
+    .catch((err) => console.warn("Background storage upload notice:", err));
+
   if (result.confidence !== null && result.confidence < config.confidenceThreshold) {
     await ctx.reply(t(lang, "lowConfidence"));
     return;
@@ -261,68 +253,72 @@ async function gradeAndReply(ctx: any, submissionId: string, lang: Lang): Promis
   }
 
   await ctx.reply(t(lang, "grading"));
-  try {
-    const result = await evaluateSubmission(submissionId, LANGUAGE_LABEL[lang]);
 
-    const lines: string[] = [
-      `<b>${escapeHtml(t(lang, "scoreLabel"))}: ${result.totalMarks} / ${result.maxMarks}</b>`,
-      "",
-      escapeHtml(result.feedback),
-    ];
+  await queueManager.enqueueEvaluation(
+    {
+      submissionId,
+      telegramId: ctx.from.id,
+      languageLabel: LANGUAGE_LABEL[lang],
+      lang,
+    },
+    async (payload) => {
+      try {
+        const result = await evaluateSubmission(payload.submissionId, payload.languageLabel);
 
-    if (result.pointsFound.length) {
-      lines.push("", `<b>${escapeHtml(t(lang, "foundLabel"))}</b>`);
-      for (const p of result.pointsFound) lines.push(`✅ ${escapeHtml(p.point)}`);
-    }
-    if (result.pointsMissed.length) {
-      lines.push("", `<b>${escapeHtml(t(lang, "missedLabel"))}</b>`);
-      for (const p of result.pointsMissed) {
-        lines.push(`❌ ${escapeHtml(p.point)} — ${escapeHtml(p.why_it_matters)}`);
+        const lines: string[] = [
+          `<b>${escapeHtml(t(payload.lang, "scoreLabel"))}: ${result.totalMarks} / ${result.maxMarks}</b>`,
+          "",
+          escapeHtml(result.feedback),
+        ];
+
+        if (result.pointsFound.length) {
+          lines.push("", `<b>${escapeHtml(t(payload.lang, "foundLabel"))}</b>`);
+          for (const p of result.pointsFound) lines.push(`✅ ${escapeHtml(p.point)}`);
+        }
+        if (result.pointsMissed.length) {
+          lines.push("", `<b>${escapeHtml(t(payload.lang, "missedLabel"))}</b>`);
+          for (const p of result.pointsMissed) {
+            lines.push(`❌ ${escapeHtml(p.point)} — ${escapeHtml(p.why_it_matters)}`);
+          }
+        }
+        if (result.todo.length) {
+          lines.push("", `<b>${escapeHtml(t(payload.lang, "todoLabel"))}</b>`);
+          for (const item of result.todo) lines.push(`• ${escapeHtml(item)}`);
+        }
+
+        await ctx.reply(lines.join("\n"), { parse_mode: "HTML" });
+
+        try {
+          const pdf = await buildReportCard({
+            lang: payload.lang,
+            question: result.question,
+            result: {
+              totalMarks: result.totalMarks,
+              maxMarks: result.maxMarks,
+              band: result.band,
+              feedback: result.feedback,
+              dimensionNotes: result.dimensionNotes,
+              pointsFound: result.pointsFound,
+              pointsMissed: result.pointsMissed,
+              todo: result.todo,
+            },
+            dimensionBands: result.dimensions,
+            rubricVersion: result.rubricVersion,
+            modelName: result.modelName,
+            promptVersion: result.promptVersion,
+            generatedAt: new Date(),
+            trend: result.trend.map((p) => ({ ...p, maxMarks: p.maxMarks || result.maxMarks })),
+          });
+          await ctx.replyWithDocument(new InputFile(pdf, "report-card.pdf"));
+        } catch (err) {
+          console.error("PDF report card failed:", err);
+        }
+      } catch (err) {
+        console.error("Stage B failed:", err);
+        await ctx.reply(t(payload.lang, "gradeFailed"));
       }
-    }
-    if (result.todo.length) {
-      lines.push("", `<b>${escapeHtml(t(lang, "todoLabel"))}</b>`);
-      for (const item of result.todo) lines.push(`• ${escapeHtml(item)}`);
-    }
-
-    await ctx.reply(lines.join("\n"), { parse_mode: "HTML" });
-
-    // The text summary above lets the student see their score immediately;
-    // the PDF is the fuller, citation-backed record. Generated synchronously
-    // - PDFKit builds this from data in tens of milliseconds, noise next to
-    // the Gemini call that already ran, so there's no real latency tradeoff
-    // to make here.
-    try {
-      const pdf = await buildReportCard({
-        lang,
-        question: result.question,
-        result: {
-          totalMarks: result.totalMarks,
-          maxMarks: result.maxMarks,
-          band: result.band,
-          feedback: result.feedback,
-          dimensionNotes: result.dimensionNotes,
-          pointsFound: result.pointsFound,
-          pointsMissed: result.pointsMissed,
-          todo: result.todo,
-        },
-        dimensionBands: result.dimensions,
-        rubricVersion: result.rubricVersion,
-        modelName: result.modelName,
-        promptVersion: result.promptVersion,
-        generatedAt: new Date(),
-        trend: result.trend.map((p) => ({ ...p, maxMarks: p.maxMarks || result.maxMarks })),
-      });
-      await ctx.replyWithDocument(new InputFile(pdf, "report-card.pdf"));
-    } catch (err) {
-      console.error("PDF report card failed:", err);
-      // The student already has their score from the text summary above -
-      // a missing PDF is a degraded experience, not a failed evaluation.
-    }
-  } catch (err) {
-    console.error("Stage B failed:", err);
-    await ctx.reply(t(lang, "gradeFailed"));
-  }
+    },
+  );
 }
 
 function wordCount(s: string): number {
@@ -355,7 +351,8 @@ bot.callbackQuery(/^edit:(.+)$/, async (ctx) => {
   const separatorIndex = currentText.indexOf("\n\n");
   const originalTranscript = separatorIndex === -1 ? currentText : currentText.slice(separatorIndex + 2);
 
-  awaitingEdit.set(telegramId, {
+  await setUserEditState(telegramId, {
+    status: "awaiting_edit",
     submissionId,
     originalTranscript,
     originalWordCount: wordCount(originalTranscript),
@@ -367,14 +364,14 @@ bot.callbackQuery(/^edit:(.+)$/, async (ctx) => {
 
 bot.callbackQuery("edit-confirm", async (ctx) => {
   const telegramId = ctx.from.id;
-  const pending = pendingReplacement.get(telegramId);
+  const pending = await getUserEditState<any>(telegramId);
   const user = await getOrCreateUser(telegramId, ctx.from.first_name);
   const lang = user.language ?? "en";
   await ctx.answerCallbackQuery();
-  if (!pending) return;
+  if (!pending || pending.status !== "pending_replacement") return;
 
   await updateSubmissionTranscript(pending.submissionId, pending.newTranscript, pending.newWordCount);
-  pendingReplacement.delete(telegramId);
+  await setUserEditState(telegramId, null);
   await ctx.editMessageReplyMarkup();
   await ctx.reply(t(lang, "editSaved"));
 
@@ -384,20 +381,20 @@ bot.callbackQuery("edit-confirm", async (ctx) => {
 
 bot.callbackQuery("edit-cancel", async (ctx) => {
   const telegramId = ctx.from.id;
-  const pending = pendingReplacement.get(telegramId);
+  const pending = await getUserEditState<any>(telegramId);
   const user = await getOrCreateUser(telegramId, ctx.from.first_name);
   const lang = user.language ?? "en";
   await ctx.answerCallbackQuery();
   if (!pending) return;
 
-  // Put them back into "awaiting edit" so they can try again without
+  // Put them back into "awaiting_edit" so they can try again without
   // re-tapping the original Edit button.
-  awaitingEdit.set(telegramId, {
+  await setUserEditState(telegramId, {
+    status: "awaiting_edit",
     submissionId: pending.submissionId,
     originalTranscript: pending.originalTranscript,
     originalWordCount: pending.originalWordCount,
   });
-  pendingReplacement.delete(telegramId);
   await ctx.editMessageReplyMarkup();
   await ctx.reply(t(lang, "editCancelled"));
 });
@@ -407,8 +404,8 @@ bot.on("message:text", async (ctx) => {
   const user = await getOrCreateUser(telegramId, ctx.from.first_name);
   const lang = user.language ?? "en";
 
-  const state = awaitingEdit.get(telegramId);
-  if (!state) {
+  const state = await getUserEditState<any>(telegramId);
+  if (!state || state.status !== "awaiting_edit") {
     // Never leave the student without any response - even an unrecognized
     // message gets a nudge back toward the one thing this bot does.
     await ctx.reply(t(lang, "unrecognized"));
@@ -423,8 +420,12 @@ bot.on("message:text", async (ctx) => {
     newWordCount < state.originalWordCount * SHRINK_GUARD_RATIO;
 
   if (looksLikeANoteNotAReplacement) {
-    awaitingEdit.delete(telegramId);
-    pendingReplacement.set(telegramId, { ...state, newTranscript: correctedText, newWordCount });
+    await setUserEditState(telegramId, {
+      ...state,
+      status: "pending_replacement",
+      newTranscript: correctedText,
+      newWordCount,
+    });
     const keyboard = new InlineKeyboard()
       .text(t(lang, "btnEditConfirm"), "edit-confirm")
       .text(t(lang, "btnEditCancel"), "edit-cancel");
@@ -436,7 +437,7 @@ bot.on("message:text", async (ctx) => {
   }
 
   await updateSubmissionTranscript(state.submissionId, correctedText, newWordCount);
-  awaitingEdit.delete(telegramId);
+  await setUserEditState(telegramId, null);
   await ctx.reply(t(lang, "editSaved"));
 
   // A saved edit is a confirmed transcript - grade it.

@@ -1,0 +1,189 @@
+BPSC AI Answer Evaluation & Personal Mentor
+
+Document 04 — RAG & Knowledge Base Specification
+
+Version 1.0 | NCERT, PYQ, Static Knowledge & Current Affairs
+
+1. Purpose
+
+Define how the platform should collect, classify, store, retrieve and cite knowledge used by question generation, answer evaluation and the AI mentor. The goal is grounded answers without sending the entire knowledge repository to the model.
+
+2. Knowledge Strategy
+
+The knowledge system should be treated as a controlled evidence layer. AI should retrieve evidence from approved sources and use general model knowledge only as a secondary aid. Every important retrieved item should have provenance metadata.
+
+3. Knowledge Tiers
+
+Tier 0 — BPSC/official exam material and verified previous-year questions.
+
+Tier 1 — Approved NCERT/foundation material.
+
+Tier 2 — Official government, constitutional, statistical and authoritative sources.
+
+Tier 3 — Carefully selected current-affairs sources.
+
+Tier 4 — General web information, used only when appropriate and never treated as automatically authoritative.
+
+4. Initial Corpus
+
+The initial corpus should include the project's approved NCERT material, approximately 20 years of BPSC PYQ context, approved static reference material, Bihar-specific information and a controlled current-affairs collection. The exact corpus must be tracked in an admin-managed source registry.
+
+5. Source Registry
+
+Create a Sources table containing source_id, title, source_type, publisher, authority_level, language, exam relevance, subject, publication date, ingestion date, version, status, checksum and licensing/usage notes. A source should be ACTIVE, DISABLED, OUTDATED or PENDING_REVIEW.
+
+6. Document Ingestion Pipeline
+
+Source → file/text acquisition → parsing → cleaning → language detection → metadata extraction → duplicate detection → semantic chunking → embedding → vector storage → indexing → validation → ACTIVE.
+
+7. Chunking Principles
+
+Chunk by meaning rather than arbitrary character counts. Prefer NCERT chapter sections, headings, paragraphs and concepts; PYQ question/answer units; government report sections; and dated current-affairs items. Keep chunks small enough for precise retrieval but large enough to preserve context.
+
+8. Recommended Chunk Metadata
+
+source_id, chunk_id, source_type, exam, subject, topic, subtopic, class, book, chapter, page, language, authority_level, publication_date, effective_date, content_version and keywords.
+
+9. Embeddings
+
+Generate embeddings for each approved chunk and store them with stable chunk IDs. Embeddings should be reproducible from a recorded embedding model/version. If the embedding model changes materially, support a new embedding version rather than silently replacing the old index.
+
+10. PostgreSQL + pgvector
+
+Use PostgreSQL as the initial source of truth and pgvector for semantic search. Keeping metadata and vectors together simplifies filtering, provenance and transactional updates. A dedicated vector database can be introduced later only if scale or retrieval requirements justify it.
+
+11. Retrieval Runtime
+
+Question/answer → identify exam/subject/topic → apply metadata filters → semantic search → optional reranking → authority/diversity rules → evidence package → AI prompt.
+
+12. Retrieval Query Construction
+
+Do not use only the raw student answer as the retrieval query. Construct a compact query from the question, syllabus topic, expected dimensions, detected answer topics and specific factual gaps. This reduces irrelevant retrieval.
+
+13. Retrieval Top-K
+
+Start with a configurable candidate pool rather than a fixed universal number. For example, retrieve 10–20 candidates, filter/rerank them, then send only the best evidence items to the evaluator. Tune this against a benchmark dataset.
+
+14. Reranking
+
+When semantic similarity returns several plausible chunks, reranking should consider question relevance, topic match, authority level, freshness and diversity. Avoid sending five nearly identical chunks when one authoritative chunk is sufficient.
+
+15. Authority Rules
+
+If an official source directly addresses a fact, it should outrank a general web source. For foundational concepts, approved NCERT content should be highly weighted. Current-affairs evidence should be date-aware.
+
+16. Evidence Package
+
+The RAG layer should return a compact structured package such as: chunk_id, source_id, title, excerpt, authority_level, publication_date, relevance_score and reason_selected. The evaluator should receive this package, not raw database records.
+
+17. Provenance
+
+Every factual correction or important enrichment should be traceable to source/chunk IDs. The student-facing UI can display a simplified source label while the internal system retains full provenance.
+
+18. PYQ Knowledge Model
+
+Do not store PYQs merely as documents. Store structured fields: exam, year, paper, subject, topic, wording, marks, word limit if known, question type, source reference and related concepts. This enables question-lineage and similarity analysis.
+
+19. PYQ Similarity & Novelty
+
+Before a generated question is approved, compare it against historical PYQs and recent generated questions. Flag questions that are too similar. The objective is to preserve the conceptual pattern while avoiding accidental copying.
+
+20. Question Lineage
+
+Each generated question should reference the PYQs and source chunks that influenced it. Example: generated_question_id → related_pyq_ids → source_chunk_ids → prompt_version → model_version.
+
+21. NCERT Mapping
+
+Map NCERT chunks to subject, class, book, chapter, topic and concept. Where possible, create concept aliases so that a BPSC topic such as ‘fundamental rights’ can retrieve relevant sections even when the student's wording differs.
+
+22. Bihar-Specific Knowledge
+
+Create a separate metadata dimension for Bihar relevance. Bihar history, geography, economy, schemes, culture and governance material should be retrievable without polluting unrelated national-topic retrieval.
+
+23. Current Affairs Architecture
+
+Current affairs should be a separate collection with publication date, event date, topic, geography, source authority and validity status. Retrieval should favor recent evidence when the question explicitly asks for contemporary examples.
+
+24. Current Affairs Freshness
+
+Define freshness policies by topic. A recent government scheme may remain useful longer than a political statistic or economic figure. Outdated items should not be deleted automatically; mark them OUTDATED and prevent normal retrieval when appropriate.
+
+25. Web Search Boundary
+
+Web information should not become an uncontrolled second knowledge base. If live web search is used, treat retrieved web evidence as a separate runtime source with URL, title, publisher and retrieval timestamp. The system should distinguish live evidence from curated corpus evidence.
+
+26. Hallucination Controls
+
+If retrieval finds no adequate evidence, the evaluator should be allowed to say that evidence is insufficient. Do not force the model to invent a source. The application should distinguish ‘not found in approved corpus’ from ‘factually false.’
+
+27. Retrieval for Question Generation
+
+Teacher AI should receive a balanced evidence set: relevant PYQs, syllabus/topic context and foundational sources. It should not receive an enormous corpus. The generation prompt should explicitly prohibit reproducing PYQ wording unless the product intentionally requests it.
+
+28. Retrieval for Evaluation
+
+The evaluator should prioritize the question blueprint and the student's answer. RAG should mainly support factual verification, expected concepts, missing dimensions and enrichment. Retrieval should not override a well-defined marking rubric.
+
+29. Retrieval for Mentor
+
+The mentor should retrieve knowledge only when recommending what the student should study. Historical student data remains the primary input; the knowledge base provides the study material and relevant concepts.
+
+30. Duplicate Detection
+
+At ingestion, calculate document checksums and normalized-text fingerprints. At chunk level, detect near duplicates. Do not embed thousands of duplicated copies of the same source.
+
+31. Versioning
+
+Never silently overwrite a source. Maintain source version, ingestion date and content checksum. A new edition or corrected document should create a new version and optionally deactivate the old version.
+
+32. Deletion & Disablement
+
+Deleting a source should be a controlled admin action. Prefer soft disablement so previous evaluations retain provenance. Historical evaluation records must continue to resolve their source references.
+
+33. Data Model
+
+Core tables: sources, source_versions, source_chunks, embeddings, pyqs, pyq_topics, topic_aliases, current_affairs_items, retrieval_logs and ingestion_jobs. Link tables should support many-to-many relationships between sources, topics, PYQs and questions.
+
+34. Retrieval Logging
+
+Log query text or a privacy-safe representation, filters, candidate count, selected chunk IDs, scores, model/version and latency. This enables debugging when the evaluator retrieves irrelevant evidence.
+
+35. RAG Evaluation Metrics
+
+Measure retrieval recall, precision/utility, source authority, citation correctness, missing-evidence rate, irrelevant-context rate, evaluation score agreement and latency. Retrieval quality should be benchmarked separately from LLM quality.
+
+36. Gold Retrieval Dataset
+
+Create test cases containing a question, expected concepts and the source chunks that should be retrieved. Run these whenever chunking, embeddings, metadata or retrieval algorithms change.
+
+37. Security & Licensing
+
+Only ingest material that the project is permitted to use. Keep private or restricted sources behind appropriate access controls. Do not assume that publicly viewable material is automatically licensed for commercial redistribution.
+
+38. Cost Optimization
+
+Embeddings should be generated once per source version, not per student attempt. Cache stable retrieval queries where safe. Keep the final context compact. Use metadata filtering before expensive reranking when possible.
+
+39. Recommended Initial RAG Stack
+
+Node.js/TypeScript application services + PostgreSQL + pgvector + object storage for original source files + background queue for ingestion/embedding. This is intentionally simple for the MVP.
+
+40. Migration From Current Application
+
+If the current app is passing the full NCERT corpus to the model, first preserve the existing behavior as a fallback. Then build the source registry and ingestion pipeline, index a limited high-value corpus, compare old vs RAG evaluations, and gradually switch traffic to RAG.
+
+41. Claude Code Implementation Plan
+
+1) Inspect current source-loading code. 2) Identify all current knowledge files. 3) Create source registry schema. 4) Build ingestion worker. 5) Implement chunking and metadata. 6) Add pgvector. 7) Build retrieval service. 8) Add provenance. 9) Integrate retrieval into question generation. 10) Integrate retrieval into evaluation. 11) Add retrieval logging and benchmarks.
+
+42. Definition of Done
+
+RAG is production-ready when the system can identify approved sources, ingest/version them, retrieve targeted evidence using metadata plus semantic similarity, return provenance, avoid sending the entire corpus to the model, and demonstrate measurable retrieval quality on a benchmark dataset.
+
+Appendix A — Recommended Runtime Flow
+
+STUDENT ANSWER → QUESTION/BLUEPRINT → TOPIC SIGNALS → METADATA FILTER → VECTOR SEARCH → RERANK → AUTHORITY/FRESHNESS FILTER → COMPACT EVIDENCE PACKAGE → EXAMINER AI → SOURCE-TRACEABLE FEEDBACK.
+
+Appendix B — Core Principle
+
+The knowledge base is not a giant prompt. It is an evidence retrieval system. The model should receive only the evidence it needs for the task being performed.
