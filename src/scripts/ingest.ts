@@ -1,5 +1,11 @@
 import fs from "fs";
 import path from "path";
+
+// Polyfill DOMMatrix for Node < 21
+if (typeof (global as any).DOMMatrix === "undefined") {
+  (global as any).DOMMatrix = class DOMMatrix {};
+}
+
 const pdf = require("pdf-parse");
 import { supabase } from "../supabase";
 import { embedText } from "../gemini";
@@ -73,9 +79,12 @@ async function run() {
     const dirPath = path.join(KNOWLEDGE_BASE_DIR, dir.name);
     if (!fs.existsSync(dirPath)) continue;
 
-    const files = fs.readdirSync(dirPath);
+    const files = fs.readdirSync(dirPath, { recursive: true });
     for (const file of files) {
-      await processFile(path.join(dirPath, file), dir.type);
+      const fullPath = path.join(dirPath, file as string);
+      if (fs.statSync(fullPath).isFile()) {
+        await processFile(fullPath, dir.type);
+      }
     }
   }
 }

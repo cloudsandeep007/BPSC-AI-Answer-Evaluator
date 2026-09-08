@@ -18,7 +18,7 @@
     "migrate": "tsx src/migrate.ts",
     "seed": "tsx src/seed.ts",
     "verify:calibration": "tsx scripts/verify-calibration.ts",
-    "ingest:content": "tsx scripts/ingest-content.ts",
+    "ingest:content": "tsx src/scripts/ingest.ts",
     "smoke:stages": "tsx scripts/smoke-stages.ts",
     "preview:report-card": "tsx scripts/preview-report-card.ts"
   },

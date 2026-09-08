@@ -130,7 +130,7 @@ export function extractJson<T = any>(text: string): T | null {
 }
 
 export async function embedText(text: string): Promise<number[]> {
-  const model = "text-embedding-004";
+  const model = "gemini-embedding-001";
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:embedContent`;
   
   const body = {

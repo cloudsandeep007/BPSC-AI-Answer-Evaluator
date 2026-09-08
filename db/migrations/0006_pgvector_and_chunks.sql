@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS document_chunks (
     source_name TEXT NOT NULL,          -- e.g., 'ncert_history_class_11.pdf'
     source_type TEXT NOT NULL,          -- e.g., 'ncert', 'syllabus', 'past_paper', 'government_report'
     content TEXT NOT NULL,              -- The actual paragraph/chunk text
-    embedding vector(768) NOT NULL,     -- The vector representation (768 for text-embedding-004)
+    embedding vector(3072) NOT NULL,     -- The vector representation (3072 for gemini-embedding-001)
     metadata JSONB DEFAULT '{}'::jsonb, -- Any extra data like page numbers or year
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc', now()) NOT NULL
 );
@@ -17,7 +17,7 @@ CREATE INDEX IF NOT EXISTS document_chunks_embedding_idx ON document_chunks USIN
 
 -- Create a function to search for document chunks
 CREATE OR REPLACE FUNCTION match_document_chunks (
-  query_embedding vector(768),
+  query_embedding vector(3072),
   match_threshold float,
   match_count int,
   filter_topic text DEFAULT NULL
