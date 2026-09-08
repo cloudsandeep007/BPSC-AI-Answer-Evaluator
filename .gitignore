@@ -1,3 +1,6 @@
 node_modules/
 dist/
 .env
+
+# NCERT and knowledge-base source documents (large binaries, local only)
+knowledge-base/

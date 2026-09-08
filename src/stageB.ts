@@ -30,7 +30,7 @@ import { RUBRIC_V1 } from "./content/rubric";
 import { Citation, asCitation } from "./citation";
 import { needsCurrentInfo } from "./stage0";
 
-export const STAGE_B_PROMPT_VERSION = "stageB-v2";
+export const STAGE_B_PROMPT_VERSION = "stageB-v3-blueprint";
 
 interface ExpectedPoint {
   point: string;
@@ -152,12 +152,25 @@ function judgePrompt(
   slotType: SlotType,
   directive: string,
   points: ExpectedPoint[],
+  blueprint: any | null,
   language: string,
   grounded: boolean,
 ): string {
-  const pointList = points
-    .map((p, i) => `${i + 1}. ${p.point}\n   cues: ${p.cues.join(", ")}\n   citation: [${p.source.kind}] ${p.source.label}`)
-    .join("\n");
+  let keyContent = "";
+  if (blueprint) {
+    let globalIndex = 0;
+    const dims = JSON.parse(blueprint.dimensions_json).map((d: any) => {
+      const pts = d.expectedPoints.map((p: any) => {
+        globalIndex++;
+        return `${globalIndex}. ${p.point}\n   cues: ${p.cues?.join(", ") ?? ""}\n   citation: [${p.source.kind}] ${p.source.label}`;
+      }).join("\n");
+      return `### ${d.heading}\n${pts}`;
+    }).join("\n\n");
+
+    keyContent = `MARKING KEY (EVALUATION BLUEPRINT):\nIntroduction must cover: ${blueprint.introduction_must_cover}\n\n${dims}\n\nConclusion must cover: ${blueprint.conclusion_must_cover}\nMinimum specifics required: ${JSON.parse(blueprint.minimum_specifics_json).join(", ")}\nCommon mistakes to penalize: ${JSON.parse(blueprint.common_mistakes_to_penalise_json).join(", ")}`;
+  } else {
+    keyContent = `MARKING KEY:\n${points.map((p, i) => `${i + 1}. ${p.point}\n   cues: ${p.cues.join(", ")}\n   citation: [${p.source.kind}] ${p.source.label}`).join("\n")}`;
+  }
 
   const rubricText = RUBRIC_V1.dimensions
     .map(
@@ -183,7 +196,7 @@ listed here, or a validly argued angle the key doesn't cover, credit it too
 (see points_found rule 2 below) - do not penalise a good answer just because
 it isn't on this list.
 
-${pointList}
+${keyContent}
 
 THE STUDENT'S ANSWER (transcribed from handwriting, so minor spelling and OCR
 noise should be ignored - judge the substance):
@@ -324,6 +337,12 @@ export async function evaluateSubmission(submissionId: string, languageLabel: st
   const key: ExpectedPoint[] = (rawKey.points ?? []).map((p) => ({ ...p, source: asCitation(p.source) }));
   const grounded = needsCurrentInfo(question.subject ?? "");
 
+  const { data: blueprintRow } = await supabase
+    .from("evaluation_blueprints")
+    .select("*")
+    .eq("question_id", submission.question_id)
+    .maybeSingle();
+
   // 2. Ask the model to compare, not to decide.
   const res = await aiGateway.callStructured<JudgeOutput>({
     feature: "stageB",
@@ -336,6 +355,7 @@ export async function evaluateSubmission(submissionId: string, languageLabel: st
       rawKey.slot_type,
       rawKey.directive,
       key,
+      blueprintRow,
       languageLabel,
       grounded,
     ),
@@ -377,6 +397,7 @@ export async function evaluateSubmission(submissionId: string, languageLabel: st
       submission_id: submissionId,
       rubric_version: rubric.version,
       model_answer_version: modelAnswer.version,
+      blueprint_id: blueprintRow?.id ?? null,
       model_name: config.geminiJudgeModel,
       prompt_version: STAGE_B_PROMPT_VERSION,
       dimension_scores: {

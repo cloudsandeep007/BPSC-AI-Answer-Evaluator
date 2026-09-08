@@ -12,13 +12,15 @@ import { ANSWER_TEMPLATES, SlotType, SUPPORTED_SLOT_TYPES, maxMarksFor } from ".
 import { Citation, asCitation } from "./citation";
 import patterns from "./content/question-patterns.json";
 import ncert from "./content/ncert-knowledge.json";
+import { EvaluationBlueprint, BlueprintDimension } from "./domain/blueprint";
+import { checkQuestionQuality } from "./ai/agents/qualityChecker";
 
 // v2: the model now reasons as a subject professor deciding what an ideal
 // answer requires (NCERT first, own knowledge second, live search third for
 // topics where current developments matter) rather than filling a template,
 // and every point carries a real citation instead of a bare "ncert" /
 // "general_knowledge" tag.
-export const STAGE0_PROMPT_VERSION = "stage0-v2";
+export const STAGE0_PROMPT_VERSION = "stage0-v3-blueprint";
 
 const GENERATION_MODEL = process.env.GEMINI_GENERATION_MODEL ?? config.geminiModel;
 
@@ -39,7 +41,7 @@ export function needsCurrentInfo(topic: string): boolean {
   return GROUNDED_TOPICS.has(topic);
 }
 
-interface ExpectedPoint {
+export interface ExpectedPoint {
   point: string;
   weight: number;
   cues: string[];
@@ -49,13 +51,14 @@ interface ExpectedPoint {
 export interface GeneratedQuestion {
   questionId: string;
   modelAnswerId: string;
+  blueprintId: string;
+  blueprint: EvaluationBlueprint;
   questionText: string;
   topic: string;
   paper: string;
   slotType: SlotType;
   marks: number;
   wordLimit: number;
-  expectedPoints: ExpectedPoint[];
 }
 
 // ------------------------------------------------------------- sampling
@@ -192,7 +195,7 @@ Return ONLY JSON:
 }`;
 }
 
-function expectedPointsPrompt(
+function blueprintPrompt(
   questionText: string,
   slot: ReturnType<typeof pickSlot>,
   template: (typeof ANSWER_TEMPLATES)[SlotType],
@@ -205,10 +208,7 @@ function expectedPointsPrompt(
         .join("\n\n")
     : "(No NCERT content available for this topic.)";
 
-  return `You are an experienced BPSC subject professor deciding, from first principles, what a
-genuinely ideal answer to this question requires. You are not filling in a template and
-not retrieving a stored model answer written for a different question - reason about
-THIS question specifically.
+  return `You are an experienced BPSC subject professor deciding, from first principles, what a genuinely ideal answer to this question requires. You are building an Evaluation Blueprint.
 
 QUESTION: ${questionText}
 Directive: ${slot.directive}
@@ -220,42 +220,37 @@ Reason in this order:
 2. For anything NCERT doesn't reach, use your own broader subject knowledge.
 3. ${
     grounded
-      ? `Live web search is available for this call - this is a ${slot.topic} question, so use search to bring in genuinely current developments (a recent scheme, statistic, report, event or policy) rather than relying only on your training data, which goes stale.`
-      : "This question does not need live search - your training knowledge is sufficient for it."
+      ? `Live web search is available for this call - use it to bring in genuinely current developments.`
+      : "This question does not need live search."
   }
-4. From that reasoning, produce points a genuinely ideal answer would contain - richer and
-   more specific than a generic template, grounded in this question, not copied from any
-   single stored example.
+4. Produce a structured blueprint an examiner would use to grade this answer.
 
-NCERT SOURCE MATERIAL (highest-authority facts - prefer these over your own knowledge
-wherever they overlap):
-
+NCERT SOURCE MATERIAL:
 ${ncertBlock}
 
-For each point:
-- state the point as the specific fact itself, naming the Act, Article, scheme, figure,
-  place, date or event - not a vague topic label
-- give it a weight (all weights must sum to 1.0)
-- list 2-4 "cues": words or phrases whose presence in a student's answer shows they made
-  that point, including likely Hindi equivalents
-- give it a REAL, SPECIFIC citation - never just "NCERT" or "general knowledge" alone:
-  - drawn from the NCERT material above -> use its "Citation to use verbatim" string exactly, kind "ncert"
-  - drawn from a live search result -> cite the actual source (publication, ministry, report name), kind "web", and include its real url
-  - drawn from your own general knowledge -> name what you are actually relying on (a named report, dataset, ministry, scheme or event), kind "general_knowledge" - the label itself must be specific, not the words "general knowledge"
+For each expected point:
+- state the point as the specific fact itself
+- give it a weight (weights across all dimensions must sum to 1.0)
+- list 2-4 cues
+- give it a REAL, SPECIFIC citation (kind "ncert", "web", or "general_knowledge"). If web, include URL. If general_knowledge, name the specific report/dataset.
 
-Aim for ${template.slotType === "compulsory_subpart" ? "4-6" : "7-10"} points.
-
-Return ONLY JSON:
+Return ONLY JSON matching this structure:
 {
-  "model_answer": "a model answer of ${template.words.min}-${template.words.max} words, in Hindi",
-  "expected_points": [
-    {
-      "point": "...",
-      "weight": 0.2,
-      "cues": ["...", "..."],
-      "source": { "kind": "ncert" | "web" | "general_knowledge", "label": "the specific citation string", "url": "https://... (web only)" }
-    }
-  ]
+  "model_answer": "a model answer in Hindi",
+  "blueprint": {
+    "introductionMustCover": "What the intro must define or frame",
+    "dimensions": [
+      {
+        "heading": "Dimension 1 (e.g., Constitutional Framework)",
+        "expectedPoints": [
+          { "point": "...", "weight": 0.2, "cues": ["..."], "source": { "kind": "ncert", "label": "..." } }
+        ]
+      }
+    ],
+    "conclusionMustCover": "What the conclusion must resolve based on the directive",
+    "minimumSpecifics": ["Must mention Article 14", "Must mention scheme XYZ"],
+    "commonMistakesToPenalise": ["Confusing X with Y", "Not covering the second half of the question"]
+  }
 }`;
 }
 
@@ -285,10 +280,14 @@ export async function generateQuestion(choice?: QuestionChoice): Promise<Generat
   const template = ANSWER_TEMPLATES[slot.slotType];
   const grounded = needsCurrentInfo(slot.topic);
 
-  // 1. Generate the question, rejecting anything too close to a real one.
+  // 1. Generate the question and its blueprint, validating both.
   let questionText = "";
   let questionHi = "";
   let subTopic = "";
+  let validBlueprint: EvaluationBlueprint | null = null;
+  let modelAnswerString = "";
+  let ncertEntriesUsed: string[] = [];
+  let groundingSourcesFound: any[] = [];
 
   for (let attempt = 1; attempt <= 3; attempt++) {
     const res = await aiGateway.callStructured<{ question: string; question_hi: string; sub_topic: string }>({
@@ -311,15 +310,63 @@ export async function generateQuestion(choice?: QuestionChoice): Promise<Generat
       continue;
     }
 
-    questionText = parsed.question;
-    questionHi = parsed.question_hi || parsed.question;
+    const draftQuestion = parsed.question;
+    const ncertEntries = ncertFor(slot.topic);
+    ncertEntriesUsed = ncertEntries.map(e => e.citation);
+
+    // Build the blueprint
+    const keyRes = await aiGateway.callStructured<{
+      model_answer: string;
+      blueprint: Omit<EvaluationBlueprint, "questionId" | "topic" | "paper" | "slotType" | "marks" | "wordLimit" | "directive">;
+    }>({
+      feature: "stage0",
+      model: GENERATION_MODEL,
+      system:
+        "You are a BPSC subject expert building a marking key. You prefer NCERT-sourced facts over your own knowledge whenever both cover the same ground, and every point you produce carries a real, checkable citation.",
+      userPrompt: blueprintPrompt(draftQuestion, slot, template, ncertEntries, grounded),
+      maxOutputTokens: 4096,
+      search: grounded,
+    });
+
+    const key = keyRes.data;
+    if (!key?.blueprint?.dimensions?.length) continue;
+
+    groundingSourcesFound = keyRes.groundingSources;
+
+    const draftBlueprint: EvaluationBlueprint = {
+      ...key.blueprint,
+      questionId: "pending",
+      topic: slot.topic,
+      paper: slot.paper,
+      slotType: slot.slotType,
+      marks: maxMarksFor(slot.slotType),
+      wordLimit: template.words.max,
+      directive: slot.directive,
+    };
+
+    // Quality check
+    const ncertContextStr = ncertEntries.map(e => e.text).join("\\n");
+    const quality = await checkQuestionQuality(draftQuestion, draftBlueprint, ncertContextStr);
+    
+    if (!quality.passed) {
+      console.warn(`Stage 0: rejected question by Quality Checker (score ${quality.score}): ${quality.feedback}. Retrying...`);
+      continue;
+    }
+
+    // Passed!
+    questionText = draftQuestion;
+    questionHi = parsed.question_hi || draftQuestion;
     subTopic = parsed.sub_topic || slot.topic;
+    validBlueprint = draftBlueprint;
+    modelAnswerString = key.model_answer;
     break;
   }
 
-  if (!questionText) throw new Error("Stage 0: could not generate an original question after 3 attempts");
+  if (!questionText || !validBlueprint) {
+    throw new Error("Stage 0: could not generate a quality question and blueprint after 3 attempts");
+  }
 
-  // 2. Save it, inactive - it has no answer key yet.
+  // 2. Save the question, inactive.
   const marks = maxMarksFor(slot.slotType);
   const { data: questionRow, error: questionError } = await supabase
     .from("questions")
@@ -337,74 +384,75 @@ export async function generateQuestion(choice?: QuestionChoice): Promise<Generat
     .single();
   if (questionError) throw questionError;
   const questionId = questionRow.id as string;
+  validBlueprint.questionId = questionId;
 
-  // 3. Build the answer key, NCERT first, own knowledge second, live search
-  //    third when this topic's answers actually go stale without it.
-  const ncertEntries = ncertFor(slot.topic);
-  const keyRes = await aiGateway.callStructured<{
-    model_answer: string;
-    expected_points: Array<Omit<ExpectedPoint, "source"> & { source: unknown }>;
-  }>({
-    feature: "stage0",
-    model: GENERATION_MODEL,
-    system:
-      "You are a BPSC subject expert building a marking key. You prefer NCERT-sourced facts over your own knowledge whenever both cover the same ground, and every point you produce carries a real, checkable citation - never a bare label.",
-    userPrompt: expectedPointsPrompt(questionText, slot, template, ncertEntries, grounded),
-    maxOutputTokens: 4096,
-    search: grounded,
+  // 3. Save the blueprint and the legacy model_answer
+  const blueprintId = crypto.randomUUID();
+  const { error: bpError } = await supabase.from("evaluation_blueprints").insert({
+    id: blueprintId,
+    question_id: questionId,
+    topic: validBlueprint.topic,
+    paper: validBlueprint.paper,
+    slot_type: validBlueprint.slotType,
+    marks: validBlueprint.marks,
+    word_limit: validBlueprint.wordLimit,
+    directive: validBlueprint.directive,
+    introduction_must_cover: validBlueprint.introductionMustCover || "",
+    dimensions_json: JSON.stringify(validBlueprint.dimensions),
+    conclusion_must_cover: validBlueprint.conclusionMustCover || "",
+    minimum_specifics_json: JSON.stringify(validBlueprint.minimumSpecifics || []),
+    common_mistakes_to_penalise_json: JSON.stringify(validBlueprint.commonMistakesToPenalise || [])
   });
+  if (bpError) throw bpError;
 
-  const key = keyRes.data;
-  if (!key?.expected_points?.length) {
-    throw new Error(`Stage 0: no expected_points generated for question ${questionId}`);
+  // Re-flatten expectedPoints for backward compatibility in model_answers table
+  const flattenedPoints: ExpectedPoint[] = [];
+  for (const dim of validBlueprint.dimensions) {
+    for (const p of dim.expectedPoints) {
+      flattenedPoints.push({
+        point: p.point,
+        weight: p.weight,
+        cues: p.cues ?? [],
+        source: asCitation(p.source)
+      });
+    }
   }
-
-  // Defend against a model returning a bare string instead of the citation
-  // object the prompt asked for - never let an unsourced point through.
-  const expectedPoints: ExpectedPoint[] = key.expected_points.map((p) => ({
-    point: p.point,
-    weight: p.weight,
-    cues: p.cues ?? [],
-    source: asCitation(p.source),
-  }));
 
   const { data: answerRow, error: answerError } = await supabase
     .from("model_answers")
     .insert({
       question_id: questionId,
       version: 1,
-      model_answer_hi: key.model_answer ?? null,
+      model_answer_hi: modelAnswerString ?? null,
       expected_points: {
         slot_type: slot.slotType,
         directive: slot.directive,
         prompt_version: STAGE0_PROMPT_VERSION,
         model_name: GENERATION_MODEL,
         grounded,
-        ncert_entries_used: ncertEntries.map((e) => e.citation),
-        // Raw search sources Gemini actually consulted, kept for audit - not
-        // mapped 1:1 onto individual points, since that mapping is ambiguous;
-        // per-point citations above are what the model itself attributed.
-        grounding_sources: keyRes.groundingSources,
-        points: expectedPoints,
+        ncert_entries_used: ncertEntriesUsed,
+        grounding_sources: groundingSourcesFound,
+        points: flattenedPoints,
       },
     })
     .select("id")
     .single();
   if (answerError) throw answerError;
 
-  // 4. Both rows exist - now it is safe to serve.
+  // 4. Activate question
   const { error: activateError } = await supabase.from("questions").update({ is_active: true }).eq("id", questionId);
   if (activateError) throw activateError;
 
   return {
     questionId,
     modelAnswerId: answerRow.id as string,
+    blueprintId,
+    blueprint: validBlueprint,
     questionText,
     topic: slot.topic,
     paper: slot.paper,
     slotType: slot.slotType,
     marks,
     wordLimit: template.words.max,
-    expectedPoints,
   };
 }

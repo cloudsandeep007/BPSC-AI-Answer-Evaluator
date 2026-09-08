@@ -29,13 +29,13 @@ The grading is deliberately split into stages that run at different times:
 
 | Stage | When it runs | What it does |
 |---|---|---|
-| **Stage 0** | Once per question, *before* any student sees it | Generates a fresh question and its answer key (`expected_points`), grounded in NCERT content |
+| **Stage 0** | Once per question, *before* any student sees it | Generates a fresh question and its **Evaluation Blueprint** (ideal answer structure, grounded in NCERT). Includes an automatic **Quality Checker** loop to enforce standards before the question goes live. |
 | **Stage A** | Once per submitted photo | Reads the handwriting into text, exactly as written |
-| **Stage B** | Once per confirmed transcript | Compares the transcript against the Stage 0 answer key and scores it |
+| **Stage B** | Once per confirmed transcript | Compares the transcript against the Evaluation Blueprint and scores it |
 
 The reason for the split: deciding *what a correct answer contains* happens once
 per question (Stage 0), not per student. By the time a student's answer is being
-graded (Stage B), the model is only comparing against a fixed key — it never
+graded (Stage B), the model is only comparing against a fixed Evaluation Blueprint — it never
 gets to invent its own idea of the right answer mid-grading. That keeps marks
 consistent between students answering the same question.
 
@@ -61,10 +61,12 @@ consistent between students answering the same question.
 |---|---|
 | `bot.ts` | All Telegram conversation logic: `/start`, language choice, photo handling, confirm/edit buttons |
 | `stageA.ts` | Sends a photo to Gemini and returns the transcript + a confidence score |
-| `stage0.ts` | Generates a fresh question and its answer key, then activates it |
-| `stageB.ts` | Grades a confirmed transcript against that answer key |
+| `stage0.ts` | Generates a fresh question and its **Evaluation Blueprint**, running it through the Quality Checker before saving |
+| `stageB.ts` | Grades a confirmed transcript against the Evaluation Blueprint |
 | `gemini.ts` | Shared Gemini client - retries, JSON extraction, usage accounting |
 | `content/` | The ingested BPSC exam content (see §3a) |
+| `domain/blueprint.ts` | The TypeScript domain schema for the structured Evaluation Blueprint |
+| `ai/agents/qualityChecker.ts` | AI Agent that acts as a quality gate, scoring Stage 0 drafts on syllabus alignment, novelty, and answerability |
 | `citation.ts` | Shared `Citation` type - every point (Stage 0's answer keys, Stage B's judged points) carries a real, checkable source, never a bare "NCERT" or "general knowledge" label |
 | `reportCard.ts` | Builds the PDF report card sent after grading |
 | `seed.ts` | Writes reference rows (the rubric) into existing tables |
