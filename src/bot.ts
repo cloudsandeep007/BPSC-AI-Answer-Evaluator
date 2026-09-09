@@ -117,13 +117,17 @@ bot.command("start", async (ctx) => {
 });
 
 bot.callbackQuery(/^lang:(hi|hinglish|en)$/, async (ctx) => {
-  const lang = ctx.match![1] as Lang;
-  const telegramId = ctx.from.id;
-  const user = await getOrCreateUser(telegramId, ctx.from.first_name);
-  await setUserLanguage(user.id, lang);
-  await ctx.answerCallbackQuery();
-  await ctx.editMessageText(t(lang, "confirmed"));
-  await ctx.reply(t(lang, "pickTopic"), { reply_markup: topicKeyboard() });
+  try {
+    await ctx.answerCallbackQuery().catch(() => {});
+    const lang = ctx.match![1] as Lang;
+    const telegramId = ctx.from.id;
+    const user = await getOrCreateUser(telegramId, ctx.from.first_name);
+    await setUserLanguage(user.id, lang);
+    await ctx.editMessageText(t(lang, "confirmed")).catch(() => {});
+    await ctx.reply(t(lang, "pickTopic"), { reply_markup: topicKeyboard() });
+  } catch (err) {
+    console.error("Error in lang callback:", err);
+  }
 });
 
 // Serves the student a question to answer. Always generates a NEW question
@@ -132,46 +136,58 @@ bot.callbackQuery(/^lang:(hi|hinglish|en)$/, async (ctx) => {
 // was the earlier bug: every student got the exact same question forever
 // after the first one was ever generated.)
 bot.command("question", async (ctx) => {
-  const telegramId = ctx.from!.id;
-  const user = await getOrCreateUser(telegramId, ctx.from?.first_name);
-  if (!user.language) {
-    await ctx.reply(t("en", "needLanguage"), { reply_markup: languageKeyboard() });
-    return;
+  try {
+    const telegramId = ctx.from!.id;
+    const user = await getOrCreateUser(telegramId, ctx.from?.first_name);
+    if (!user.language) {
+      await ctx.reply(t("en", "needLanguage"), { reply_markup: languageKeyboard() });
+      return;
+    }
+    await ctx.reply(t(user.language, "pickTopic"), { reply_markup: topicKeyboard() });
+  } catch (err) {
+    console.error("Error in /question command:", err);
   }
-  await ctx.reply(t(user.language, "pickTopic"), { reply_markup: topicKeyboard() });
 });
 
 bot.callbackQuery(/^topic:(\d+)$/, async (ctx) => {
-  const topicCode = ctx.match![1];
-  const topic = TOPIC_CODES[topicCode];
-  const telegramId = ctx.from.id;
-  const user = await getOrCreateUser(telegramId, ctx.from.first_name);
-  const lang = user.language ?? "en";
-  await ctx.answerCallbackQuery();
-  await ctx.editMessageReplyMarkup();
+  try {
+    await ctx.answerCallbackQuery().catch(() => {});
+    await ctx.editMessageReplyMarkup().catch(() => {});
+    const topicCode = ctx.match![1];
+    const topic = TOPIC_CODES[topicCode];
+    const telegramId = ctx.from.id;
+    const user = await getOrCreateUser(telegramId, ctx.from.first_name);
+    const lang = user.language ?? "en";
 
-  if (!topic) return;
+    if (!topic) return;
 
-  // The Essay Paper has only one slot type - no marks-type question needed.
-  if (topic === "Essay") {
-    sendGeneratedQuestion(ctx, telegramId, lang, topic, "essay_paper").catch((err) => console.error("Stage 0 async failed:", err));
-    return;
+    // The Essay Paper has only one slot type - no marks-type question needed.
+    if (topic === "Essay") {
+      sendGeneratedQuestion(ctx, telegramId, lang, topic, "essay_paper").catch((err) => console.error("Stage 0 async failed:", err));
+      return;
+    }
+
+    await ctx.reply(t(lang, "pickSlotType"), { reply_markup: slotTypeKeyboard(topicCode, lang) });
+  } catch (err) {
+    console.error("Error in topic callback:", err);
   }
-
-  await ctx.reply(t(lang, "pickSlotType"), { reply_markup: slotTypeKeyboard(topicCode, lang) });
 });
 
 bot.callbackQuery(/^slot:(\d+):(compulsory_subpart|choice_essay)$/, async (ctx) => {
-  const [, topicCode, slotType] = ctx.match!;
-  const topic = TOPIC_CODES[topicCode];
-  const telegramId = ctx.from.id;
-  const user = await getOrCreateUser(telegramId, ctx.from.first_name);
-  const lang = user.language ?? "en";
-  await ctx.answerCallbackQuery();
-  await ctx.editMessageReplyMarkup();
+  try {
+    await ctx.answerCallbackQuery().catch(() => {});
+    await ctx.editMessageReplyMarkup().catch(() => {});
+    const [, topicCode, slotType] = ctx.match!;
+    const topic = TOPIC_CODES[topicCode];
+    const telegramId = ctx.from.id;
+    const user = await getOrCreateUser(telegramId, ctx.from.first_name);
+    const lang = user.language ?? "en";
 
-  if (!topic) return;
-  sendGeneratedQuestion(ctx, telegramId, lang, topic, slotType as SlotType).catch((err) => console.error("Stage 0 async failed:", err));
+    if (!topic) return;
+    sendGeneratedQuestion(ctx, telegramId, lang, topic, slotType as SlotType).catch((err) => console.error("Stage 0 async failed:", err));
+  } catch (err) {
+    console.error("Error in slot callback:", err);
+  }
 });
 
 bot.on("message:photo", async (ctx) => {

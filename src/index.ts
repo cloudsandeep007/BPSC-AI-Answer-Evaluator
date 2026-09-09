@@ -3,6 +3,14 @@ import { webhookCallback } from "grammy";
 import { bot } from "./bot";
 import { config } from "./config";
 
+process.on("unhandledRejection", (reason) => {
+  console.error("Unhandled Rejection:", reason);
+});
+
+process.on("uncaughtException", (err) => {
+  console.error("Uncaught Exception:", err);
+});
+
 const handleUpdate = webhookCallback(bot, "http", "return", 9000);
 
 const server = http.createServer(async (req, res) => {
