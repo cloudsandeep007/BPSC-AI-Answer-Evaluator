@@ -15,6 +15,7 @@ import ncert from "./content/ncert-knowledge.json";
 import { embedText } from "./gemini";
 import { EvaluationBlueprint, BlueprintDimension } from "./domain/blueprint";
 import { checkQuestionQuality } from "./ai/agents/qualityChecker";
+import { selectTargetTopic, resolveSubject, isSubjectSelectable, QuestionSelectionResult } from "./questionSelection";
 
 // v2: the model now reasons as a subject professor deciding what an ideal
 // answer requires (NCERT first, own knowledge second, live search third for
@@ -60,6 +61,7 @@ export interface GeneratedQuestion {
   slotType: SlotType;
   marks: number;
   wordLimit: number;
+  selectionResult?: QuestionSelectionResult;
 }
 
 // ------------------------------------------------------------- sampling
@@ -149,9 +151,14 @@ function closestHistorical(candidate: string, topic: string): { score: number; t
 // ------------------------------------------------------- NCERT retrieval
 
 /** The first-priority fact source. Empty for topics NCERT doesn't reach. */
-async function ncertFor(topic: string, questionText: string): Promise<Array<{ heading: string; citation: string; text: string }>> {
+async function ncertFor(
+  topic: string,
+  questionText: string,
+  suggestedQuery?: string
+): Promise<Array<{ heading: string; citation: string; text: string }>> {
   try {
-    const embedding = await embedText(`Topic: ${topic}. Question: ${questionText}`);
+    const query = suggestedQuery || `Topic: ${topic}. Question: ${questionText}`;
+    const embedding = await embedText(query);
     const { data: chunks, error } = await supabase.rpc("match_document_chunks", {
       query_embedding: embedding,
       match_threshold: 0.5,
@@ -287,8 +294,12 @@ Return ONLY JSON matching this structure:
 // ----------------------------------------------------------------- main
 
 export interface QuestionChoice {
-  topic: string;
-  slotType: SlotType;
+  topic?: string;
+  subjectId?: string;
+  slotType?: SlotType;
+  studentId?: string;
+  excludeTopicIds?: string[];
+  recentTopics?: string[];
 }
 
 /**
@@ -306,8 +317,71 @@ export interface QuestionChoice {
  *   type instead.
  */
 export async function generateQuestion(choice?: QuestionChoice): Promise<GeneratedQuestion> {
-  const slot = choice ? fixedSlot(choice.topic, choice.slotType) : pickSlot();
-  const template = ANSWER_TEMPLATES[slot.slotType];
+  const initialSlot = choice?.topic && choice?.slotType
+    ? fixedSlot(choice.topic, choice.slotType)
+    : choice?.topic
+    ? { paper: TOPIC_TO_PAPER[choice.topic] || "GS Paper 2", topic: choice.topic, slotType: choice?.slotType || "compulsory_subpart", directive: pickDirective(choice.topic) }
+    : pickSlot();
+
+  const template = ANSWER_TEMPLATES[choice?.slotType || initialSlot.slotType];
+
+  // Resolve target subject for Question Selection Intelligence
+  let targetSubjectId = choice?.subjectId;
+  if (!targetSubjectId && choice?.topic) {
+    targetSubjectId = resolveSubject(choice.topic).subject_id;
+  }
+  if (!targetSubjectId) {
+    targetSubjectId = resolveSubject(initialSlot.topic).subject_id;
+  }
+
+  const requestedSlotType = choice?.slotType || initialSlot.slotType;
+  const qType = requestedSlotType === "compulsory_subpart" ? "SHORT_ANSWER" : requestedSlotType === "essay_paper" ? "ESSAY" : "LONG_ANSWER";
+  const marks = maxMarksFor(requestedSlotType);
+
+  let selectionResult: QuestionSelectionResult | undefined;
+  let slot = { ...initialSlot, slotType: requestedSlotType };
+
+  if (targetSubjectId && isSubjectSelectable(targetSubjectId)) {
+    try {
+      selectionResult = await selectTargetTopic(
+        {
+          subject_id: targetSubjectId,
+          question_type: qType as any,
+          marks,
+          student_id: choice?.studentId,
+          exclude_topic_ids: choice?.excludeTopicIds,
+        },
+        choice?.recentTopics
+      );
+
+      const targetTopicName = selectionResult.target_topic_name;
+      const paper = TOPIC_TO_PAPER[targetTopicName] || TOPIC_TO_PAPER[initialSlot.topic] || "GS Paper 2";
+      slot = {
+        paper,
+        topic: targetTopicName,
+        slotType: requestedSlotType,
+        directive: pickDirective(targetTopicName),
+      };
+
+      console.log(`[STAGE 0 SELECTION INTEGRATION]
+        Subject: ${selectionResult.subject_id} (${selectionResult.subject_name})
+        Selected Target Topic: ${selectionResult.target_topic_id} (${selectionResult.target_topic_name})
+        Question Type: ${selectionResult.question_type} (${selectionResult.marks} marks)
+        Selection Score: ${selectionResult.selection_score.toFixed(4)}
+        Selection Reason: ${selectionResult.selection_reason}
+        Suggested Retrieval Query: "${selectionResult.suggested_retrieval_query}"
+      `);
+    } catch (err: any) {
+      if (err?.message?.includes("unavailable for practice") || err?.message?.includes("BPSC-SUB-10")) {
+        throw err;
+      }
+      console.warn(`Stage 0: Question Selection Intelligence fallback notice (${err.message})`);
+    }
+  } else if (targetSubjectId && !isSubjectSelectable(targetSubjectId)) {
+    const { subject_id, subject_name } = resolveSubject(targetSubjectId);
+    throw new Error(`Subject '${subject_id}' (${subject_name}) is currently unavailable for practice because it has no production topic taxonomy.`);
+  }
+
   const grounded = needsCurrentInfo(slot.topic);
 
   // 1. Generate the question and its blueprint, validating both.
@@ -341,7 +415,7 @@ export async function generateQuestion(choice?: QuestionChoice): Promise<Generat
     }
 
     const draftQuestion = parsed.question;
-    const ncertEntries = await ncertFor(slot.topic, draftQuestion);
+    const ncertEntries = await ncertFor(slot.topic, draftQuestion, selectionResult?.suggested_retrieval_query);
     ncertEntriesUsed = ncertEntries.map(e => e.citation);
 
     // Build the blueprint
@@ -375,7 +449,7 @@ export async function generateQuestion(choice?: QuestionChoice): Promise<Generat
     };
 
     // Quality check
-    const ncertContextStr = ncertEntries.map(e => e.text).join("\\n");
+    const ncertContextStr = ncertEntries.map(e => e.text).join("\n");
     const quality = await checkQuestionQuality(draftQuestion, draftBlueprint, ncertContextStr);
     
     if (!quality.passed) {
@@ -397,7 +471,6 @@ export async function generateQuestion(choice?: QuestionChoice): Promise<Generat
   }
 
   // 2. Save the question, inactive.
-  const marks = maxMarksFor(slot.slotType);
   const { data: questionRow, error: questionError } = await supabase
     .from("questions")
     .insert({
@@ -484,5 +557,6 @@ export async function generateQuestion(choice?: QuestionChoice): Promise<Generat
     slotType: slot.slotType,
     marks,
     wordLimit: template.words.max,
+    selectionResult,
   };
 }

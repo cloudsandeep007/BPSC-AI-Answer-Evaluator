@@ -1,0 +1,4 @@
+student_id,subject_id,recent_history,selected_topic_id,selected_topic_name,isolation_status
+student_A,BPSC-SUB-02,"POLITY-002, POLITY-001",POLITY-003,Federalism & Interstate Relations,ISOLATED_VERIFIED
+student_B,BPSC-SUB-02,"POLITY-004, POLITY-003",POLITY-002,Judiciary Rights & Doctrines,ISOLATED_VERIFIED
+student_C,BPSC-SUB-02,"[]",POLITY-002,Judiciary Rights & Doctrines,ISOLATED_VERIFIED

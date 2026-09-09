@@ -1,0 +1,11 @@
+subject_id,available_topics,selected_topic,status
+"BPSC-SUB-01",5,"Freedom Movement & Revolts in Bihar","OK"
+"BPSC-SUB-02",6,"Judiciary, Rights & Doctrines","OK"
+"BPSC-SUB-03",3,"Agrarian Economy & Land Reforms","OK"
+"BPSC-SUB-04",3,"Disaster Management & Hydrology","OK"
+"BPSC-SUB-05",3,"IT, AI, 5G & E-Governance","OK"
+"BPSC-SUB-06",3,"Global Groupings & Multilateral Summits","OK"
+"BPSC-SUB-07",1,"Data Interpretation & Graphical Analysis","OK"
+"BPSC-SUB-08",3,"General & Philosophical Reflections","OK"
+"BPSC-SUB-09",2,"Human & Economic Geography Optional","OK"
+"BPSC-SUB-10",0,"NONE","FAILED: No valid topics found for subject 'BPSC-SUB-10' (General & Miscellaneous)"

@@ -1,0 +1,110 @@
+class_level,subject,book_name,language,document_id,status,chunks_count
+"Class 6","economics","keec101.pdf","English","NCERT-001","INGESTED",93
+"Class 7","geography","ncert-class-7-social-science-book-pdf-our-environment.pdf","English","NCERT-002","INGESTED",461
+"Class 11-12","history","01_Old_NCERT_Medieval_India.pdf","English","NCERT-003","INGESTED",33
+"Class 10","geography","ncert-class-10-social-science-book-pdf-geography.pdf","English","NCERT-004","INGESTED",1059
+"Class 6","economics","keec102.pdf","English","NCERT-005","INGESTED",168
+"Class 6","economics","keec103.pdf","English","NCERT-006","INGESTED",144
+"Class 9","geography","ncert-class-9-social-science-book-pdf-contemporary-india-book.pdf","English","NCERT-007","INGESTED",891
+"Class 6","economics","keec107.pdf","English","NCERT-008","INGESTED",123
+"Class 6","economics","keec104.pdf","English","NCERT-009","INGESTED",114
+"Class 6","economics","keec105.pdf","English","NCERT-010","INGESTED",123
+"Class 6","economics","keec106.pdf","English","NCERT-011","INGESTED",156
+"Class 6","economics","keec108.pdf","English","NCERT-012","INGESTED",120
+"Class 6","economics","keec1gl.pdf","English","NCERT-013","INGESTED",78
+"Class 6","economics","keec1ps.pdf","English","NCERT-014","INGESTED",78
+"Class 10","economics","ncert-class-10-social-science-book-pdf-economics.pdf","English","NCERT-015","INGESTED",687
+"Class 8","geography","ncert-class-8-social-science-book-pdf-resource-and-development.pdf","English","NCERT-016","INGESTED",1611
+"Class 9","economics","ncert-class-9-social-science-book-pdf-economics.pdf","English","NCERT-017","INGESTED",354
+"Class 6","geography","kegy211.pdf","English","NCERT-018","INGESTED",84
+"Class 6","geography","kegy101.pdf","English","NCERT-019","INGESTED",30
+"Class 6","geography","kegy212.pdf","English","NCERT-020","INGESTED",63
+"Class 6","geography","kegy102.pdf","English","NCERT-021","INGESTED",78
+"Class 6","geography","kegy103.pdf","English","NCERT-022","INGESTED",99
+"Class 6","geography","kegy104.pdf","English","NCERT-023","INGESTED",123
+"Class 6","geography","kegy105.pdf","English","NCERT-024","INGESTED",72
+"Class 6","geography","kegy106.pdf","English","NCERT-025","INGESTED",162
+"Class 6","geography","kegy1ps.pdf","English","NCERT-026","INGESTED",45
+"Class 6","geography","kegy201.pdf","English","NCERT-027","INGESTED",81
+"Class 6","geography","kegy202.pdf","English","NCERT-028","INGESTED",45
+"Class 6","geography","kegy213.pdf","English","NCERT-029","INGESTED",60
+"Class 6","geography","kegy203.pdf","English","NCERT-030","INGESTED",78
+"Class 6","geography","kegy204.pdf","English","NCERT-031","INGESTED",78
+"Class 6","geography","kegy205.pdf","English","NCERT-032","INGESTED",108
+"Class 6","geography","kegy206.pdf","English","NCERT-033","INGESTED",144
+"Class 6","geography","kegy207.pdf","English","NCERT-034","INGESTED",30
+"Class 6","geography","kegy208.pdf","English","NCERT-035","INGESTED",69
+"Class 6","geography","kegy209.pdf","English","NCERT-036","INGESTED",84
+"Class 6","geography","kegy210.pdf","English","NCERT-037","INGESTED",48
+"Class 6","geography","kegy214.pdf","English","NCERT-038","INGESTED",48
+"Class 6","geography","kegy2gl.pdf","English","NCERT-039","INGESTED",39
+"Class 6","geography","kegy2ps.pdf","English","NCERT-040","INGESTED",42
+"Class 6","geography","ncert-class-6-social-science-book-pdf-the-earth-our-habitat.pdf","English","NCERT-041","INGESTED",336
+"Class 6","history","kehs106.pdf","English","NCERT-042","INGESTED",131
+"Class 6","history","kefa101.pdf","English","NCERT-043","INGESTED",48
+"Class 11-12","history","01_Old_NCERT_Ancient_India.pdf","English","NCERT-044","INGESTED",21
+"Class 6","history","kehs104.pdf","English","NCERT-045","INGESTED",138
+"Class 11-12","history","lehs202.pdf","English","NCERT-046","INGESTED",146
+"Class 6","history","kehs101.pdf","English","NCERT-047","INGESTED",186
+"Class 6","history","kefa102.pdf","English","NCERT-048","INGESTED",48
+"Class 6","history","kefa103.pdf","English","NCERT-049","INGESTED",45
+"Class 6","history","kefa104.pdf","English","NCERT-050","INGESTED",162
+"Class 6","history","kefa105.pdf","English","NCERT-051","INGESTED",36
+"Class 6","history","kefa106.pdf","English","NCERT-052","INGESTED",186
+"Class 11-12","history","lehs301.pdf","English","NCERT-053","INGESTED",152
+"Class 6","history","kefa107.pdf","English","NCERT-054","INGESTED",45
+"Class 6","history","kefa108.pdf","English","NCERT-055","INGESTED",111
+"Class 6","history","kefa1ps.pdf","English","NCERT-056","INGESTED",48
+"Class 6","history","kehs102.pdf","English","NCERT-057","INGESTED",360
+"Class 6","history","kehs103.pdf","English","NCERT-058","INGESTED",42
+"Class 6","history","kehs105.pdf","English","NCERT-059","INGESTED",86
+"Class 6","history","kehs1ps.pdf","English","NCERT-060","INGESTED",44
+"Class 6","history","kehs107.pdf","English","NCERT-061","INGESTED",168
+"Class 11-12","history","lehs101.pdf","English","NCERT-062","INGESTED",122
+"Class 11-12","history","lehs102.pdf","English","NCERT-063","INGESTED",124
+"Class 11-12","history","lehs103.pdf","English","NCERT-064","INGESTED",134
+"Class 11-12","history","lehs3ps.pdf","English","NCERT-065","INGESTED",44
+"Class 11-12","history","lehs104.pdf","English","NCERT-066","INGESTED",126
+"Class 11-12","history","lehs303.pdf","English","NCERT-067","INGESTED",162
+"Class 11-12","history","lehs1ps.pdf","English","NCERT-068","INGESTED",48
+"Class 11-12","history","lehs203.pdf","English","NCERT-069","INGESTED",102
+"Class 11-12","history","lehs201.pdf","English","NCERT-070","INGESTED",130
+"Class 11-12","history","lehs302.pdf","English","NCERT-071","INGESTED",144
+"Class 11-12","history","lehs204.pdf","English","NCERT-072","INGESTED",144
+"Class 11-12","history","lehs2ps.pdf","English","NCERT-073","INGESTED",43
+"Class 11-12","history","lehs304.pdf","English","NCERT-074","INGESTED",144
+"Class 10","history","ncert-class-10-social-science-book-pdf-history.pdf","English","NCERT-075","INGESTED",922
+"Class 6","Polity & Governance","keps107.pdf","English","NCERT-076","INGESTED",29
+"Class 6","Polity & Governance","keps1ps.pdf","English","NCERT-077","INGESTED",20
+"Class 11-12","Polity & Governance","leps105.pdf","English","NCERT-078","INGESTED",45
+"Class 6","history","ncert-class-6-social-science-book-pdf-our-pasts-1.pdf","English","NCERT-079","INGESTED",247
+"Class 7","history","ncert-class-7-social-science-book-pdf-history-our-pasts-ii.pdf","English","NCERT-080","INGESTED",265
+"Class 11-12","History, Art & Culture","old-ncert-books-for-upsc-Modern-India-Bipan-Chandra.pdf","English","NCERT-081","INGESTED",11
+"Class 11-12","History, Art & Culture","The_Story_of_Civilization_Part-_I_by_Arjun_Dev.pdf","English","NCERT-082","INGESTED",4
+"Class 8","history","ncert-class-8-social-science-book-pdf-history-our-pasts-III.pdf","English","NCERT-083","INGESTED",18
+"Class 9","History, Art & Culture","ncert-class-9-social-science-book-pdf-history.pdf","English","NCERT-084","INGESTED",437
+"Class 6","Polity & Governance","keps101.pdf","English","NCERT-085","INGESTED",32
+"Class 6","Polity & Governance","keps104.pdf","English","NCERT-086","INGESTED",33
+"Class 6","Polity & Governance","keps102.pdf","English","NCERT-087","INGESTED",36
+"Class 6","Polity & Governance","keps103.pdf","English","NCERT-088","INGESTED",45
+"Class 6","Polity & Governance","keps204.pdf","English","NCERT-089","INGESTED",45
+"Class 6","Polity & Governance","keps105.pdf","English","NCERT-090","INGESTED",27
+"Class 6","Polity & Governance","keps106.pdf","English","NCERT-091","INGESTED",39
+"Class 6","Polity & Governance","keps108.pdf","English","NCERT-092","INGESTED",39
+"Class 11-12","Polity & Governance","leps106.pdf","English","NCERT-093","INGESTED",47
+"Class 6","Polity & Governance","keps201.pdf","English","NCERT-094","INGESTED",51
+"Class 6","Polity & Governance","keps202.pdf","English","NCERT-095","INGESTED",48
+"Class 6","Polity & Governance","keps203.pdf","English","NCERT-096","INGESTED",55
+"Class 6","Polity & Governance","keps205.pdf","English","NCERT-097","INGESTED",44
+"Class 6","Polity & Governance","keps206.pdf","English","NCERT-098","INGESTED",48
+"Class 6","Polity & Governance","keps207.pdf","English","NCERT-099","INGESTED",47
+"Class 6","Polity & Governance","keps208.pdf","English","NCERT-100","INGESTED",38
+"Class 6","Polity & Governance","keps209.pdf","English","NCERT-101","INGESTED",49
+"Class 6","Polity & Governance","keps210.pdf","English","NCERT-102","INGESTED",48
+"Class 6","Polity & Governance","keps2ps.pdf","English","NCERT-103","INGESTED",22
+"Class 11-12","Polity & Governance","leps101.pdf","English","NCERT-104","INGESTED",41
+"Class 11-12","Polity & Governance","leps102.pdf","English","NCERT-105","INGESTED",36
+"Class 11-12","Polity & Governance","leps103.pdf","English","NCERT-106","INGESTED",44
+"Class 11-12","Polity & Governance","leps104.pdf","English","NCERT-107","INGESTED",45
+"Class 11-12","Polity & Governance","leps107.pdf","English","NCERT-108","INGESTED",31
+"Class 11-12","Polity & Governance","leps1ps.pdf","English","NCERT-109","INGESTED",17

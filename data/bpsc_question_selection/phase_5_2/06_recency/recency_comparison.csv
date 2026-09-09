@@ -1,0 +1,3 @@
+Scenario,Last_Practiced_Topic,Selected_Topic_ID,Selected_Topic_Name,Final_Score,Diversity_Score,Repetition_Penalty
+History_A_Panchayati_10_Ago,POLITY-005,"POLITY-006","Parliament & Legislative System",0.41,0.7,0.15
+History_B_Panchayati_1_Ago,POLITY-005,"POLITY-006","Parliament & Legislative System",0.41,0.7,0.15

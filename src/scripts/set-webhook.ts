@@ -15,7 +15,7 @@ async function setWebhook() {
   console.log(`Setting webhook to: ${webhookUrl}`);
   
   const res = await fetch(url);
-  const data = await res.json();
+  const data = (await res.json()) as any;
   
   if (data.ok) {
     console.log("✅ Webhook set successfully!");

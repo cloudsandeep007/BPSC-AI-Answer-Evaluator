@@ -1,0 +1,555 @@
+scenario,run_index,subject_id,subject_name,question_type,marks,history_input,selected_topic_id,selected_topic_name,score,freq_score,recency_score,qtype_score,marks_score,exposure_score,diversity_score,rep_penalty
+"ColdStart",1,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"ColdStart","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"ColdStart",2,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"ColdStart","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"ColdStart",3,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"ColdStart","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"ColdStart",4,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"ColdStart","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"ColdStart",5,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",10,"ColdStart","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"ColdStart",6,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",10,"ColdStart","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"ColdStart",7,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",10,"ColdStart","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"ColdStart",8,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",10,"ColdStart","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"ColdStart",9,"BPSC-SUB-02","Polity & Governance","LONG_ANSWER",10,"ColdStart","POLITY-002","Judiciary, Rights & Doctrines",0.778,0.96,0.55,0.72,0.2,1,1,0
+"ColdStart",10,"BPSC-SUB-02","Polity & Governance","LONG_ANSWER",10,"ColdStart","POLITY-002","Judiciary, Rights & Doctrines",0.778,0.96,0.55,0.72,0.2,1,1,0
+"ColdStart",11,"BPSC-SUB-02","Polity & Governance","LONG_ANSWER",10,"ColdStart","POLITY-002","Judiciary, Rights & Doctrines",0.778,0.96,0.55,0.72,0.2,1,1,0
+"ColdStart",12,"BPSC-SUB-02","Polity & Governance","LONG_ANSWER",10,"ColdStart","POLITY-002","Judiciary, Rights & Doctrines",0.778,0.96,0.55,0.72,0.2,1,1,0
+"ColdStart",13,"BPSC-SUB-01","History, Art & Culture","SHORT_ANSWER",5,"ColdStart","HIST-001","Freedom Movement & Revolts in Bihar",0.73,1,0.4,0.53,0.2,1,1,0
+"ColdStart",14,"BPSC-SUB-01","History, Art & Culture","SHORT_ANSWER",5,"ColdStart","HIST-001","Freedom Movement & Revolts in Bihar",0.73,1,0.4,0.53,0.2,1,1,0
+"ColdStart",15,"BPSC-SUB-01","History, Art & Culture","SHORT_ANSWER",5,"ColdStart","HIST-001","Freedom Movement & Revolts in Bihar",0.73,1,0.4,0.53,0.2,1,1,0
+"ColdStart",16,"BPSC-SUB-01","History, Art & Culture","SHORT_ANSWER",5,"ColdStart","HIST-001","Freedom Movement & Revolts in Bihar",0.73,1,0.4,0.53,0.2,1,1,0
+"ColdStart",17,"BPSC-SUB-01","History, Art & Culture","LONG_ANSWER",38,"ColdStart","HIST-001","Freedom Movement & Revolts in Bihar",0.839,1,0.4,0.8,0.89,1,1,0
+"ColdStart",18,"BPSC-SUB-01","History, Art & Culture","LONG_ANSWER",38,"ColdStart","HIST-001","Freedom Movement & Revolts in Bihar",0.839,1,0.4,0.8,0.89,1,1,0
+"ColdStart",19,"BPSC-SUB-01","History, Art & Culture","LONG_ANSWER",38,"ColdStart","HIST-001","Freedom Movement & Revolts in Bihar",0.839,1,0.4,0.8,0.89,1,1,0
+"ColdStart",20,"BPSC-SUB-01","History, Art & Culture","LONG_ANSWER",38,"ColdStart","HIST-001","Freedom Movement & Revolts in Bihar",0.839,1,0.4,0.8,0.89,1,1,0
+"ColdStart",21,"BPSC-SUB-03","Economy","SHORT_ANSWER",5,"ColdStart","ECON-003","Agrarian Economy & Land Reforms",0.753,1,0.4,0.69,0.2,1,1,0
+"ColdStart",22,"BPSC-SUB-03","Economy","SHORT_ANSWER",5,"ColdStart","ECON-003","Agrarian Economy & Land Reforms",0.753,1,0.4,0.69,0.2,1,1,0
+"ColdStart",23,"BPSC-SUB-03","Economy","SHORT_ANSWER",5,"ColdStart","ECON-003","Agrarian Economy & Land Reforms",0.753,1,0.4,0.69,0.2,1,1,0
+"ColdStart",24,"BPSC-SUB-03","Economy","SHORT_ANSWER",5,"ColdStart","ECON-003","Agrarian Economy & Land Reforms",0.753,1,0.4,0.69,0.2,1,1,0
+"ColdStart",25,"BPSC-SUB-03","Economy","LONG_ANSWER",38,"ColdStart","ECON-003","Agrarian Economy & Land Reforms",0.819,1,0.4,0.81,0.67,1,1,0
+"ColdStart",26,"BPSC-SUB-03","Economy","LONG_ANSWER",38,"ColdStart","ECON-003","Agrarian Economy & Land Reforms",0.819,1,0.4,0.81,0.67,1,1,0
+"ColdStart",27,"BPSC-SUB-03","Economy","LONG_ANSWER",38,"ColdStart","ECON-003","Agrarian Economy & Land Reforms",0.819,1,0.4,0.81,0.67,1,1,0
+"ColdStart",28,"BPSC-SUB-03","Economy","LONG_ANSWER",38,"ColdStart","ECON-003","Agrarian Economy & Land Reforms",0.819,1,0.4,0.81,0.67,1,1,0
+"ColdStart",29,"BPSC-SUB-04","Geography","LONG_ANSWER",10,"ColdStart","GEO-002","Disaster Management & Hydrology",0.797,0.9,0.7,0.75,0.2,1,1,0
+"ColdStart",30,"BPSC-SUB-04","Geography","LONG_ANSWER",10,"ColdStart","GEO-002","Disaster Management & Hydrology",0.797,0.9,0.7,0.75,0.2,1,1,0
+"ColdStart",31,"BPSC-SUB-04","Geography","LONG_ANSWER",10,"ColdStart","GEO-002","Disaster Management & Hydrology",0.797,0.9,0.7,0.75,0.2,1,1,0
+"ColdStart",32,"BPSC-SUB-04","Geography","LONG_ANSWER",10,"ColdStart","GEO-002","Disaster Management & Hydrology",0.797,0.9,0.7,0.75,0.2,1,1,0
+"ColdStart",33,"BPSC-SUB-05","Science & Technology","SHORT_ANSWER",5,"ColdStart","SCITECH-002","IT, AI, 5G & E-Governance",0.805,1,0.55,0.83,0.2,1,1,0
+"ColdStart",34,"BPSC-SUB-05","Science & Technology","SHORT_ANSWER",5,"ColdStart","SCITECH-002","IT, AI, 5G & E-Governance",0.805,1,0.55,0.83,0.2,1,1,0
+"ColdStart",35,"BPSC-SUB-05","Science & Technology","SHORT_ANSWER",5,"ColdStart","SCITECH-002","IT, AI, 5G & E-Governance",0.805,1,0.55,0.83,0.2,1,1,0
+"ColdStart",36,"BPSC-SUB-05","Science & Technology","SHORT_ANSWER",5,"ColdStart","SCITECH-002","IT, AI, 5G & E-Governance",0.805,1,0.55,0.83,0.2,1,1,0
+"ColdStart",37,"BPSC-SUB-06","Current Affairs & IR","LONG_ANSWER",38,"ColdStart","IR-002","Foreign Policy & Neighborhood Diplomacy",0.84,0.83,0.7,0.75,0.8,1,1,0
+"ColdStart",38,"BPSC-SUB-06","Current Affairs & IR","LONG_ANSWER",38,"ColdStart","IR-002","Foreign Policy & Neighborhood Diplomacy",0.84,0.83,0.7,0.75,0.8,1,1,0
+"ColdStart",39,"BPSC-SUB-06","Current Affairs & IR","LONG_ANSWER",38,"ColdStart","IR-002","Foreign Policy & Neighborhood Diplomacy",0.84,0.83,0.7,0.75,0.8,1,1,0
+"ColdStart",40,"BPSC-SUB-06","Current Affairs & IR","LONG_ANSWER",38,"ColdStart","IR-002","Foreign Policy & Neighborhood Diplomacy",0.84,0.83,0.7,0.75,0.8,1,1,0
+"ColdStart",41,"BPSC-SUB-07","Statistics","DATA_INTERPRETATION",36,"ColdStart","STAT-001","Data Interpretation & Graphical Analysis",0.828,1,0.55,0.7,0.63,1,1,0
+"ColdStart",42,"BPSC-SUB-07","Statistics","DATA_INTERPRETATION",36,"ColdStart","STAT-001","Data Interpretation & Graphical Analysis",0.828,1,0.55,0.7,0.63,1,1,0
+"ColdStart",43,"BPSC-SUB-07","Statistics","DATA_INTERPRETATION",36,"ColdStart","STAT-001","Data Interpretation & Graphical Analysis",0.828,1,0.55,0.7,0.63,1,1,0
+"ColdStart",44,"BPSC-SUB-07","Statistics","DATA_INTERPRETATION",36,"ColdStart","STAT-001","Data Interpretation & Graphical Analysis",0.828,1,0.55,0.7,0.63,1,1,0
+"ColdStart",45,"BPSC-SUB-08","Essay","ESSAY",100,"ColdStart","ESSAY-001","General & Philosophical Reflections",0.868,1,0.4,1,0.88,1,1,0
+"ColdStart",46,"BPSC-SUB-08","Essay","ESSAY",100,"ColdStart","ESSAY-001","General & Philosophical Reflections",0.868,1,0.4,1,0.88,1,1,0
+"ColdStart",47,"BPSC-SUB-08","Essay","ESSAY",100,"ColdStart","ESSAY-001","General & Philosophical Reflections",0.868,1,0.4,1,0.88,1,1,0
+"ColdStart",48,"BPSC-SUB-08","Essay","ESSAY",100,"ColdStart","ESSAY-001","General & Philosophical Reflections",0.868,1,0.4,1,0.88,1,1,0
+"ColdStart",49,"BPSC-SUB-09","Geography Optional","LONG_ANSWER",38,"ColdStart","GEOOPT-002","Human & Economic Geography Optional",0.817,1,0.4,0.99,0.38,1,1,0
+"ColdStart",50,"BPSC-SUB-09","Geography Optional","LONG_ANSWER",38,"ColdStart","GEOOPT-002","Human & Economic Geography Optional",0.817,1,0.4,0.99,0.38,1,1,0
+"ColdStart",51,"BPSC-SUB-09","Geography Optional","LONG_ANSWER",38,"ColdStart","GEOOPT-002","Human & Economic Geography Optional",0.817,1,0.4,0.99,0.38,1,1,0
+"ColdStart",52,"BPSC-SUB-09","Geography Optional","LONG_ANSWER",38,"ColdStart","GEOOPT-002","Human & Economic Geography Optional",0.817,1,0.4,0.99,0.38,1,1,0
+"ScenarioB_Repetition",1,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"ScenarioK_Exclusion",1,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"Exclude POLITY-002,005","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_ColdStart",1,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",2,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",3,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",4,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",5,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",6,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",7,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",8,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",9,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",10,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",11,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",12,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",13,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",14,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",15,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",16,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",17,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",18,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",19,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",20,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",21,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",22,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",23,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",24,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",25,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",26,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",27,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",28,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",29,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",30,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",31,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",32,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",33,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",34,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",35,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",36,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",37,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",38,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",39,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",40,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",41,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",42,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",43,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",44,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",45,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",46,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",47,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",48,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",49,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",50,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",51,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",52,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",53,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",54,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",55,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",56,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",57,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",58,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",59,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",60,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",61,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",62,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",63,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",64,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",65,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",66,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",67,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",68,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",69,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",70,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",71,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",72,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",73,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",74,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",75,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",76,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",77,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",78,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",79,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",80,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",81,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",82,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",83,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",84,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",85,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",86,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",87,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",88,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",89,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",90,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",91,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",92,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",93,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",94,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",95,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",96,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",97,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",98,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",99,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ColdStart",100,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"None","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",1,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",2,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",3,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",4,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",5,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",6,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",7,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",8,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",9,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",10,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",11,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",12,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",13,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",14,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",15,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",16,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",17,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",18,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",19,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",20,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",21,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",22,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",23,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",24,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",25,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",26,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",27,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",28,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",29,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",30,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",31,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",32,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",33,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",34,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",35,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",36,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",37,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",38,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",39,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",40,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",41,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",42,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",43,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",44,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",45,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",46,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",47,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",48,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",49,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",50,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",51,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",52,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",53,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",54,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",55,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",56,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",57,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",58,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",59,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",60,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",61,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",62,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",63,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",64,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",65,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",66,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",67,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",68,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",69,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",70,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",71,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",72,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",73,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",74,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",75,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",76,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",77,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",78,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",79,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",80,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",81,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",82,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",83,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",84,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",85,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",86,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",87,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",88,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",89,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",90,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",91,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",92,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",93,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",94,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",95,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",96,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",97,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",98,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",99,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_PanchayatiHeavy",100,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-005x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",1,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",2,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",3,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",4,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",5,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",6,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",7,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",8,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",9,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",10,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",11,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",12,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",13,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",14,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",15,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",16,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",17,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",18,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",19,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",20,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",21,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",22,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",23,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",24,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",25,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",26,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",27,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",28,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",29,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",30,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",31,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",32,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",33,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",34,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",35,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",36,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",37,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",38,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",39,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",40,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",41,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",42,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",43,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",44,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",45,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",46,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",47,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",48,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",49,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",50,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",51,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",52,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",53,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",54,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",55,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",56,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",57,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",58,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",59,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",60,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",61,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",62,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",63,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",64,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",65,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",66,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",67,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",68,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",69,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",70,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",71,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",72,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",73,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",74,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",75,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",76,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",77,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",78,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",79,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",80,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",81,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",82,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",83,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",84,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",85,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",86,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",87,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",88,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",89,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",90,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",91,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",92,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",93,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",94,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",95,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",96,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",97,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",98,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",99,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_ExecutiveHeavy",100,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001x3","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0
+"Polity_JudiciaryHeavy",1,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",2,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",3,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",4,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",5,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",6,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",7,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",8,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",9,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",10,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",11,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",12,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",13,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",14,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",15,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",16,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",17,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",18,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",19,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",20,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",21,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",22,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",23,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",24,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",25,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",26,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",27,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",28,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",29,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",30,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",31,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",32,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",33,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",34,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",35,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",36,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",37,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",38,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",39,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",40,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",41,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",42,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",43,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",44,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",45,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",46,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",47,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",48,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",49,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",50,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",51,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",52,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",53,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",54,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",55,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",56,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",57,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",58,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",59,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",60,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",61,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",62,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",63,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",64,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",65,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",66,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",67,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",68,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",69,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",70,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",71,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",72,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",73,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",74,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",75,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",76,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",77,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",78,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",79,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",80,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",81,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",82,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",83,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",84,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",85,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",86,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",87,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",88,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",89,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",90,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",91,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",92,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",93,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",94,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",95,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",96,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",97,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",98,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",99,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_JudiciaryHeavy",100,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-002x3","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0
+"Polity_MixedHistory",1,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",2,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",3,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",4,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",5,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",6,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",7,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",8,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",9,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",10,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",11,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",12,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",13,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",14,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",15,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",16,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",17,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",18,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",19,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",20,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",21,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",22,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",23,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",24,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",25,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",26,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",27,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",28,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",29,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",30,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",31,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",32,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",33,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",34,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",35,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",36,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",37,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",38,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",39,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",40,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",41,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",42,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",43,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",44,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",45,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",46,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",47,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",48,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",49,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",50,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",51,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",52,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",53,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",54,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",55,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",56,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",57,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",58,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",59,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",60,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",61,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",62,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",63,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",64,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",65,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",66,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",67,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",68,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",69,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",70,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",71,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",72,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",73,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",74,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",75,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",76,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",77,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",78,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",79,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",80,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",81,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",82,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",83,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",84,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",85,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",86,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",87,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",88,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",89,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",90,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",91,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",92,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",93,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",94,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",95,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",96,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",97,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",98,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",99,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0
+"Polity_MixedHistory",100,"BPSC-SUB-02","Polity & Governance","SHORT_ANSWER",5,"POLITY-001,002,003,005","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0

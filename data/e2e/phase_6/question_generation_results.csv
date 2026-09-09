@@ -1,0 +1,11 @@
+run_id,subject_id,subject_name,requested_type,requested_marks,selected_topic_id,selected_topic_name,blueprint_id,question_id,quality_score,rag_chunks_retrieved,status
+1,BPSC-SUB-01,History Art & Culture,SHORT_ANSWER,8,HIST-001,Freedom Movement & Revolts in Bihar,bp-h001-1,q-h001-1,9.5,5,PASS
+2,BPSC-SUB-02,Polity & Governance,SHORT_ANSWER,8,POLITY-002,Judiciary Rights & Doctrines,bp-p002-1,q-p002-1,9.5,5,PASS
+3,BPSC-SUB-03,Economy,LONG_ANSWER,38,ECON-003,Agrarian Economy & Land Reforms,bp-e003-1,q-e003-1,9.2,5,PASS
+4,BPSC-SUB-04,Geography,SHORT_ANSWER,8,GEO-002,Disaster Management & Hydrology,bp-g002-1,q-g002-1,9.4,5,PASS
+5,BPSC-SUB-05,Science & Technology,LONG_ANSWER,38,SCITECH-002,IT AI 5G & E-Governance,bp-s002-1,q-s002-1,9.6,5,PASS
+6,BPSC-SUB-06,Current Affairs & IR,SHORT_ANSWER,8,IR-001,Global Groupings & Multilateral Summits,bp-ir001-1,q-ir001-1,9.3,5,PASS
+7,BPSC-SUB-07,Statistics,SHORT_ANSWER,8,STAT-001,Data Interpretation & Graphical Analysis,bp-st001-1,q-st001-1,9.1,5,PASS
+8,BPSC-SUB-08,Essay,ESSAY,100,ESSAY-001,General & Philosophical Reflections,bp-es001-1,q-es001-1,9.5,5,PASS
+9,BPSC-SUB-09,Geography Optional,LONG_ANSWER,38,GEOOPT-002,Human & Economic Geography Optional,bp-go002-1,q-go002-1,9.2,5,PASS
+10,BPSC-SUB-10,General & Miscellaneous,SHORT_ANSWER,8,NONE,NONE,NONE,NONE,0,0,REJECTED_UNAVAILABLE

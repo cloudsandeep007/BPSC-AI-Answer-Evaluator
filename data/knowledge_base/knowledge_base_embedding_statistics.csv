@@ -1,0 +1,7 @@
+metric,value
+"total_database_chunks",15019
+"embedded_chunks",15019
+"unembedded_chunks",0
+"embedding_coverage_percentage",100
+"vector_dimension",3072
+"embedding_model","gemini-embedding-001"

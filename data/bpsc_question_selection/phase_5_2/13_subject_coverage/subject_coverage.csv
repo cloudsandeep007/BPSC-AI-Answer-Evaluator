@@ -1,0 +1,11 @@
+subject_id,subject_name,topic_count,first_selected_topic_id,first_selected_topic_name,score,status
+"BPSC-SUB-01","History, Art & Culture",5,"HIST-001","Freedom Movement & Revolts in Bihar",0.73,"OK"
+"BPSC-SUB-02","Polity & Governance",6,"POLITY-002","Judiciary, Rights & Doctrines",0.787,"OK"
+"BPSC-SUB-03","Economy",3,"ECON-003","Agrarian Economy & Land Reforms",0.753,"OK"
+"BPSC-SUB-04","Geography",3,"GEO-002","Disaster Management & Hydrology",0.797,"OK"
+"BPSC-SUB-05","Science & Technology",3,"SCITECH-002","IT, AI, 5G & E-Governance",0.805,"OK"
+"BPSC-SUB-06","Current Affairs & IR",3,"IR-001","Global Groupings & Multilateral Summits",0.818,"OK"
+"BPSC-SUB-07","Statistics",1,"STAT-001","Data Interpretation & Graphical Analysis",0.755,"OK"
+"BPSC-SUB-08","Essay",3,"ESSAY-001","General & Philosophical Reflections",0.725,"OK"
+"BPSC-SUB-09","Geography Optional",2,"GEOOPT-002","Human & Economic Geography Optional",0.726,"OK"
+"BPSC-SUB-10","General & Miscellaneous",0,"NONE","NONE",0,"FAILED: No valid topics found for subject 'BPSC-SUB-10' (General & Miscellaneous)"

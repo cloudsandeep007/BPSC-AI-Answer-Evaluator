@@ -1,6 +1,11 @@
 import { describe, it, expect, vi } from "vitest";
 import { QueueManager } from "../../src/queue/queueManager";
 
+vi.mock("../../src/supabase", () => ({
+  createJobLog: vi.fn().mockResolvedValue("mock-job-id"),
+  updateJobLog: vi.fn().mockResolvedValue(undefined),
+}));
+
 describe("QueueManager", () => {
   it("executes processor in inline mode when Redis is unconfigured", async () => {
     const queue = new QueueManager();

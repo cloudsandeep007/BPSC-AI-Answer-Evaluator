@@ -1,0 +1,11 @@
+journey_id,student_id,selection_id,target_topic_id,query_id,evidence_chunk_id,question_id,blueprint_id,submission_id,evaluation_id,report_card_id,traceability_status
+J01,user-101,sel-001,HIST-001,query-001,chunk-h01,q-h001,bp-h001,sub-001,eval-001,report-001,COMPLETE_TRACEABLE
+J02,user-102,sel-002,POLITY-002,query-002,chunk-p02,q-p002,bp-p002,sub-002,eval-002,report-002,COMPLETE_TRACEABLE
+J03,user-103,sel-003,ECON-003,query-003,chunk-e03,q-e003,bp-e003,sub-003,eval-003,report-003,COMPLETE_TRACEABLE
+J04,user-104,sel-004,GEO-002,query-004,chunk-g02,q-g002,bp-g002,sub-004,eval-004,report-004,COMPLETE_TRACEABLE
+J05,user-105,sel-005,SCITECH-002,query-005,chunk-s02,q-s002,bp-s002,sub-005,eval-005,report-005,COMPLETE_TRACEABLE
+J06,user-106,sel-006,IR-001,query-006,chunk-ir01,q-ir001,bp-ir001,sub-006,eval-006,report-006,COMPLETE_TRACEABLE
+J07,user-107,sel-007,STAT-001,query-007,chunk-st01,q-st001,bp-st001,sub-007,eval-007,report-007,COMPLETE_TRACEABLE
+J08,user-108,sel-008,ESSAY-001,query-008,chunk-es01,q-es001,bp-es001,sub-008,eval-008,report-008,COMPLETE_TRACEABLE
+J09,user-109,sel-009,GEOOPT-002,query-009,chunk-go02,q-go002,bp-go002,sub-009,eval-009,report-009,COMPLETE_TRACEABLE
+J10,user-110,sel-010,POLITY-001,query-010,chunk-p01,q-p001,bp-p001,sub-010,eval-010,report-010,COMPLETE_TRACEABLE

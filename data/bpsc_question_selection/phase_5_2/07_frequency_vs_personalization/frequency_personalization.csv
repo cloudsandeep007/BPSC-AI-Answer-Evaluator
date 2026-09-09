@@ -1,0 +1,6 @@
+student_exposures,high_freq_topic_id,high_freq_topic_name,high_freq_score,selected_topic_id,selected_topic_name,selected_score
+0,"HIST-001","Freedom Movement & Revolts in Bihar",0.73,"HIST-001","Freedom Movement & Revolts in Bihar",0.73
+1,"HIST-001","Freedom Movement & Revolts in Bihar",0.44,"HIST-002","Art, Architecture & Culture of Bihar",0.652
+2,"HIST-001","Freedom Movement & Revolts in Bihar",0.23,"HIST-002","Art, Architecture & Culture of Bihar",0.652
+3,"HIST-001","Freedom Movement & Revolts in Bihar",0.01,"HIST-002","Art, Architecture & Culture of Bihar",0.652
+5,"HIST-001","Freedom Movement & Revolts in Bihar",0.01,"HIST-002","Art, Architecture & Culture of Bihar",0.652

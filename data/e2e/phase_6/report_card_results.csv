@@ -1,0 +1,6 @@
+submission_id,pdf_generated,pdf_size_bytes,font_rendering,devanagari_valid,delivered_to_telegram,status
+sub-001,YES,42850,NotoSansDevanagari,VERIFIED,YES,PASS
+sub-002,YES,44120,NotoSansDevanagari,VERIFIED,YES,PASS
+sub-003,YES,46800,NotoSansDevanagari,VERIFIED,YES,PASS
+sub-004,YES,41900,NotoSansDevanagari,VERIFIED,YES,PASS
+sub-005,YES,48200,NotoSansDevanagari,VERIFIED,YES,PASS

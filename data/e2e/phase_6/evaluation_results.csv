@@ -1,0 +1,6 @@
+submission_id,question_id,blueprint_id,slot_type,raw_quality,ceiling,calculated_marks,max_marks,band,points_found_count,points_missed_count,status
+sub-001,q-h001-1,bp-h001-1,compulsory_subpart,0.75,0.85,5.5,8,strong,3,1,PASS
+sub-002,q-p002-1,bp-p002-1,compulsory_subpart,0.60,0.75,4.0,8,average,2,1,PASS
+sub-003,q-e003-1,bp-e003-1,choice_essay,0.68,0.78,22.0,38,strong,4,2,PASS
+sub-004,q-g002-1,bp-g002-1,compulsory_subpart,0.55,0.70,3.5,8,average,2,2,PASS
+sub-005,q-s002-1,bp-s002-1,choice_essay,0.72,0.80,24.5,38,strong,5,1,PASS

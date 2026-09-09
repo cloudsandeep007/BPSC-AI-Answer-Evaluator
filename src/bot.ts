@@ -52,14 +52,20 @@ async function questionForUser(telegramId: number): Promise<string | null> {
   return getUserActiveQuestion(telegramId);
 }
 
+// General & Miscellaneous (BPSC-SUB-10) is currently not exposed for practice
+// because it has no production topic taxonomy.
+const SELECTABLE_TOPICS = AVAILABLE_TOPICS.filter(
+  (t) => t.toLowerCase() !== "general & miscellaneous" && t.toLowerCase() !== "bpsc-sub-10"
+);
+
 // Short codes for callback_data - keeps payloads well under Telegram's 64-byte
 // limit regardless of how the topic strings themselves are spelled.
-const TOPIC_CODES: Record<string, string> = Object.fromEntries(AVAILABLE_TOPICS.map((t, i) => [String(i), t]));
+const TOPIC_CODES: Record<string, string> = Object.fromEntries(SELECTABLE_TOPICS.map((t, i) => [String(i), t]));
 const TOPIC_CODE_BY_NAME = Object.fromEntries(Object.entries(TOPIC_CODES).map(([code, name]) => [name, code]));
 
 function topicKeyboard(): InlineKeyboard {
   const kb = new InlineKeyboard();
-  AVAILABLE_TOPICS.forEach((topic, i) => {
+  SELECTABLE_TOPICS.forEach((topic, i) => {
     kb.text(topic, `topic:${TOPIC_CODE_BY_NAME[topic]}`);
     if (i % 2 === 1) kb.row();
   });
@@ -88,9 +94,13 @@ async function sendGeneratedQuestion(ctx: any, telegramId: number, lang: Lang, t
         `<i>${escapeHtml(t(lang, "questionFooter"))}</i>`,
       { parse_mode: "HTML" },
     );
-  } catch (err) {
+  } catch (err: any) {
     console.error("Stage 0 failed:", err);
-    await ctx.reply(t(lang, "somethingWrong"));
+    if (err?.message?.includes("unavailable for practice") || err?.message?.includes("BPSC-SUB-10")) {
+      await ctx.reply(t(lang, "subjectUnavailable"));
+    } else {
+      await ctx.reply(t(lang, "somethingWrong"));
+    }
   }
 }
 
@@ -113,7 +123,7 @@ bot.callbackQuery(/^lang:(hi|hinglish|en)$/, async (ctx) => {
   await setUserLanguage(user.id, lang);
   await ctx.answerCallbackQuery();
   await ctx.editMessageText(t(lang, "confirmed"));
-  await ctx.reply(t(lang, "sendPhoto"));
+  await ctx.reply(t(lang, "pickTopic"), { reply_markup: topicKeyboard() });
 });
 
 // Serves the student a question to answer. Always generates a NEW question

@@ -1,0 +1,5 @@
+Consecutive_Practices,Exposure_Score,Repetition_Penalty,Net_Exposure_Delta
+0,1.00,0.00,0.00
+1,0.70,0.15,-0.45
+2,0.40,0.30,-0.90
+3+,0.10,0.50,-1.40

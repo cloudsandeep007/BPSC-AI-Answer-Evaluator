@@ -1,0 +1,8 @@
+Metric,Phase 5 Report,Phase 5.1 Evaluation,Actual Runtime Value,Explanation
+Total Subjects,10,10,10,"SUBJECT_MAP defines BPSC-SUB-01 through BPSC-SUB-10"
+Active Subjects with Topics,9,9,9,"BPSC-SUB-01 to BPSC-SUB-09 have topics; BPSC-SUB-10 has 0"
+Total Topics in Taxonomy,32,29,29,"ADR 0001 narrative cited 32 as initial estimate; topic_taxonomy_v1.json finalized 29 topics"
+Topics with Past Questions,29,29,29,"All 29 taxonomy topics have historical BPSC question mapping"
+Selectable Topics,29,29,29,"All 29 active topics have valid statistics and are candidate-selectable"
+Orphan / Empty Topics,0,0,0,"0 orphan topics exist"
+Subjects without Topics,1,1,1,"BPSC-SUB-10 (General & Miscellaneous) has zero topics"

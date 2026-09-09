@@ -1,0 +1,21 @@
+run_id,subject_id,subject_name,requested_type,requested_marks,selected_topic_id,selected_topic_name,generated_question_topic,generated_slot_type,generated_marks,selection_score,topic_drift,type_drift,status
+1,BPSC-SUB-01,History Art & Culture,SHORT_ANSWER,8,HIST-001,Freedom Movement & Revolts in Bihar,Freedom Movement & Revolts in Bihar,compulsory_subpart,8,0.7300,NO,NO,PASS
+2,BPSC-SUB-02,Polity & Governance,SHORT_ANSWER,8,POLITY-002,Judiciary Rights & Doctrines,Judiciary Rights & Doctrines,compulsory_subpart,8,0.7870,NO,NO,PASS
+3,BPSC-SUB-03,Economy,LONG_ANSWER,38,ECON-003,Agrarian Economy & Land Reforms,Agrarian Economy & Land Reforms,choice_essay,38,0.8190,NO,NO,PASS
+4,BPSC-SUB-04,Geography,SHORT_ANSWER,8,GEO-002,Disaster Management & Hydrology,Disaster Management & Hydrology,compulsory_subpart,8,0.7970,NO,NO,PASS
+5,BPSC-SUB-05,Science & Technology,LONG_ANSWER,38,SCITECH-002,IT AI 5G & E-Governance,IT AI 5G & E-Governance,choice_essay,38,0.8140,NO,NO,PASS
+6,BPSC-SUB-06,Current Affairs & IR,SHORT_ANSWER,8,IR-001,Global Groupings & Multilateral Summits,Global Groupings & Multilateral Summits,compulsory_subpart,8,0.8180,NO,NO,PASS
+7,BPSC-SUB-07,Statistics,SHORT_ANSWER,8,STAT-001,Data Interpretation & Graphical Analysis,Data Interpretation & Graphical Analysis,compulsory_subpart,8,0.7550,NO,NO,PASS
+8,BPSC-SUB-08,Essay,ESSAY,100,ESSAY-001,General & Philosophical Reflections,General & Philosophical Reflections,essay_paper,100,0.8680,NO,NO,PASS
+9,BPSC-SUB-09,Geography Optional,LONG_ANSWER,38,GEOOPT-002,Human & Economic Geography Optional,Human & Economic Geography Optional,choice_essay,38,0.8170,NO,NO,PASS
+10,BPSC-SUB-01,History Art & Culture,SHORT_ANSWER,8,HIST-001,Freedom Movement & Revolts in Bihar,Freedom Movement & Revolts in Bihar,compulsory_subpart,8,0.7300,NO,NO,PASS
+11,BPSC-SUB-02,Polity & Governance,SHORT_ANSWER,8,POLITY-002,Judiciary Rights & Doctrines,Judiciary Rights & Doctrines,compulsory_subpart,8,0.7870,NO,NO,PASS
+12,BPSC-SUB-03,Economy,LONG_ANSWER,38,ECON-003,Agrarian Economy & Land Reforms,Agrarian Economy & Land Reforms,choice_essay,38,0.8190,NO,NO,PASS
+13,BPSC-SUB-04,Geography,SHORT_ANSWER,8,GEO-002,Disaster Management & Hydrology,Disaster Management & Hydrology,compulsory_subpart,8,0.7970,NO,NO,PASS
+14,BPSC-SUB-05,Science & Technology,LONG_ANSWER,38,SCITECH-002,IT AI 5G & E-Governance,IT AI 5G & E-Governance,choice_essay,38,0.8140,NO,NO,PASS
+15,BPSC-SUB-06,Current Affairs & IR,SHORT_ANSWER,8,IR-001,Global Groupings & Multilateral Summits,Global Groupings & Multilateral Summits,compulsory_subpart,8,0.8180,NO,NO,PASS
+16,BPSC-SUB-07,Statistics,SHORT_ANSWER,8,STAT-001,Data Interpretation & Graphical Analysis,Data Interpretation & Graphical Analysis,compulsory_subpart,8,0.7550,NO,NO,PASS
+17,BPSC-SUB-08,Essay,ESSAY,100,ESSAY-001,General & Philosophical Reflections,General & Philosophical Reflections,essay_paper,100,0.8680,NO,NO,PASS
+18,BPSC-SUB-09,Geography Optional,LONG_ANSWER,38,GEOOPT-002,Human & Economic Geography Optional,Human & Economic Geography Optional,choice_essay,38,0.8170,NO,NO,PASS
+19,BPSC-SUB-01,History Art & Culture,SHORT_ANSWER,8,HIST-001,Freedom Movement & Revolts in Bihar,Freedom Movement & Revolts in Bihar,compulsory_subpart,8,0.7300,NO,NO,PASS
+20,BPSC-SUB-02,Polity & Governance,SHORT_ANSWER,8,POLITY-002,Judiciary Rights & Doctrines,Judiciary Rights & Doctrines,compulsory_subpart,8,0.7870,NO,NO,PASS

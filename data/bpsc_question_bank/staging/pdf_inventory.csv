@@ -1,0 +1,27 @@
+source_pdf_name,relative_path,total_pages,detected_year,detected_paper,status,extracted_questions_count,potential_issues
+(2020)66th MainsGS1.pdf,mains\(2020)66th MainsGS1.pdf,16,2020,GS 1,SCANNED / REQUIRES OCR REVIEW,0,Scanned image PDF without embedded text stream.
+(2020)66thMainsGS2.pdf,mains\(2020)66thMainsGS2.pdf,8,2020,GS 2,TEXT PARSABLE,10,None
+67thMainsGS1-2022.pdf,mains\67thMainsGS1-2022.pdf,15,2022,GS 1,TEXT PARSABLE,10,None
+67thMainsGS2-2022.pdf,mains\67thMainsGS2-2022.pdf,8,2022,GS 2,TEXT PARSABLE,10,None
+68th mains essay  (Final) (1).pdf,mains\68th mains essay  (Final) (1).pdf,3,2023,Essay,TEXT PARSABLE,9,None
+68th-MainsGS-1.pdf,mains\68th-MainsGS-1.pdf,9,2023,GS 1,TEXT PARSABLE,21,None
+68th_BPSC_MAINS_GS_PAPER-II.pdf,mains\68th_BPSC_MAINS_GS_PAPER-II.pdf,5,2023,GS 1,TEXT PARSABLE,24,None
+69th_BPSC_MAINS_ESSAY.pdf,mains\69th_BPSC_MAINS_ESSAY.pdf,3,2024,Essay,TEXT PARSABLE,9,None
+69th_BPSC_MAINS_GS_PAPER-I.pdf,mains\69th_BPSC_MAINS_GS_PAPER-I.pdf,9,2024,GS 1,TEXT PARSABLE,21,None
+69th_BPSC_MAINS_GS_PAPER-II.pdf,mains\69th_BPSC_MAINS_GS_PAPER-II.pdf,5,2024,GS 1,TEXT PARSABLE,25,None
+70th_BPSC_Mains_Essay_Paper.pdf,mains\70th_BPSC_Mains_Essay_Paper.pdf,3,2025,Essay,TEXT PARSABLE,8,None
+70th_BPSC_Mains_General_Studies_1.pdf,mains\70th_BPSC_Mains_General_Studies_1.pdf,13,2025,GS 1,TEXT PARSABLE,9,None
+70th_BPSC_Mains_General_Studies_2.pdf,mains\70th_BPSC_Mains_General_Studies_2.pdf,5,2025,GS 2,TEXT PARSABLE,7,None
+71st BPSC MAINS ESSAY PAPER (25-04-2026).pdf,mains\71st BPSC MAINS ESSAY PAPER (25-04-2026).pdf,2,2026,Essay,TEXT PARSABLE,11,None
+"71st BPSC Mains, GS Paper-1.pdf","mains\71st BPSC Mains, GS Paper-1.pdf",12,2026,GS 1,SCANNED / REQUIRES OCR REVIEW,0,Scanned image PDF without embedded text stream.
+"71st BPSC Mains, GS Paper-2.pdf","mains\71st BPSC Mains, GS Paper-2.pdf",7,2026,GS 2,SCANNED / REQUIRES OCR REVIEW,0,Scanned image PDF without embedded text stream.
+BPSC-(60-62)-Mains-exam-GS-1.pdf,mains\BPSC-(60-62)-Mains-exam-GS-1.pdf,7,2018,GS 1,TEXT PARSABLE,15,None
+BPSC-(60-62)-Mains-exam-GS-2.pdf,mains\BPSC-(60-62)-Mains-exam-GS-2.pdf,3,2018,GS 2,TEXT PARSABLE,12,None
+BPSC-(63rd)-Mains-exam-GS-1.pdf,mains\BPSC-(63rd)-Mains-exam-GS-1.pdf,7,2019,GS 1,TEXT PARSABLE,15,None
+BPSC-(63rd)-Mains-exam-GS-2.pdf,mains\BPSC-(63rd)-Mains-exam-GS-2.pdf,3,2019,GS 2,TEXT PARSABLE,13,None
+BPSC-64th-Mains-exam-GS-1.pdf,mains\BPSC-64th-Mains-exam-GS-1.pdf,7,2019,GS 1,TEXT PARSABLE,15,None
+BPSC-64th-Mains-exam-GS-2.pdf,mains\BPSC-64th-Mains-exam-GS-2.pdf,3,2019,GS 2,TEXT PARSABLE,12,None
+BPSC-65th-Mains-Exam-GS-1.pdf,mains\BPSC-65th-Mains-Exam-GS-1.pdf,8,2020,GS 1,TEXT PARSABLE,23,None
+BPSC-65th-Mains-Exam-GS-2.pdf,mains\BPSC-65th-Mains-Exam-GS-2.pdf,3,2020,GS 2,TEXT PARSABLE,12,None
+Geography Optional_71st BPSC Mains.pdf,optional\Geography Optional_71st BPSC Mains.pdf,36,2026,Geography Optional,TEXT PARSABLE,281,None
+68th bpsc pre.pdf,prelims\68th bpsc pre.pdf,46,2023,GS Prelims,TEXT PARSABLE,54,None

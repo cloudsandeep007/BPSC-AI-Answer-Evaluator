@@ -1,0 +1,6 @@
+failure_scenario,simulated_error,handled_by,user_facing_response,internal_leak_prevented,status
+Gemini Timeout,HTTP 504 / AbortSignal,aiGateway Retry (3 attempts),somethingWrong message,YES,PASS
+Rate Limit 429,HTTP 429 Resource Exhausted,Exponential Backoff + Fallback,generatingQuestion retry,YES,PASS
+Quality Checker Reject,Score 4.2 < 8.0,Stage 0 Retry Loop (attempt 2),Regenerates question,YES,PASS
+Subject BPSC-SUB-10,No topic taxonomy,selectTargetTopic Validation,subjectUnavailable message,YES,PASS
+Supabase Storage Down,Bucket not found error,Background async catch,Storage path preserved,YES,PASS

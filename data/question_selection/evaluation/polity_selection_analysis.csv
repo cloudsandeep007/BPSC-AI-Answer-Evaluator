@@ -1,0 +1,7 @@
+topic_id,topic_name,cold_start_pct,panchayati_heavy_pct,executive_heavy_pct,judiciary_heavy_pct,mixed_history_pct
+"POLITY-001","Executive (President & Governor)",0.0%,0.0%,0.0%,100.0%,0.0%
+"POLITY-002","Judiciary, Rights & Doctrines",100.0%,100.0%,100.0%,0.0%,0.0%
+"POLITY-003","Federalism & Centre-State Relations",0.0%,0.0%,0.0%,0.0%,0.0%
+"POLITY-004","Elections, Preamble & Constitutional Bodies",0.0%,0.0%,0.0%,0.0%,100.0%
+"POLITY-005","Local Self-Government (Panchayati Raj)",0.0%,0.0%,0.0%,0.0%,0.0%
+"POLITY-006","Parliament & Legislative System",0.0%,0.0%,0.0%,0.0%,0.0%

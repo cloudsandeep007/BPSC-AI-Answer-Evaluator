@@ -4,7 +4,7 @@
 Read this first, before starting any work. If you change what the app does, you
 update this file in the same session — see `CLAUDE.md` in the project root.
 
-Last updated: 2026-09-08
+Last updated: 2026-09-09 (Phase 6 End-to-End Student Journey Validation Complete — 69/69 Tests PASS — Ready for Internal Pilot)
 
 ---
 
@@ -342,6 +342,13 @@ Other commands:
 
 ## Changelog
 
+### 2026-09-08 — Phase 5 Vector RAG Knowledge Base & Database Sync
+
+- Added pgvector migration `0006_pgvector_and_chunks.sql` creating `document_chunks` table and `match_document_chunks` similarity search RPC using `gemini-embedding-001` (3072 dims).
+- Implemented `src/scripts/ingest.ts` for PDF and Markdown document parsing, chunking, and embedding into Supabase.
+- Applied migrations `0002` through `0006` to live Supabase database, resolving schema cache sync issues.
+- Updated `src/bot.ts` to present subject menu (`pickTopic`) immediately upon language selection, allowing instant topic choice.
+
 ### 2026-09-08 — Phase 2 Asynchronous Processing & Supabase Storage for Answer Images
 
 - Added Supabase Storage adapter (`src/storage/supabaseStorage.ts`) to upload student
@@ -409,6 +416,70 @@ Other commands:
   Stage B scored a vague answer 0.5/8 and a content-complete but badly
   structured one 6/8, docking it on structure alone. All four provenance fields
   recorded on both evaluations.
+
+### 2026-09-09 — Phase 5.2 BPSC Question Selection Sequential Calibration & Behavioral Diagnostics
+
+- **Sequential Calibration Suite** (`tests/evaluation/question-selection/sequentialCalibration.ts`):
+  - Executed multi-iteration sequential student practice simulations across 15 diagnostic scenarios.
+  - Proved topic lock-in elimination: in a 100-run sequential practice session, the engine rotated across all 6/6 Polity topics with 0 back-to-back sticky locking.
+  - Reconciled taxonomy discrepancy: production taxonomy (`topic_taxonomy_v1.json`) contains 29 topics across 9 active subjects, mapping 100% of 603 historical questions.
+  - Empirically proved personalization threshold: exactly 2 consecutive practice attempts on a high-frequency topic (`HIST-001`) trigger anti-repetition override.
+  - Created 15 diagnostic artifact directories in `data/bpsc_question_selection/phase_5_2/` (`01_baseline/` through `15_data_integrity/`, and `phase_5_2_calibration_report.md`).
+  - Added ADR 0004 (`docs/architecture/ADR/0004_question_selection_calibration.md`).
+  - Integration Readiness: **READY WITH CONDITIONS** (Condition: Resolve `BPSC-SUB-10` General & Miscellaneous topic definitions or dropdown handling). Zero algorithm or scoring changes were made.
+
+### 2026-09-09 — Phase 5.1 BPSC Question Selection Behavioral Evaluation
+
+- **Behavioral Evaluation Suite** (`tests/evaluation/question-selection/behavioralEvaluation.ts`):
+  - Completed empirical evaluation across 15 behavioral scenarios on the 603-question production database dataset.
+  - Verified 100% determinism (0 variation across 100 runs), anti-repetition topic rotation (-0.50 penalty rotates Panchayati Raj to Judiciary/Executive), dynamic topic diversity (6/6 unique topics selected over 20 runs), and multi-subject coverage across all 10 BPSC subjects.
+  - Generated reports and CSV analyses in `data/question_selection/evaluation/` (`phase_5_1_evaluation_report.md`, `selection_simulation_results.csv`, `score_decomposition.csv`, `polity_selection_analysis.csv`, `subject_selection_analysis.csv`).
+  - Identified finding: `BPSC-SUB-10` (General & Miscellaneous) contains 0 topics in taxonomy and gracefully returns clear error when selected.
+  - Overall Assessment: **A. READY FOR STAGE 0 INTEGRATION**. Zero algorithm or scoring changes were made.
+
+### 2026-09-09 — Phase 5 BPSC Question Selection Intelligence
+
+- **Question Selection Intelligence Engine** (`src/questionSelection/`):
+  - 100% deterministic, database-driven topic selection engine solving Panchayati Raj over-generation.
+  - Dynamically calculates topic statistics (`total_questions`, `unique_years`, `short_answer_count`, `long_answer_count`, `average_marks`, `recent_question_count`) directly from `bpsc_questions`.
+  - Multi-factor scoring model: Historical Relevance (25%), Recency Decay (20%), Question-Type Fit (15%), Marks Fit (10%), Student Practice Exposure (20%), and Diversity (10%).
+  - Anti-repetition penalty (up to -0.50 score reduction) rotates target topic when a student repeatedly practices a single topic (e.g. from Panchayati Raj to Federalism, Judiciary, or Executive).
+  - Cold-start handling for new students and multi-subject support across all 10 BPSC subjects.
+- **Unit Testing** (`tests/unit/questionSelection.test.ts`):
+  - 12 unit tests verifying topic candidate retrieval, statistics calculation, recency decay, question-type/marks fit, cold start, 20-run Polity rotation, and Panchayati Raj anti-repetition.
+  - All 55 unit tests across 9 test suites pass 100%.
+
+### 2026-09-09 — Phase 4B BPSC Knowledge Base Ingestion & Vector Pipeline
+
+- **Knowledge Base Ingestion Pipeline** (`src/scripts/ingest.ts`):
+  - Extracted and processed source files across `knowledge-base/` (NCERT, past paper PDFs/MDs, syllabus, government reports).
+  - Implemented SHA-256 document checksum deduplication to ensure idempotency.
+  - Preserved page boundaries and page numbers (`page_number`/`page_start`/`page_end`) across extracted chunks.
+  - Aligned document chunk metadata with BPSC Subject Taxonomy (`BPSC-SUB-01` to `BPSC-SUB-10`) and Phase 3 Topic Taxonomy.
+- **Additive Database Migration** (`db/migrations/0008_enhanced_vector_search.sql`):
+  - Enhanced stored procedure `match_document_chunks` to support optional subject (`filter_subject`) and topic (`filter_topic`) metadata filtering.
+- **RAG Evidence Retrieval Module** (`src/rag/retrieval.ts`):
+  - Implemented vector similarity search returning structured `EvidencePack` objects with source document, page number, text content, similarity score, subject, and topic.
+- **Unit Testing** (`tests/unit/ragRetrieval.test.ts`):
+  - 11 unit tests verifying checksum calculation, metadata derivation, page-preserving chunking, and vector retrieval across 8 real BPSC queries.
+  - All 43 unit tests across 8 test suites pass 100%.
+
+### 2026-09-09 — Phase 4A Historical BPSC Question Bank Database Migration
+
+- **Audited Phase 3 dataset (626 records)**:
+  - 603 verified production historical questions.
+  - 23 excluded structural header/instruction records saved to `data/bpsc_question_bank/production/bpsc_questions_excluded.csv`.
+  - 0 review-required records.
+- **Created SQL Schema Migration** (`db/migrations/0007_bpsc_question_bank.sql`):
+  - `bpsc_subjects`: 10 standardized subject domains (`BPSC-SUB-01` to `BPSC-SUB-10`).
+  - `bpsc_topics`: 32 data-driven topic domains derived from BPSC past paper analysis.
+  - `bpsc_questions`: Relational historical question bank with full metadata and RLS policies.
+- **Built Idempotent Import Script** (`src/scripts/import-bpsc-question-bank.ts`):
+  - Uses `ON CONFLICT (question_id) DO UPDATE` to prevent duplicate insertions on repeated runs.
+- **Comprehensive Unit Testing** (`tests/unit/questionBank.test.ts`):
+  - 13 unit tests verifying relational filtering (subject, topic, year, marks, short/long answers, keyword search, source PDF/page traceability, and integrity).
+  - All 32 unit tests across 7 test suites pass 100%.
+- **Zero Vector Embeddings**: Question bank migration in Phase 4A is strictly relational. No embedding API calls or pgvector columns added for historical questions.
 
 ### 2026-09-08 — Professor-grade judging with citations, and a PDF report card (Step 4)
 

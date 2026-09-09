@@ -1,0 +1,5 @@
+requested_question_type,selected_topic_id,selected_topic_name,final_score,qtype_fit_score
+"SHORT_ANSWER","HIST-001","Freedom Movement & Revolts in Bihar",0.73,0.53
+"LONG_ANSWER","HIST-001","Freedom Movement & Revolts in Bihar",0.77,0.8
+"ESSAY","HIST-001","Freedom Movement & Revolts in Bihar",0.71,0.4
+"DATA_INTERPRETATION","HIST-001","Freedom Movement & Revolts in Bihar",0.755,0.7

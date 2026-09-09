@@ -1,0 +1,103 @@
+{
+  "version": "v1.0",
+  "created_at": "2026-09-09",
+  "description": "BPSC Historical Question Subject Taxonomy derived from 626 past question corpus",
+  "subjects": [
+    {
+      "subject_id": "BPSC-SUB-01",
+      "subject_name": "History, Art & Culture",
+      "description": "Indian Freedom Struggle, Bihar Freedom Movement, Art & Architecture (Mauryan, Pala, Patna Kalam), and National Thinkers.",
+      "classification_guidance": "Classify questions focusing on historical events, freedom movement leaders, Bihar peasant movements, art forms, and political philosophy of national leaders.",
+      "examples_from_corpus": [
+        "Discuss the main features of Santhal Uprising (1855-56).",
+        "Analyze the main factors responsible for the Revolt of 1857 in Bihar...",
+        "Critically examine the main features of Patna Kalam painting..."
+      ]
+    },
+    {
+      "subject_id": "BPSC-SUB-02",
+      "subject_name": "Polity & Governance",
+      "description": "Indian Constitution, Fundamental Rights, DPSPs, Executive, Legislature, Judiciary, Federalism, Governor, Panchayati Raj, Elections, and Constitutional Bodies.",
+      "classification_guidance": "Classify questions related to constitutional provisions, judicial rulings, democratic institutions, administrative machinery, federal relations, and governance structures.",
+      "examples_from_corpus": [
+        "The President of India is an integral part of Parliament...",
+        "Critically analyze the working of Panchayati Raj Institutions in Bihar...",
+        "Discuss the concept of Judicial Activism in India."
+      ]
+    },
+    {
+      "subject_id": "BPSC-SUB-03",
+      "subject_name": "Indian & Bihar Economy",
+      "description": "Economic Development, NITI Aayog MPI, Poverty Alleviation, Industrial Promotion, Food Processing, Land Reforms, MSMEs, Agriculture Economics, and Infrastructure.",
+      "classification_guidance": "Classify questions dealing with macro-economic indicators, industrial policies, resource allocation, poverty metrics, rural economy, and state financial schemes.",
+      "examples_from_corpus": [
+        "Discuss the key features of NITI Aayog's Multidimensional Poverty Index...",
+        "Analyze the industrial backwardness of Bihar...",
+        "Discuss the Food Processing Sector in Bihar..."
+      ]
+    },
+    {
+      "subject_id": "BPSC-SUB-04",
+      "subject_name": "Geography & Disaster Management",
+      "description": "Physical & Human Geography of India/Bihar, Natural Resource Spatial Distribution, Indian Monsoon, Floods, Droughts, and River Basin Management.",
+      "classification_guidance": "Classify questions on natural landforms, climate phenomena, spatial distribution of minerals, river interlinking, flood/drought mitigation, and ecological management.",
+      "examples_from_corpus": [
+        "Explain the spatial distribution of natural resources in India...",
+        "Discuss the causes of recurring floods and droughts in Bihar...",
+        "Explain the mechanism of the Indian Monsoon..."
+      ]
+    },
+    {
+      "subject_id": "BPSC-SUB-05",
+      "subject_name": "Science & Technology",
+      "description": "Space Science, Remote Sensing, 5G/IT, Biotechnology, Nuclear Energy, Nanotechnology, Quantum Mission, Cyber Security, AI, and Tech in Rural Governance.",
+      "classification_guidance": "Classify questions involving scientific applications, space missions, information technology, digital governance tools, energy tech, and technological solutions to socio-economic problems.",
+      "examples_from_corpus": [
+        "Nuclear energy is a viable and clean alternative...",
+        "How can Space Science and Remote Sensing Technology assist in flood prediction...",
+        "5G Technology Rollout: Applications in telemedicine..."
+      ]
+    },
+    {
+      "subject_id": "BPSC-SUB-06",
+      "subject_name": "Current Affairs & International Relations",
+      "description": "International Groupings (G20, QUAD, I2U2, IMEC), Foreign Policy, Geopolitical Conflicts, Bilateral Relations, and Contemporary National Events.",
+      "classification_guidance": "Classify questions analyzing contemporary global developments, international treaties, foreign policy postures, diplomatic summits, and recent strategic affairs.",
+      "examples_from_corpus": [
+        "Examine India's foreign policy stance during the Russia-Ukraine War.",
+        "Evaluate the role and outcomes of the I2U2 grouping...",
+        "G20 Presidency: Strategic priorities of Vasudhaiva Kutumbakam..."
+      ]
+    },
+    {
+      "subject_id": "BPSC-SUB-07",
+      "subject_name": "Statistical Analysis & Data Interpretation",
+      "description": "Quantitative Interpretation of Data Tables, Pie Charts, Bar Charts, Line Graphs, and Statistical Calculations.",
+      "classification_guidance": "Classify GS Paper 1 Section III questions requiring mathematical, graphical, and statistical interpretation.",
+      "examples_from_corpus": [
+        "Data interpretation questions on pie charts, line graphs, and statistical tables.",
+        "Study the following pie charts which show the sales for a company..."
+      ]
+    },
+    {
+      "subject_id": "BPSC-SUB-08",
+      "subject_name": "Essay & Philosophical Themes",
+      "description": "Philosophical Reflections, Socio-Economic Essay Prompts, and Bihar-Centric Proverbs & Cultural Expressions.",
+      "classification_guidance": "Classify free-form essay topics, philosophical quotes, literary prompts, and traditional Bihar proverbs (Bhojpuri, Maithili, Magahi, Hindi).",
+      "examples_from_corpus": [
+        "Forest precedes civilization, desert succeeds it.",
+        "An unexamined life is not worth living.",
+        "मूस मोटैहैं त कोठारि हइहैं, ना बल ना बुद्धि बाढैहैं"
+      ]
+    },
+    {
+      "subject_id": "BPSC-SUB-09",
+      "subject_name": "Geography (Optional Specialization)",
+      "description": "Advanced Academic Geography Optional syllabus covering Geomorphology, Climatology, Oceanography, Settlement Geography, Regional Planning, and Advanced Geographic Thought.",
+      "classification_guidance": "Classify questions originating strictly from the BPSC Geography Optional examination paper.",
+      "examples_from_corpus": [
+        "Questions from Geography Optional_71st BPSC Mains.pdf"
+      ]
+    }
+  ]
+}

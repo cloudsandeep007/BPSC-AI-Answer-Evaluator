@@ -12,8 +12,10 @@ CREATE TABLE IF NOT EXISTS document_chunks (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc', now()) NOT NULL
 );
 
--- Create an index to speed up similarity search
-CREATE INDEX IF NOT EXISTS document_chunks_embedding_idx ON document_chunks USING hnsw (embedding vector_cosine_ops);
+-- Note: pgvector HNSW/IVFFlat indexes support a maximum of 2000 dimensions.
+-- Since gemini-embedding-001 uses 3072 dimensions, exact vector search (without an index) is used.
+-- For standard dataset sizes, sequential vector distance search in pgvector is fast and accurate.
+-- CREATE INDEX IF NOT EXISTS document_chunks_embedding_idx ON document_chunks USING hnsw (embedding vector_cosine_ops);
 
 -- Create a function to search for document chunks
 CREATE OR REPLACE FUNCTION match_document_chunks (

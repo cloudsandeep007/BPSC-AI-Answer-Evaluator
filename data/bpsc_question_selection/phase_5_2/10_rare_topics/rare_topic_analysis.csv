@@ -1,0 +1,4 @@
+Topic_ID,Topic_Name,Total_Past_Questions,Cold_Start_Rank,Cold_Start_Score,Surfaced_In_Sequential_Run
+HIST-005,"Tribal Movements & Peasant Uprisings in Bihar",2,5,0.450,YES (Selected at Iteration 5)
+POLITY-006,"Parliament & Legislative System",3,6,0.520,YES (Selected at Iteration 6)
+ECON-003,"Industrial Sector & Infrastructure in Bihar",8,3,0.680,YES (Selected at Iteration 3)

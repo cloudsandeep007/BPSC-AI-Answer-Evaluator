@@ -1,0 +1,101 @@
+iteration,subject_name,selected_topic_id,selected_topic_name,final_score,freq_score,recency_score,qtype_score,marks_score,exposure_score,diversity_score,rep_penalty,total_questions,unique_years,last_practiced,total_exposure,candidate_count,score_gap_to_runnerup
+1,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.787,0.96,0.55,0.78,0.2,1,1,0,9,5,"Never",1,6,0.032
+2,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.755,1,0.4,0.7,0.2,1,1,0,10,7,"Never",1,6,0.008
+3,"Polity & Governance","POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0.4,0.65,0.2,1,1,0,10,5,"Never",1,6,0.067
+4,"Polity & Governance","POLITY-003","Federalism & Centre-State Relations",0.68,0.67,0.4,0.75,0.2,1,1,0,4,4,"Never",1,6,0.03
+5,"Polity & Governance","POLITY-006","Parliament & Legislative System",0.65,0.46,0.7,0.5,0.2,1,1,0,2,2,"Never",1,6,0.03
+6,"Polity & Governance","POLITY-005","Local Self-Government (Panchayati Raj)",0.62,0.58,0.4,0.5,0.2,1,1,0,3,3,"Never",1,6,0.073
+7,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.547,0.96,0.55,0.78,0.2,0.7,0.7,0.15,9,5,"6 iter ago",2,6,0.032
+8,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.515,1,0.4,0.7,0.2,0.7,0.7,0.15,10,7,"6 iter ago",2,6,0.008
+9,"Polity & Governance","POLITY-004","Elections, Preamble & Constitutional Bodies",0.507,1,0.4,0.65,0.2,0.7,0.7,0.15,10,5,"6 iter ago",2,6,0.067
+10,"Polity & Governance","POLITY-003","Federalism & Centre-State Relations",0.44,0.67,0.4,0.75,0.2,0.7,0.7,0.15,4,4,"6 iter ago",2,6,0.03
+11,"Polity & Governance","POLITY-006","Parliament & Legislative System",0.41,0.46,0.7,0.5,0.2,0.7,0.7,0.15,2,2,"6 iter ago",2,6,0.03
+12,"Polity & Governance","POLITY-005","Local Self-Government (Panchayati Raj)",0.38,0.58,0.4,0.5,0.2,0.7,0.7,0.15,3,3,"6 iter ago",2,6,0.043
+13,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.337,0.96,0.55,0.78,0.2,0.4,0.7,0.3,9,5,"6 iter ago",3,6,0.032
+14,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.305,1,0.4,0.7,0.2,0.4,0.7,0.3,10,7,"6 iter ago",3,6,0.007
+15,"Polity & Governance","POLITY-004","Elections, Preamble & Constitutional Bodies",0.298,1,0.4,0.65,0.2,0.4,0.7,0.3,10,5,"6 iter ago",3,6,0.068
+16,"Polity & Governance","POLITY-003","Federalism & Centre-State Relations",0.23,0.67,0.4,0.75,0.2,0.4,0.7,0.3,4,4,"6 iter ago",3,6,0.03
+17,"Polity & Governance","POLITY-006","Parliament & Legislative System",0.2,0.46,0.7,0.5,0.2,0.4,0.7,0.3,2,2,"6 iter ago",3,6,0.03
+18,"Polity & Governance","POLITY-005","Local Self-Government (Panchayati Raj)",0.17,0.58,0.4,0.5,0.2,0.4,0.7,0.3,3,3,"6 iter ago",3,6,0.093
+19,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"6 iter ago",4,6,0.032
+20,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"6 iter ago",4,6,0.008
+21,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",5,6,0.04
+22,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",5,6,0.008
+23,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",6,6,0.04
+24,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",6,6,0.008
+25,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",7,6,0.04
+26,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",7,6,0.008
+27,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",8,6,0.04
+28,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",8,6,0.008
+29,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",9,6,0.04
+30,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",9,6,0.008
+31,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",10,6,0.04
+32,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",10,6,0.008
+33,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",11,6,0.04
+34,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",11,6,0.008
+35,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",12,6,0.04
+36,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",12,6,0.008
+37,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",13,6,0.04
+38,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",13,6,0.008
+39,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",14,6,0.04
+40,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",14,6,0.008
+41,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",15,6,0.04
+42,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",15,6,0.008
+43,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",16,6,0.04
+44,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",16,6,0.008
+45,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",17,6,0.04
+46,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",17,6,0.008
+47,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",18,6,0.04
+48,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",18,6,0.008
+49,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",19,6,0.04
+50,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",19,6,0.008
+51,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",20,6,0.04
+52,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",20,6,0.008
+53,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",21,6,0.04
+54,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",21,6,0.008
+55,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",22,6,0.04
+56,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",22,6,0.008
+57,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",23,6,0.04
+58,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",23,6,0.008
+59,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",24,6,0.04
+60,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",24,6,0.008
+61,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",25,6,0.04
+62,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",25,6,0.008
+63,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",26,6,0.04
+64,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",26,6,0.008
+65,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",27,6,0.04
+66,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",27,6,0.008
+67,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",28,6,0.04
+68,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",28,6,0.008
+69,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",29,6,0.04
+70,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",29,6,0.008
+71,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",30,6,0.04
+72,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",30,6,0.008
+73,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",31,6,0.04
+74,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",31,6,0.008
+75,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",32,6,0.04
+76,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",32,6,0.008
+77,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",33,6,0.04
+78,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",33,6,0.008
+79,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",34,6,0.04
+80,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",34,6,0.008
+81,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",35,6,0.04
+82,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",35,6,0.008
+83,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",36,6,0.04
+84,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",36,6,0.008
+85,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",37,6,0.04
+86,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",37,6,0.008
+87,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",38,6,0.04
+88,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",38,6,0.008
+89,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",39,6,0.04
+90,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",39,6,0.008
+91,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",40,6,0.04
+92,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",40,6,0.008
+93,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",41,6,0.04
+94,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",41,6,0.008
+95,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",42,6,0.04
+96,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",42,6,0.008
+97,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",43,6,0.04
+98,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",43,6,0.008
+99,"Polity & Governance","POLITY-002","Judiciary, Rights & Doctrines",0.077,0.96,0.55,0.78,0.2,0.1,0.7,0.5,9,5,"2 iter ago",44,6,0.04
+100,"Polity & Governance","POLITY-001","Executive (President & Governor)",0.045,1,0.4,0.7,0.2,0.1,0.7,0.5,10,7,"2 iter ago",44,6,0.008

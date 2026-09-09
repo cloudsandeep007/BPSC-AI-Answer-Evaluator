@@ -33,6 +33,7 @@ export const strings: Record<Lang, Record<string, string>> = {
     pageAdded: "📄 पृष्ठ जुड़ गया। क्या और पृष्ठ जोड़ने हैं?",
     btnAddPage: "➕ अगला पृष्ठ भेजें",
     btnDonePages: "✅ सभी पृष्ठ पूरे — जाँचें",
+    subjectUnavailable: "यह विषय अभी अभ्यास के लिए उपलब्ध नहीं है। कृपया उपलब्ध विषयों में से एक चुनें।",
   },
   hinglish: {
     reading: "Photo padh rahe hain, thoda wait kariye...",
@@ -66,6 +67,7 @@ export const strings: Record<Lang, Record<string, string>> = {
     pageAdded: "📄 Page add ho gaya. Kya aur page add karna hai?",
     btnAddPage: "➕ Agla page bhejiye",
     btnDonePages: "✅ Sabhi page poore — Check kariye",
+    subjectUnavailable: "Yeh subject abhi practice ke liye available nahi hai. Please available subjects mein se ek choose karein.",
   },
   en: {
     reading: "Reading your photo, one moment...",
@@ -99,6 +101,7 @@ export const strings: Record<Lang, Record<string, string>> = {
     pageAdded: "📄 Page added. Do you want to add more pages?",
     btnAddPage: "➕ Add Next Page",
     btnDonePages: "✅ All Pages Done — Grade Now",
+    subjectUnavailable: "This subject is currently unavailable for practice. Please choose one of the available subjects.",
   },
 };
 

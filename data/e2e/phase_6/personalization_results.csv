@@ -1,0 +1,6 @@
+attempt_number,student_id,selected_topic_id,selected_topic_name,exposure_score,repetition_penalty,final_score,next_target_topic_id
+1,student_p1,POLITY-002,Judiciary Rights & Doctrines,1.00,0.00,0.7870,POLITY-001
+2,student_p1,POLITY-001,Executive & Governor,0.70,0.15,0.7420,POLITY-003
+3,student_p1,POLITY-003,Federalism & Interstate Relations,0.70,0.15,0.7150,POLITY-004
+4,student_p1,POLITY-004,Elections Preamble & Constitutional Bodies,0.70,0.15,0.6980,POLITY-005
+5,student_p1,POLITY-005,Parliament & State Legislature,0.70,0.15,0.6840,POLITY-006

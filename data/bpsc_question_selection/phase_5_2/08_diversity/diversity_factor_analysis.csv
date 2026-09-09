@@ -1,0 +1,4 @@
+Scenario,Last_Practiced_Topic,Candidate_Topic_ID,Candidate_Topic_Name,Diversity_Score,Final_Score
+Empty_History,None,POLITY-002,"Judiciary, Rights & Doctrines",1.00,0.772
+Same_Topic_Practiced,POLITY-002,POLITY-002,"Judiciary, Rights & Doctrines",0.20,0.612
+Different_Topic_Practiced,POLITY-001,POLITY-002,"Judiciary, Rights & Doctrines",0.70,0.742

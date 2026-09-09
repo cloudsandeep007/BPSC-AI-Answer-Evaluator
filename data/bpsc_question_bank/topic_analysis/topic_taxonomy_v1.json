@@ -1,0 +1,239 @@
+{
+  "version": "v1.0",
+  "created_at": "2026-09-09",
+  "description": "BPSC Historical Data-Driven Topic Taxonomy derived from 626 past question corpus",
+  "topics": [
+    {
+      "topic_id": "HIST-001",
+      "subject_id": "BPSC-SUB-01",
+      "topic_name": "Freedom Movement & Revolts in Bihar",
+      "description": "Santhal 1855, Revolt of 1857 (Kunwar Singh), Champaran Satyagraha 1917, Quit India 1942, Azad Dasta, Birsa Munda Ulgulan.",
+      "level": 2,
+      "parent_subject": "History, Art & Culture"
+    },
+    {
+      "topic_id": "HIST-002",
+      "subject_id": "BPSC-SUB-01",
+      "topic_name": "Art, Architecture & Culture of Bihar",
+      "description": "Mauryan Art & Rock Edicts, Pala Art & Buddhist Iconography, Patna Kalam Painting.",
+      "level": 2,
+      "parent_subject": "History, Art & Culture"
+    },
+    {
+      "topic_id": "HIST-003",
+      "subject_id": "BPSC-SUB-01",
+      "topic_name": "Peasant, Tribal & Worker Movements",
+      "description": "Swami Sahajanand, Bihar Provincial Kisan Sabha, Indigo Revolt, Tribal Protest Characteristics.",
+      "level": 2,
+      "parent_subject": "History, Art & Culture"
+    },
+    {
+      "topic_id": "HIST-004",
+      "subject_id": "BPSC-SUB-01",
+      "topic_name": "Education & Political Consciousness",
+      "description": "Western Education in Bihar (1857-1947), Technical Education, Indian Nationalism Evolution.",
+      "level": 2,
+      "parent_subject": "History, Art & Culture"
+    },
+    {
+      "topic_id": "HIST-005",
+      "subject_id": "BPSC-SUB-01",
+      "topic_name": "National Thinkers & Social Visions",
+      "description": "Mahatma Gandhi, Jawaharlal Nehru, Dr. B.R. Ambedkar, Ram Manohar Lohia, Jayaprakash Narayan, Rabindranath Tagore.",
+      "level": 2,
+      "parent_subject": "History, Art & Culture"
+    },
+    {
+      "topic_id": "POLITY-001",
+      "subject_id": "BPSC-SUB-02",
+      "topic_name": "Executive (President & Governor)",
+      "description": "Presidential Powers & Status, Governor's Discretionary Powers, Legislative Assent, Centre-State Link.",
+      "level": 2,
+      "parent_subject": "Polity & Governance"
+    },
+    {
+      "topic_id": "POLITY-002",
+      "subject_id": "BPSC-SUB-02",
+      "topic_name": "Judiciary, Rights & Doctrines",
+      "description": "Judicial Activism vs Review, Basic Structure Doctrine (Kesavananda Bharati), Article 21 Privacy (Puttaswamy), DPSPs, Article 32.",
+      "level": 2,
+      "parent_subject": "Polity & Governance"
+    },
+    {
+      "topic_id": "POLITY-003",
+      "subject_id": "BPSC-SUB-02",
+      "topic_name": "Federalism & Centre-State Relations",
+      "description": "Cooperative vs Competitive Federalism, Fiscal Transfers, GST Compensation, One Nation One Election.",
+      "level": 2,
+      "parent_subject": "Polity & Governance"
+    },
+    {
+      "topic_id": "POLITY-004",
+      "subject_id": "BPSC-SUB-02",
+      "topic_name": "Elections, Preamble & Constitutional Bodies",
+      "description": "Electoral Reforms, Election Commission, Preamble Vision, NHRC, UCC, Bihar Caste Survey, EWS Reservation.",
+      "level": 2,
+      "parent_subject": "Polity & Governance"
+    },
+    {
+      "topic_id": "POLITY-005",
+      "subject_id": "BPSC-SUB-02",
+      "topic_name": "Local Self-Government (Panchayati Raj)",
+      "description": "73rd Amendment, 50% Women Reservation, Financial Autonomy, Decentralized Planning in Bihar.",
+      "level": 2,
+      "parent_subject": "Polity & Governance"
+    },
+    {
+      "topic_id": "POLITY-006",
+      "subject_id": "BPSC-SUB-02",
+      "topic_name": "Parliament & Legislative System",
+      "description": "Parliamentary Sovereignty, Law-making powers, Constitutional Amendments.",
+      "level": 2,
+      "parent_subject": "Polity & Governance"
+    },
+    {
+      "topic_id": "ECON-001",
+      "subject_id": "BPSC-SUB-03",
+      "topic_name": "Poverty, Income & MPI",
+      "description": "NITI Aayog Multidimensional Poverty Index (MPI), Bihar Poverty Reduction Schemes.",
+      "level": 2,
+      "parent_subject": "Indian & Bihar Economy"
+    },
+    {
+      "topic_id": "ECON-002",
+      "subject_id": "BPSC-SUB-03",
+      "topic_name": "Industrial Promotion & Infrastructure",
+      "description": "Industrial Backwardness in Bihar, Food Processing, Mega Food Parks, Ethanol Policy, MSMEs, PM Gati Shakti.",
+      "level": 2,
+      "parent_subject": "Indian & Bihar Economy"
+    },
+    {
+      "topic_id": "ECON-003",
+      "subject_id": "BPSC-SUB-03",
+      "topic_name": "Agrarian Economy & Land Reforms",
+      "description": "Agrarian Crisis, Land Fragmentation, Land Ceiling, Tenancy Records, Skill Deficit.",
+      "level": 2,
+      "parent_subject": "Indian & Bihar Economy"
+    },
+    {
+      "topic_id": "GEO-001",
+      "subject_id": "BPSC-SUB-04",
+      "topic_name": "Physical Geography & Indian Monsoon",
+      "description": "Monsoon Mechanism, El Niño / La Niña Impact on Agriculture.",
+      "level": 2,
+      "parent_subject": "Geography & Disaster Management"
+    },
+    {
+      "topic_id": "GEO-002",
+      "subject_id": "BPSC-SUB-04",
+      "topic_name": "Disaster Management & Hydrology",
+      "description": "Floods & Droughts in Bihar, Integrated River Basin Management, Interlinking Projects.",
+      "level": 2,
+      "parent_subject": "Geography & Disaster Management"
+    },
+    {
+      "topic_id": "GEO-003",
+      "subject_id": "BPSC-SUB-04",
+      "topic_name": "Spatial Distribution of Natural Resources",
+      "description": "Chotanagpur Plateau Resources, Mineral Geography before/after Bihar Bifurcation.",
+      "level": 2,
+      "parent_subject": "Geography & Disaster Management"
+    },
+    {
+      "topic_id": "SCITECH-001",
+      "subject_id": "BPSC-SUB-05",
+      "topic_name": "Space Technology & Remote Sensing",
+      "description": "Chandrayaan-3, Aditya-L1, Remote Sensing in Flood Mapping & Urban Planning.",
+      "level": 2,
+      "parent_subject": "Science & Technology"
+    },
+    {
+      "topic_id": "SCITECH-002",
+      "subject_id": "BPSC-SUB-05",
+      "topic_name": "IT, AI, 5G & E-Governance",
+      "description": "5G Applications, Artificial Intelligence, Chatbots, Bihar One Portal/RTPS, E-Waste Rules, Cybersecurity.",
+      "level": 2,
+      "parent_subject": "Science & Technology"
+    },
+    {
+      "topic_id": "SCITECH-003",
+      "subject_id": "BPSC-SUB-05",
+      "topic_name": "Biotech, Nanotech & Clean Energy Tech",
+      "description": "CRISPR / Gene Editing, Nano-fertilisers, 3-Stage Nuclear Power Program, Waste-to-Energy, Renewable Energy.",
+      "level": 2,
+      "parent_subject": "Science & Technology"
+    },
+    {
+      "topic_id": "IR-001",
+      "subject_id": "BPSC-SUB-06",
+      "topic_name": "Global Groupings & Multilateral Summits",
+      "description": "G20 Summit 2023, QUAD, I2U2 Grouping, IMEC Corridor.",
+      "level": 2,
+      "parent_subject": "Current Affairs & International Relations"
+    },
+    {
+      "topic_id": "IR-002",
+      "subject_id": "BPSC-SUB-06",
+      "topic_name": "Foreign Policy & Neighborhood Diplomacy",
+      "description": "Neighbourhood First Policy, Russia-Ukraine Conflict & Strategic Autonomy, India-US Relations / iCET.",
+      "level": 2,
+      "parent_subject": "Current Affairs & International Relations"
+    },
+    {
+      "topic_id": "IR-003",
+      "subject_id": "BPSC-SUB-06",
+      "topic_name": "Emerging International & Strategic Issues",
+      "description": "Global South Representation, Deepfake / AI Ethics, Indigenous Semiconductor Mission.",
+      "level": 2,
+      "parent_subject": "Current Affairs & International Relations"
+    },
+    {
+      "topic_id": "STAT-001",
+      "subject_id": "BPSC-SUB-07",
+      "topic_name": "Data Interpretation & Graphical Analysis",
+      "description": "Pie Charts, Bar Charts, Line Graphs, Demographic & Economic Data Tables.",
+      "level": 2,
+      "parent_subject": "Statistical Analysis & Data Interpretation"
+    },
+    {
+      "topic_id": "ESSAY-001",
+      "subject_id": "BPSC-SUB-08",
+      "topic_name": "General & Philosophical Reflections",
+      "description": "Philosophical Quotes, Educational & Justice Ideals.",
+      "level": 2,
+      "parent_subject": "Essay & Philosophical Themes"
+    },
+    {
+      "topic_id": "ESSAY-002",
+      "subject_id": "BPSC-SUB-08",
+      "topic_name": "Socio-Economic & Governance Themes",
+      "description": "Digital Economy, Gender Gap, Sustainable Agriculture, Climate Justice, Women Empowerment.",
+      "level": 2,
+      "parent_subject": "Essay & Philosophical Themes"
+    },
+    {
+      "topic_id": "ESSAY-003",
+      "subject_id": "BPSC-SUB-08",
+      "topic_name": "Bihar Proverbs & Cultural Expressions",
+      "description": "Traditional Bhojpuri/Maithili/Magahi Proverbs & Cultural Maxims.",
+      "level": 2,
+      "parent_subject": "Essay & Philosophical Themes"
+    },
+    {
+      "topic_id": "GEOOPT-001",
+      "subject_id": "BPSC-SUB-09",
+      "topic_name": "Physical Geography Optional",
+      "description": "Geomorphology, Climatology, Oceanography, Biogeography.",
+      "level": 2,
+      "parent_subject": "Geography (Optional Specialization)"
+    },
+    {
+      "topic_id": "GEOOPT-002",
+      "subject_id": "BPSC-SUB-09",
+      "topic_name": "Human & Economic Geography Optional",
+      "description": "Economic, Population, Settlement Geography, Regional Planning, Geography of India/Bihar.",
+      "level": 2,
+      "parent_subject": "Geography (Optional Specialization)"
+    }
+  ]
+}

@@ -1,0 +1,141 @@
+profile_name,iteration,selected_topic_id,selected_topic_name,final_score,exposure_score,rep_penalty
+"Panchayati_Raj_Heavy_10x",1,"POLITY-002","Judiciary, Rights & Doctrines",0.787,1,0
+"Panchayati_Raj_Heavy_10x",2,"POLITY-001","Executive (President & Governor)",0.755,1,0
+"Panchayati_Raj_Heavy_10x",3,"POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0
+"Panchayati_Raj_Heavy_10x",4,"POLITY-003","Federalism & Centre-State Relations",0.68,1,0
+"Panchayati_Raj_Heavy_10x",5,"POLITY-006","Parliament & Legislative System",0.65,1,0
+"Panchayati_Raj_Heavy_10x",6,"POLITY-002","Judiciary, Rights & Doctrines",0.547,0.7,0.15
+"Panchayati_Raj_Heavy_10x",7,"POLITY-001","Executive (President & Governor)",0.515,0.7,0.15
+"Panchayati_Raj_Heavy_10x",8,"POLITY-004","Elections, Preamble & Constitutional Bodies",0.507,0.7,0.15
+"Panchayati_Raj_Heavy_10x",9,"POLITY-003","Federalism & Centre-State Relations",0.44,0.7,0.15
+"Panchayati_Raj_Heavy_10x",10,"POLITY-006","Parliament & Legislative System",0.41,0.7,0.15
+"Panchayati_Raj_Heavy_10x",11,"POLITY-002","Judiciary, Rights & Doctrines",0.337,0.4,0.3
+"Panchayati_Raj_Heavy_10x",12,"POLITY-001","Executive (President & Governor)",0.305,0.4,0.3
+"Panchayati_Raj_Heavy_10x",13,"POLITY-004","Elections, Preamble & Constitutional Bodies",0.298,0.4,0.3
+"Panchayati_Raj_Heavy_10x",14,"POLITY-003","Federalism & Centre-State Relations",0.23,0.4,0.3
+"Panchayati_Raj_Heavy_10x",15,"POLITY-006","Parliament & Legislative System",0.2,0.4,0.3
+"Panchayati_Raj_Heavy_10x",16,"POLITY-002","Judiciary, Rights & Doctrines",0.077,0.1,0.5
+"Panchayati_Raj_Heavy_10x",17,"POLITY-001","Executive (President & Governor)",0.045,0.1,0.5
+"Panchayati_Raj_Heavy_10x",18,"POLITY-002","Judiciary, Rights & Doctrines",0.077,0.1,0.5
+"Panchayati_Raj_Heavy_10x",19,"POLITY-001","Executive (President & Governor)",0.045,0.1,0.5
+"Panchayati_Raj_Heavy_10x",20,"POLITY-002","Judiciary, Rights & Doctrines",0.077,0.1,0.5
+"Executive_Heavy_10x",1,"POLITY-002","Judiciary, Rights & Doctrines",0.787,1,0
+"Executive_Heavy_10x",2,"POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0
+"Executive_Heavy_10x",3,"POLITY-003","Federalism & Centre-State Relations",0.68,1,0
+"Executive_Heavy_10x",4,"POLITY-006","Parliament & Legislative System",0.65,1,0
+"Executive_Heavy_10x",5,"POLITY-005","Local Self-Government (Panchayati Raj)",0.62,1,0
+"Executive_Heavy_10x",6,"POLITY-002","Judiciary, Rights & Doctrines",0.547,0.7,0.15
+"Executive_Heavy_10x",7,"POLITY-004","Elections, Preamble & Constitutional Bodies",0.507,0.7,0.15
+"Executive_Heavy_10x",8,"POLITY-003","Federalism & Centre-State Relations",0.44,0.7,0.15
+"Executive_Heavy_10x",9,"POLITY-006","Parliament & Legislative System",0.41,0.7,0.15
+"Executive_Heavy_10x",10,"POLITY-005","Local Self-Government (Panchayati Raj)",0.38,0.7,0.15
+"Executive_Heavy_10x",11,"POLITY-002","Judiciary, Rights & Doctrines",0.337,0.4,0.3
+"Executive_Heavy_10x",12,"POLITY-004","Elections, Preamble & Constitutional Bodies",0.298,0.4,0.3
+"Executive_Heavy_10x",13,"POLITY-003","Federalism & Centre-State Relations",0.23,0.4,0.3
+"Executive_Heavy_10x",14,"POLITY-006","Parliament & Legislative System",0.2,0.4,0.3
+"Executive_Heavy_10x",15,"POLITY-005","Local Self-Government (Panchayati Raj)",0.17,0.4,0.3
+"Executive_Heavy_10x",16,"POLITY-002","Judiciary, Rights & Doctrines",0.077,0.1,0.5
+"Executive_Heavy_10x",17,"POLITY-001","Executive (President & Governor)",0.045,0.1,0.5
+"Executive_Heavy_10x",18,"POLITY-002","Judiciary, Rights & Doctrines",0.077,0.1,0.5
+"Executive_Heavy_10x",19,"POLITY-001","Executive (President & Governor)",0.045,0.1,0.5
+"Executive_Heavy_10x",20,"POLITY-002","Judiciary, Rights & Doctrines",0.077,0.1,0.5
+"Judiciary_Heavy_10x",1,"POLITY-001","Executive (President & Governor)",0.755,1,0
+"Judiciary_Heavy_10x",2,"POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0
+"Judiciary_Heavy_10x",3,"POLITY-003","Federalism & Centre-State Relations",0.68,1,0
+"Judiciary_Heavy_10x",4,"POLITY-006","Parliament & Legislative System",0.65,1,0
+"Judiciary_Heavy_10x",5,"POLITY-005","Local Self-Government (Panchayati Raj)",0.62,1,0
+"Judiciary_Heavy_10x",6,"POLITY-001","Executive (President & Governor)",0.515,0.7,0.15
+"Judiciary_Heavy_10x",7,"POLITY-004","Elections, Preamble & Constitutional Bodies",0.507,0.7,0.15
+"Judiciary_Heavy_10x",8,"POLITY-003","Federalism & Centre-State Relations",0.44,0.7,0.15
+"Judiciary_Heavy_10x",9,"POLITY-006","Parliament & Legislative System",0.41,0.7,0.15
+"Judiciary_Heavy_10x",10,"POLITY-005","Local Self-Government (Panchayati Raj)",0.38,0.7,0.15
+"Judiciary_Heavy_10x",11,"POLITY-001","Executive (President & Governor)",0.305,0.4,0.3
+"Judiciary_Heavy_10x",12,"POLITY-004","Elections, Preamble & Constitutional Bodies",0.298,0.4,0.3
+"Judiciary_Heavy_10x",13,"POLITY-003","Federalism & Centre-State Relations",0.23,0.4,0.3
+"Judiciary_Heavy_10x",14,"POLITY-006","Parliament & Legislative System",0.2,0.4,0.3
+"Judiciary_Heavy_10x",15,"POLITY-005","Local Self-Government (Panchayati Raj)",0.17,0.4,0.3
+"Judiciary_Heavy_10x",16,"POLITY-002","Judiciary, Rights & Doctrines",0.077,0.1,0.5
+"Judiciary_Heavy_10x",17,"POLITY-001","Executive (President & Governor)",0.045,0.1,0.5
+"Judiciary_Heavy_10x",18,"POLITY-002","Judiciary, Rights & Doctrines",0.077,0.1,0.5
+"Judiciary_Heavy_10x",19,"POLITY-001","Executive (President & Governor)",0.045,0.1,0.5
+"Judiciary_Heavy_10x",20,"POLITY-002","Judiciary, Rights & Doctrines",0.077,0.1,0.5
+"Federalism_Heavy_10x",1,"POLITY-002","Judiciary, Rights & Doctrines",0.787,1,0
+"Federalism_Heavy_10x",2,"POLITY-001","Executive (President & Governor)",0.755,1,0
+"Federalism_Heavy_10x",3,"POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0
+"Federalism_Heavy_10x",4,"POLITY-006","Parliament & Legislative System",0.65,1,0
+"Federalism_Heavy_10x",5,"POLITY-005","Local Self-Government (Panchayati Raj)",0.62,1,0
+"Federalism_Heavy_10x",6,"POLITY-002","Judiciary, Rights & Doctrines",0.547,0.7,0.15
+"Federalism_Heavy_10x",7,"POLITY-001","Executive (President & Governor)",0.515,0.7,0.15
+"Federalism_Heavy_10x",8,"POLITY-004","Elections, Preamble & Constitutional Bodies",0.507,0.7,0.15
+"Federalism_Heavy_10x",9,"POLITY-006","Parliament & Legislative System",0.41,0.7,0.15
+"Federalism_Heavy_10x",10,"POLITY-005","Local Self-Government (Panchayati Raj)",0.38,0.7,0.15
+"Federalism_Heavy_10x",11,"POLITY-002","Judiciary, Rights & Doctrines",0.337,0.4,0.3
+"Federalism_Heavy_10x",12,"POLITY-001","Executive (President & Governor)",0.305,0.4,0.3
+"Federalism_Heavy_10x",13,"POLITY-004","Elections, Preamble & Constitutional Bodies",0.298,0.4,0.3
+"Federalism_Heavy_10x",14,"POLITY-006","Parliament & Legislative System",0.2,0.4,0.3
+"Federalism_Heavy_10x",15,"POLITY-005","Local Self-Government (Panchayati Raj)",0.17,0.4,0.3
+"Federalism_Heavy_10x",16,"POLITY-002","Judiciary, Rights & Doctrines",0.077,0.1,0.5
+"Federalism_Heavy_10x",17,"POLITY-001","Executive (President & Governor)",0.045,0.1,0.5
+"Federalism_Heavy_10x",18,"POLITY-002","Judiciary, Rights & Doctrines",0.077,0.1,0.5
+"Federalism_Heavy_10x",19,"POLITY-001","Executive (President & Governor)",0.045,0.1,0.5
+"Federalism_Heavy_10x",20,"POLITY-002","Judiciary, Rights & Doctrines",0.077,0.1,0.5
+"Elections_Heavy_10x",1,"POLITY-002","Judiciary, Rights & Doctrines",0.787,1,0
+"Elections_Heavy_10x",2,"POLITY-001","Executive (President & Governor)",0.755,1,0
+"Elections_Heavy_10x",3,"POLITY-003","Federalism & Centre-State Relations",0.68,1,0
+"Elections_Heavy_10x",4,"POLITY-006","Parliament & Legislative System",0.65,1,0
+"Elections_Heavy_10x",5,"POLITY-005","Local Self-Government (Panchayati Raj)",0.62,1,0
+"Elections_Heavy_10x",6,"POLITY-002","Judiciary, Rights & Doctrines",0.547,0.7,0.15
+"Elections_Heavy_10x",7,"POLITY-001","Executive (President & Governor)",0.515,0.7,0.15
+"Elections_Heavy_10x",8,"POLITY-003","Federalism & Centre-State Relations",0.44,0.7,0.15
+"Elections_Heavy_10x",9,"POLITY-006","Parliament & Legislative System",0.41,0.7,0.15
+"Elections_Heavy_10x",10,"POLITY-005","Local Self-Government (Panchayati Raj)",0.38,0.7,0.15
+"Elections_Heavy_10x",11,"POLITY-002","Judiciary, Rights & Doctrines",0.337,0.4,0.3
+"Elections_Heavy_10x",12,"POLITY-001","Executive (President & Governor)",0.305,0.4,0.3
+"Elections_Heavy_10x",13,"POLITY-003","Federalism & Centre-State Relations",0.23,0.4,0.3
+"Elections_Heavy_10x",14,"POLITY-006","Parliament & Legislative System",0.2,0.4,0.3
+"Elections_Heavy_10x",15,"POLITY-005","Local Self-Government (Panchayati Raj)",0.17,0.4,0.3
+"Elections_Heavy_10x",16,"POLITY-002","Judiciary, Rights & Doctrines",0.077,0.1,0.5
+"Elections_Heavy_10x",17,"POLITY-001","Executive (President & Governor)",0.045,0.1,0.5
+"Elections_Heavy_10x",18,"POLITY-002","Judiciary, Rights & Doctrines",0.077,0.1,0.5
+"Elections_Heavy_10x",19,"POLITY-001","Executive (President & Governor)",0.045,0.1,0.5
+"Elections_Heavy_10x",20,"POLITY-002","Judiciary, Rights & Doctrines",0.077,0.1,0.5
+"Executive8_Judiciary8",1,"POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0
+"Executive8_Judiciary8",2,"POLITY-003","Federalism & Centre-State Relations",0.68,1,0
+"Executive8_Judiciary8",3,"POLITY-006","Parliament & Legislative System",0.65,1,0
+"Executive8_Judiciary8",4,"POLITY-005","Local Self-Government (Panchayati Raj)",0.62,1,0
+"Executive8_Judiciary8",5,"POLITY-004","Elections, Preamble & Constitutional Bodies",0.507,0.7,0.15
+"Executive8_Judiciary8",6,"POLITY-003","Federalism & Centre-State Relations",0.44,0.7,0.15
+"Executive8_Judiciary8",7,"POLITY-006","Parliament & Legislative System",0.41,0.7,0.15
+"Executive8_Judiciary8",8,"POLITY-005","Local Self-Government (Panchayati Raj)",0.38,0.7,0.15
+"Executive8_Judiciary8",9,"POLITY-004","Elections, Preamble & Constitutional Bodies",0.298,0.4,0.3
+"Executive8_Judiciary8",10,"POLITY-003","Federalism & Centre-State Relations",0.23,0.4,0.3
+"Executive8_Judiciary8",11,"POLITY-006","Parliament & Legislative System",0.2,0.4,0.3
+"Executive8_Judiciary8",12,"POLITY-005","Local Self-Government (Panchayati Raj)",0.17,0.4,0.3
+"Executive8_Judiciary8",13,"POLITY-002","Judiciary, Rights & Doctrines",0.077,0.1,0.5
+"Executive8_Judiciary8",14,"POLITY-001","Executive (President & Governor)",0.045,0.1,0.5
+"Executive8_Judiciary8",15,"POLITY-002","Judiciary, Rights & Doctrines",0.077,0.1,0.5
+"Executive8_Judiciary8",16,"POLITY-001","Executive (President & Governor)",0.045,0.1,0.5
+"Executive8_Judiciary8",17,"POLITY-002","Judiciary, Rights & Doctrines",0.077,0.1,0.5
+"Executive8_Judiciary8",18,"POLITY-001","Executive (President & Governor)",0.045,0.1,0.5
+"Executive8_Judiciary8",19,"POLITY-002","Judiciary, Rights & Doctrines",0.077,0.1,0.5
+"Executive8_Judiciary8",20,"POLITY-001","Executive (President & Governor)",0.045,0.1,0.5
+"Judiciary8_Panchayati8",1,"POLITY-001","Executive (President & Governor)",0.755,1,0
+"Judiciary8_Panchayati8",2,"POLITY-004","Elections, Preamble & Constitutional Bodies",0.747,1,0
+"Judiciary8_Panchayati8",3,"POLITY-003","Federalism & Centre-State Relations",0.68,1,0
+"Judiciary8_Panchayati8",4,"POLITY-006","Parliament & Legislative System",0.65,1,0
+"Judiciary8_Panchayati8",5,"POLITY-001","Executive (President & Governor)",0.515,0.7,0.15
+"Judiciary8_Panchayati8",6,"POLITY-004","Elections, Preamble & Constitutional Bodies",0.507,0.7,0.15
+"Judiciary8_Panchayati8",7,"POLITY-003","Federalism & Centre-State Relations",0.44,0.7,0.15
+"Judiciary8_Panchayati8",8,"POLITY-006","Parliament & Legislative System",0.41,0.7,0.15
+"Judiciary8_Panchayati8",9,"POLITY-001","Executive (President & Governor)",0.305,0.4,0.3
+"Judiciary8_Panchayati8",10,"POLITY-004","Elections, Preamble & Constitutional Bodies",0.298,0.4,0.3
+"Judiciary8_Panchayati8",11,"POLITY-003","Federalism & Centre-State Relations",0.23,0.4,0.3
+"Judiciary8_Panchayati8",12,"POLITY-006","Parliament & Legislative System",0.2,0.4,0.3
+"Judiciary8_Panchayati8",13,"POLITY-002","Judiciary, Rights & Doctrines",0.077,0.1,0.5
+"Judiciary8_Panchayati8",14,"POLITY-001","Executive (President & Governor)",0.045,0.1,0.5
+"Judiciary8_Panchayati8",15,"POLITY-002","Judiciary, Rights & Doctrines",0.077,0.1,0.5
+"Judiciary8_Panchayati8",16,"POLITY-001","Executive (President & Governor)",0.045,0.1,0.5
+"Judiciary8_Panchayati8",17,"POLITY-002","Judiciary, Rights & Doctrines",0.077,0.1,0.5
+"Judiciary8_Panchayati8",18,"POLITY-001","Executive (President & Governor)",0.045,0.1,0.5
+"Judiciary8_Panchayati8",19,"POLITY-002","Judiciary, Rights & Doctrines",0.077,0.1,0.5
+"Judiciary8_Panchayati8",20,"POLITY-001","Executive (President & Governor)",0.045,0.1,0.5

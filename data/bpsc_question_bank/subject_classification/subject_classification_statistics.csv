@@ -1,0 +1,15 @@
+Metric / Subject,Count,Percentage
+Geography (Optional Specialization),281,44.89%
+"History, Art & Culture",194,30.99%
+Polity & Governance,38,6.07%
+Essay & Philosophical Themes,37,5.91%
+Indian & Bihar Economy,27,4.31%
+Science & Technology,17,2.72%
+Current Affairs & International Relations,15,2.40%
+Geography & Disaster Management,10,1.60%
+Statistical Analysis & Data Interpretation,7,1.12%
+
+High Confidence (>=0.90),478,76.36%
+Medium Confidence (0.80-0.89),0,0.00%
+Low Confidence / Review (<0.80),148,23.64%
+Interdisciplinary Questions,12,1.92%
