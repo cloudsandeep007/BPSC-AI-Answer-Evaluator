@@ -14,8 +14,8 @@ All notable changes to the BPSC AI Answer Evaluator project are documented in th
 
 ### Technical Changes
 - Updated `.env` and `.env.example` with stage-specific model configuration overrides:
-  - `GEMINI_MODEL=gemini-2.5-flash` (Stage A OCR)
-  - `GEMINI_GENERATION_MODEL=gemini-2.5-flash` (Stage 0 Question & Blueprint)
+  - `GEMINI_MODEL=gemini-3.5-flash-lite` (Stage A OCR)
+  - `GEMINI_GENERATION_MODEL=gemini-3.6-flash` (Stage 0 Question & Blueprint)
   - `GEMINI_JUDGE_MODEL=gemini-3.7-flash` (Stage B High-Precision Evaluation)
 - Created cost tracking diagnostic artifact `cost_analysis_report.md`.
 
@@ -28,8 +28,8 @@ All notable changes to the BPSC AI Answer Evaluator project are documented in th
 
 ### AI Changes
 - Explicit model tiering via environment configuration:
-  - Stage A: `gemini-2.5-flash`
-  - Stage 0: `gemini-2.5-flash`
+  - Stage A: `gemini-3.5-flash-lite`
+  - Stage 0: `gemini-3.6-flash`
   - Stage B: `gemini-3.7-flash`
 
 ### Tests
