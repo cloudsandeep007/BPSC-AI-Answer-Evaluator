@@ -56,6 +56,7 @@ export interface GeneratedQuestion {
   blueprintId: string;
   blueprint: EvaluationBlueprint;
   questionText: string;
+  expectedPoints: ExpectedPoint[];
   topic: string;
   paper: string;
   slotType: SlotType;
@@ -558,6 +559,7 @@ export async function generateQuestion(choice?: QuestionChoice): Promise<Generat
     blueprintId,
     blueprint: validBlueprint,
     questionText,
+    expectedPoints: flattenedPoints,
     topic: slot.topic,
     paper: slot.paper,
     slotType: slot.slotType,
