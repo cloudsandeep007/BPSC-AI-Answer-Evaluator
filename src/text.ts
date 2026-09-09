@@ -79,7 +79,7 @@ export const strings: Record<Lang, Record<string, string>> = {
     lowConfidence: "The photo wasn't clear enough. Please retake it in good light and resend.",
     confirmed: "👍 Got it, noted.",
     needLanguage: "Please choose your language first by sending /start.",
-    somethingWrong: "Something went wrong reading that photo. Please try again.",
+    somethingWrong: "Something went wrong. Please try again shortly.",
     sendPhoto: "Great! Send a clear photo of your handwritten answer to get started.",
     pickTopic: "Which subject would you like a question from?",
     pickSlotType: "Which marks-type of question?",

@@ -23,11 +23,11 @@ export const config = {
   geminiApiKey: required("GEMINI_API_KEY"),
 
   /** Stage A - reading handwriting. */
-  geminiModel: DEFAULT_MODEL,
+  geminiModel: process.env.GEMINI_MODEL ?? "gemini-3.5-flash-lite",
   /** Stage 0 - generating questions and answer keys. */
-  geminiGenerationModel: process.env.GEMINI_GENERATION_MODEL ?? DEFAULT_MODEL,
+  geminiGenerationModel: process.env.GEMINI_GENERATION_MODEL ?? "gemini-3.5-flash-lite",
   /** Stage B - judging a transcript against the answer key. */
-  geminiJudgeModel: process.env.GEMINI_JUDGE_MODEL ?? DEFAULT_MODEL,
+  geminiJudgeModel: process.env.GEMINI_JUDGE_MODEL ?? "gemini-3.7-flash",
 
   // Below this self-reported transcription confidence, skip the confirm
   // step and ask the student to reshoot instead. Tune here, no redeploy
