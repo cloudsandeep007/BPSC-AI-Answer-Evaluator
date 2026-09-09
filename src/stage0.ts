@@ -159,14 +159,20 @@ async function ncertFor(
   try {
     const query = suggestedQuery || `Topic: ${topic}. Question: ${questionText}`;
     const embedding = await embedText(query);
-    const { data: chunks, error } = await supabase.rpc("match_document_chunks", {
+    const rpcPromise = supabase.rpc("match_document_chunks", {
       query_embedding: embedding,
       match_threshold: 0.5,
       match_count: 5,
     });
+
+    const timeoutPromise = new Promise<{ data: null; error: { message: string } }>((resolve) =>
+      setTimeout(() => resolve({ data: null, error: { message: "Vector search timeout (3s limit reached)" } }), 3000)
+    );
+
+    const { data: chunks, error } = await Promise.race([rpcPromise, timeoutPromise]);
     
     if (error) {
-      console.error("Stage 0: error retrieving vector context:", error.message);
+      console.warn("Stage 0: vector context fallback:", error.message);
       return fallbackNcertFor(topic);
     }
     
@@ -180,7 +186,7 @@ async function ncertFor(
       text: c.content,
     }));
   } catch (err: any) {
-    console.error("Stage 0: error retrieving vector context:", err.message);
+    console.warn("Stage 0: error retrieving vector context:", err.message);
     return fallbackNcertFor(topic);
   }
 }
