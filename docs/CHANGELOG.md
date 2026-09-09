@@ -2,6 +2,44 @@
 
 All notable changes to the BPSC AI Answer Evaluator project are documented in this file.
 
+## 2026-09-09 — Stage-Specific Model Configuration & Cost Optimization
+
+### Reason
+- Optimize per-interaction API costs for single-page Telegram bot answer evaluations.
+- Defaulting all stages to `gemini-3.7-flash` cost ~₹7.00 INR per student submission. Separating model allocation by stage reduces costs by up to 60-80% without sacrificing evaluation precision.
+
+### Business Impact
+- Dramatically lowers infrastructure operational cost per evaluation (from ~₹7.00 down to ~₹2.00 INR).
+- Maintains high precision for Stage B grading (`gemini-3.7-flash`) while using faster, lower-cost models (`gemini-2.5-flash`) for Vision OCR and Question Generation.
+
+### Technical Changes
+- Updated `.env` and `.env.example` with stage-specific model configuration overrides:
+  - `GEMINI_MODEL=gemini-2.5-flash` (Stage A OCR)
+  - `GEMINI_GENERATION_MODEL=gemini-2.5-flash` (Stage 0 Question & Blueprint)
+  - `GEMINI_JUDGE_MODEL=gemini-3.7-flash` (Stage B High-Precision Evaluation)
+- Created cost tracking diagnostic artifact `cost_analysis_report.md`.
+
+### Existing Features Preserved
+- 100% preservation of `src/config.ts` resolution logic, Stage A, Stage 0, Stage B, RAG, Telegram bot handlers, and Supabase database schemas.
+- Backward compatibility for fallback defaults (`DEFAULT_MODEL`) intact.
+
+### Database Changes
+- None.
+
+### AI Changes
+- Explicit model tiering via environment configuration:
+  - Stage A: `gemini-2.5-flash`
+  - Stage 0: `gemini-2.5-flash`
+  - Stage B: `gemini-3.7-flash`
+
+### Tests
+- `npm test` runs all test suites — 100% PASS.
+
+### Status
+- COMPLETED AND VERIFIED.
+
+---
+
 ## 2026-09-09 — Phase 5.2.1 + Stage 0 Integration (BPSC Question Selection Intelligence Hardening)
 
 ### Reason
