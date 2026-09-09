@@ -3,10 +3,7 @@ import { webhookCallback } from "grammy";
 import { bot } from "./bot";
 import { config } from "./config";
 
-const handleUpdate = webhookCallback(bot, "http", {
-  timeoutBehavior: "open",
-  timeoutMilliseconds: 9000,
-});
+const handleUpdate = webhookCallback(bot, "http", "return", 9000);
 
 const server = http.createServer(async (req, res) => {
   if (req.method === "POST" && req.url === "/telegram-webhook") {

@@ -406,7 +406,7 @@ export async function generateQuestion(choice?: QuestionChoice): Promise<Generat
       system:
         "You are a BPSC Mains paper-setter. You write original exam questions in the commission's house style. You never reuse a past question.",
       userPrompt: questionPrompt(slot, template, grounded),
-      maxOutputTokens: 1024,
+      maxOutputTokens: 4096,
       search: grounded,
     });
     const parsed = res.data;
