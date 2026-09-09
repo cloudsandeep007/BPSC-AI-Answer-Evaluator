@@ -126,6 +126,20 @@ export function extractJson<T = any>(text: string): T | null {
       /* fall through */
     }
   }
+  if (start !== -1) {
+    let candidateStr = t.slice(start);
+    if ((candidateStr.match(/"/g) || []).length % 2 !== 0) {
+      candidateStr += '"';
+    }
+    if (!candidateStr.endsWith("}")) {
+      candidateStr += "}";
+    }
+    try {
+      return JSON.parse(candidateStr) as T;
+    } catch {
+      /* fall through */
+    }
+  }
   return null;
 }
 

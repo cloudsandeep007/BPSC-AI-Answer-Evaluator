@@ -24,7 +24,7 @@ import { selectTargetTopic, resolveSubject, isSubjectSelectable, QuestionSelecti
 // "general_knowledge" tag.
 export const STAGE0_PROMPT_VERSION = "stage0-v3-blueprint";
 
-const GENERATION_MODEL = process.env.GEMINI_GENERATION_MODEL ?? config.geminiModel;
+const getGenerationModel = () => config.geminiGenerationModel;
 
 // A generated question this similar to a historical one is treated as a copy
 // and rejected. The question bank is style data; serving it back verbatim is
@@ -402,7 +402,7 @@ export async function generateQuestion(choice?: QuestionChoice): Promise<Generat
   for (let attempt = 1; attempt <= 3; attempt++) {
     const res = await aiGateway.callStructured<{ question: string; question_hi: string; sub_topic: string }>({
       feature: "stage0",
-      model: GENERATION_MODEL,
+      model: getGenerationModel(),
       system:
         "You are a BPSC Mains paper-setter. You write original exam questions in the commission's house style. You never reuse a past question.",
       userPrompt: questionPrompt(slot, template, grounded),
@@ -430,7 +430,7 @@ export async function generateQuestion(choice?: QuestionChoice): Promise<Generat
       blueprint: Omit<EvaluationBlueprint, "questionId" | "topic" | "paper" | "slotType" | "marks" | "wordLimit" | "directive">;
     }>({
       feature: "stage0",
-      model: GENERATION_MODEL,
+      model: getGenerationModel(),
       system:
         "You are a BPSC subject expert building a marking key. You prefer NCERT-sourced facts over your own knowledge whenever both cover the same ground, and every point you produce carries a real, checkable citation.",
       userPrompt: blueprintPrompt(draftQuestion, slot, template, ncertEntries, grounded),
@@ -537,7 +537,7 @@ export async function generateQuestion(choice?: QuestionChoice): Promise<Generat
         slot_type: slot.slotType,
         directive: slot.directive,
         prompt_version: STAGE0_PROMPT_VERSION,
-        model_name: GENERATION_MODEL,
+        model_name: getGenerationModel(),
         grounded,
         ncert_entries_used: ncertEntriesUsed,
         grounding_sources: groundingSourcesFound,

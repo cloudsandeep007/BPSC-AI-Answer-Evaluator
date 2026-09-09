@@ -15,9 +15,11 @@ All notable changes to the BPSC AI Answer Evaluator project are documented in th
 ### Technical Changes
 - Updated `.env` and `.env.example` with stage-specific model configuration overrides:
   - `GEMINI_MODEL=gemini-3.5-flash-lite` (Stage A OCR)
-  - `GEMINI_GENERATION_MODEL=gemini-3.6-flash` (Stage 0 Question & Blueprint)
+  - `GEMINI_GENERATION_MODEL=gemini-3.5-flash-lite` (Stage 0 Question & Blueprint)
   - `GEMINI_JUDGE_MODEL=gemini-3.7-flash` (Stage B High-Precision Evaluation)
 - Created cost tracking diagnostic artifact `cost_analysis_report.md`.
+- Added JSON extraction repair logic in `extractJson` (`src/gemini.ts`) and structured response fallback logic in `GeminiProvider` (`src/ai/providers/geminiProvider.ts`).
+- Refactored Stage 0 (`src/stage0.ts`) to resolve generation model dynamically via `getGenerationModel()`.
 
 ### Existing Features Preserved
 - 100% preservation of `src/config.ts` resolution logic, Stage A, Stage 0, Stage B, RAG, Telegram bot handlers, and Supabase database schemas.
@@ -29,7 +31,7 @@ All notable changes to the BPSC AI Answer Evaluator project are documented in th
 ### AI Changes
 - Explicit model tiering via environment configuration:
   - Stage A: `gemini-3.5-flash-lite`
-  - Stage 0: `gemini-3.6-flash`
+  - Stage 0: `gemini-3.5-flash-lite`
   - Stage B: `gemini-3.7-flash`
 
 ### Tests

@@ -23,7 +23,20 @@ export class GeminiProvider implements AIProvider {
       maxOutputTokens: req.maxOutputTokens,
     });
 
-    const parsed = extractJson<T>(res.text);
+    let parsed = extractJson<T>(res.text);
+    if (!parsed && model !== "gemini-3.5-flash-lite") {
+      console.warn(`Gemini ${model} failed to return valid JSON, falling back to gemini-3.5-flash-lite`);
+      const fallbackRes = await callGemini({
+        model: "gemini-3.5-flash-lite",
+        system: req.system,
+        parts: [{ text: req.userPrompt }],
+        json: true,
+        search: req.search,
+        maxOutputTokens: req.maxOutputTokens ?? 4096,
+      });
+      parsed = extractJson<T>(fallbackRes.text);
+    }
+
     if (!parsed) {
       throw new Error(`Gemini ${model} failed to return valid JSON: ${res.text.slice(0, 300)}`);
     }
