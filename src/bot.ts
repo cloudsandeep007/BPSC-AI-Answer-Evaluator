@@ -154,7 +154,7 @@ bot.callbackQuery(/^topic:(\d+)$/, async (ctx) => {
 
   // The Essay Paper has only one slot type - no marks-type question needed.
   if (topic === "Essay") {
-    await sendGeneratedQuestion(ctx, telegramId, lang, topic, "essay_paper");
+    sendGeneratedQuestion(ctx, telegramId, lang, topic, "essay_paper").catch((err) => console.error("Stage 0 async failed:", err));
     return;
   }
 
@@ -171,7 +171,7 @@ bot.callbackQuery(/^slot:(\d+):(compulsory_subpart|choice_essay)$/, async (ctx) 
   await ctx.editMessageReplyMarkup();
 
   if (!topic) return;
-  await sendGeneratedQuestion(ctx, telegramId, lang, topic, slotType as SlotType);
+  sendGeneratedQuestion(ctx, telegramId, lang, topic, slotType as SlotType).catch((err) => console.error("Stage 0 async failed:", err));
 });
 
 bot.on("message:photo", async (ctx) => {
@@ -251,7 +251,7 @@ bot.callbackQuery(/^confirm:(.+)$/, async (ctx) => {
   await ctx.reply(t(lang, "confirmed"));
 
   // Confirming the transcript is what triggers grading.
-  await gradeAndReply(ctx, submissionId, lang);
+  gradeAndReply(ctx, submissionId, lang).catch((err) => console.error("Stage B async failed:", err));
 });
 
 /** Runs Stage B on a confirmed transcript and sends the student their mark. */
@@ -386,7 +386,7 @@ bot.callbackQuery("edit-confirm", async (ctx) => {
   await ctx.reply(t(lang, "editSaved"));
 
   // A saved edit is a confirmed transcript - grade it.
-  await gradeAndReply(ctx, pending.submissionId, lang);
+  gradeAndReply(ctx, pending.submissionId, lang).catch((err) => console.error("Stage B async failed:", err));
 });
 
 bot.callbackQuery("edit-cancel", async (ctx) => {
@@ -451,7 +451,7 @@ bot.on("message:text", async (ctx) => {
   await ctx.reply(t(lang, "editSaved"));
 
   // A saved edit is a confirmed transcript - grade it.
-  await gradeAndReply(ctx, state.submissionId, lang);
+  gradeAndReply(ctx, state.submissionId, lang).catch((err) => console.error("Stage B async failed:", err));
 });
 
 bot.catch((err) => {
